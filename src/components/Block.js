@@ -5,6 +5,7 @@ class Block {
     this.x = -1;
     this.y = -1;
     this.color = 'none';
+    this.hasCollided = false;
   }
 
   static getRandomBlock() {
@@ -21,6 +22,10 @@ class Block {
 
   getShape() {
     return 'undefined';
+  }
+
+  hasCollided() {
+    return this.hasCollided;
   }
 }
 
