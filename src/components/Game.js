@@ -27,7 +27,7 @@ class Game extends React.Component {
   }
 
   render () {
-    if(this.currentBlock.hasCollided()){
+    if(this.state.currentBlock.hasCollided()){
       this.setNewBlock();
     }
     else{
