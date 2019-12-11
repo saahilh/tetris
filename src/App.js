@@ -1,10 +1,10 @@
 import React from 'react';
-import GameTimer from './components/Timer';
+import Game from './components/Game'
 
 class App extends React.Component {
   render() {
     return (
-      <Timer />
+      <Game />
     );
   }
 }
