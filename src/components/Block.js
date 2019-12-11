@@ -14,4 +14,20 @@ class Block {
   }
 }
 
+class LBlock extends Block {
+  constructor() {
+    super();
+    this.color = 'green';
+  }
+  
+  getShape() {
+    return [
+      [this.color],
+      [this.color],
+      [this.color],
+      [this.color]
+    ];
+  }
+}
+
 export default Block;
