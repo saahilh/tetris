@@ -1,9 +1,12 @@
 import React from 'react';
 import Timer from './Timer';
 import Board from './Board';
+import Block from './Block';
 
 class Game extends React.Component {
   tickRate = 1;
+  boardHeight = 20;
+  boardWidth = 10;
 
   getStyle() {
     const style = {
@@ -13,8 +16,9 @@ class Game extends React.Component {
     return style;
   }
 
-  boardHeight = 20;
-  boardWidth = 10;
+  getNextBlock() {
+    return Block.getRandomBlock();
+  }
 
   render () {
     return (
