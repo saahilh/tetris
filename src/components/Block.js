@@ -1,5 +1,5 @@
 class Block {
-  blockTypes = ['I']
+  static blockTypes = ['I'];
 
   constructor() {
     this.x = -1;
@@ -8,7 +8,15 @@ class Block {
   }
 
   static getRandomBlock() {
-    return '';
+    let randomBlockTypeIndex = Math.floor(Math.random() * (Block.blockTypes.length - 1));
+    let blockType = Block.blockTypes[randomBlockTypeIndex];
+
+    switch(blockType) {
+      case 'I':
+        return new IBlock();
+      default:
+        throw new Error("Block type not found")
+    }
   }
 
   getShape() {
