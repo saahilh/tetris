@@ -14,21 +14,14 @@ class Timer extends React.Component {
         return Math.floor(Date.now() / 1000);
     }
 
-    startTimer() {
+    componentWillMount() {
         this.setState({
+            startTime: this.getTime(),
             currentTime: this.getTime(),
             timer: setInterval(() => {
                 this.setState({ currentTime: this.getTime() });
             }, 1000)
         });
-    }
-
-    componentWillMount() {
-        this.setState({
-            startTime: this.getTime()
-        });
-
-        this.startTimer();
     }
 
     componentWillUnmount() {
