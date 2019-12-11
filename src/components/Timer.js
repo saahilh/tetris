@@ -22,9 +22,15 @@ class Timer extends React.Component {
         this.startTimer();
     }
 
+    componentWillUnmount() {
+        clearInterval(this.state.timer);
+    }
+
     render() {
         return(
-            <span>{ this.state.currentTime - this.state.startTime }</span>
+            <div className="timer center">
+                <span>{ this.state.currentTime - this.state.startTime }</span>
+            </div>
         );
     }
 }
