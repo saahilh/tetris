@@ -12,13 +12,7 @@ class Board extends React.Component {
   }
 
   renderBoard(height, width) {
-    const rows = []
-
-    for(let i = 0; i < height; i++){
-      rows.push(<Row width={width} />);
-    }
-
-    return rows;
+    return Array(height).fill(0).map(() => <Row width={width} />);
   }
   
   render () {
