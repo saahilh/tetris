@@ -3,14 +3,22 @@ import Timer from './Timer';
 import Board from './Board';
 
 class Game extends React.Component {
-  boardWidth = 10;
+  getStyle() {
+    const style = {
+      padding: '50px'
+    }
+
+    return style;
+  }
+
   boardHeight = 20;
+  boardWidth = 10;
 
   render () {
     return (
-      <div className="game">
+      <div style={this.getStyle()}>
         <Timer />
-        <Board height="20" width="10" />
+        <Board height={this.boardHeight} width={this.boardWidth} />
       </div>
     );
   }

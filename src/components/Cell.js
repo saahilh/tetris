@@ -4,7 +4,7 @@ class Cell extends React.Component {
   getStyle() {
     const style = {
       width: '100%',
-      height: '100%',
+      height: '50px',
       border: 'solid 1px black'
     }
 

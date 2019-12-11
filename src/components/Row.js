@@ -5,7 +5,7 @@ class Row extends React.Component {
   getStyle(width) {
     const style = {
       display: 'grid',
-      gridTemplateColumns: `repeat(${width}, 1fr)`
+      gridTemplateColumns: `repeat(${width}, 50px)`
     }
 
     return style;
