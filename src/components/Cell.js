@@ -13,7 +13,7 @@ class Cell extends React.Component {
 
   render() {
     return(
-      <div class="cell" style={this.getStyle()}>I'm a cell</div>
+      <div class="cell" style={this.getStyle()}></div>
     );
   }
 }
