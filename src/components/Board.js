@@ -2,23 +2,22 @@ import React from 'react';
 import Row from './Row';
 
 class Board extends React.Component {
-  height = 20;
   dropRate = 1;
 
-  getStyle() {
+  getStyle(height) {
     const style = {
       display: 'grid',
-      gridTemplateRows: `repeat(${this.height}, 1fr)`
+      gridTemplateRows: `repeat(${height}, 1fr)`
     }
 
     return style;
   }
 
-  renderBoard() {
+  renderBoard(height, width) {
     const rows = []
 
-    for(let i = 0; i < this.height; i++){
-      rows.push(<Row width="10" />);
+    for(let i = 0; i < height; i++){
+      rows.push(<Row width={width} />);
     }
 
     return rows;
@@ -26,8 +25,8 @@ class Board extends React.Component {
   
   render () {
     return (
-      <div style={this.getStyle()}>
-        { this.renderBoard() }
+      <div style={this.getStyle(this.props.height)}>
+        { this.renderBoard(this.props.height, this.props.width) }
       </div>
     );
   }
