@@ -5,7 +5,7 @@ class Block {
     this.x = -1;
     this.y = -1;
     this.color = 'none';
-    this.hasCollided = false;
+    this.collided = false;
   }
 
   static getRandomBlock() {
@@ -25,7 +25,7 @@ class Block {
   }
 
   hasCollided() {
-    return this.hasCollided;
+    return this.collided;
   }
 }
 
