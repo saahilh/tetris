@@ -12,13 +12,7 @@ class Row extends React.Component {
   }
 
   renderRow(width) {
-    const cells = [];
-
-    for(let i = 0; i < width; i++){
-      cells.push(<Cell />);
-    }
-
-    return cells;
+    return Array(width).fill(0).map(() => <Cell />);
   }
 
   render() {
