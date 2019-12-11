@@ -1,4 +1,6 @@
 class Block {
+  blockTypes = ['I']
+
   constructor() {
     this.x = -1;
     this.y = -1;
@@ -14,7 +16,7 @@ class Block {
   }
 }
 
-class LBlock extends Block {
+class IBlock extends Block {
   constructor() {
     super();
     this.color = 'green';
