@@ -3,8 +3,8 @@ import React from 'react';
 class Cell extends React.Component {
   getStyle() {
     const style = {
-      width: '50px',
-      height: '50px',
+      width: '100%',
+      height: '100%',
       border: 'solid 1px black'
     }
 

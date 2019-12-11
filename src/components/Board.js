@@ -6,21 +6,39 @@ class Board extends React.Component {
   height = 20;
   dropRate = 1;
 
-  renderRow(width) {
+  getBoardStyle() {
+    const style = {
+      display: 'grid',
+      gridTemplateRows: `repeat(${this.height}, 1fr)`
+    }
+
+    return style;
+  }
+
+  getRowStyle() {
+    const style = {
+      display: 'grid',
+      gridTemplateColumns: `repeat(${this.width}, 1fr)`
+    }
+
+    return style;
+  }
+
+  renderRow() {
     const cells = [];
 
-    for(let i = 0; i < width; i++){
+    for(let i = 0; i < this.width; i++){
       cells.push(<Cell />);
     }
 
     return cells;
   }
 
-  renderBoard(height, width) {
+  renderBoard() {
     const rows = []
 
-    for(let i = 0; i < width; i++){
-      rows.push(<div class="row">{this.renderRow(width)}</div>);
+    for(let i = 0; i < this.height; i++){
+      rows.push(<div style={this.getRowStyle()}>{ this.renderRow() }</div>);
     }
 
     return rows;
@@ -28,8 +46,8 @@ class Board extends React.Component {
   
   render () {
     return (
-      <div className="board">
-        { this.renderBoard(this.height, this.width) }
+      <div style={this.getBoardStyle()}>
+        { this.renderBoard() }
       </div>
     );
   }
