@@ -5,8 +5,8 @@ class Board extends React.Component {
   getStyle(height, width) {
     const style = {
       display: 'grid',
-      gridTemplateRows: `repeat(${height}, 50px)`,
-      gridTemplateColumns: `repeat(${width}, 50px)`
+      gridTemplateRows: `repeat(${height}, 25px)`,
+      gridTemplateColumns: `repeat(${width}, 25px)`
     }
 
     return style;
