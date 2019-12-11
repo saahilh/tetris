@@ -2,8 +2,6 @@ import React from 'react';
 import Row from './Row';
 
 class Board extends React.Component {
-  dropRate = 1;
-
   getStyle(height) {
     const style = {
       display: 'grid',

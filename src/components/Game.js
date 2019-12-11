@@ -3,6 +3,8 @@ import Timer from './Timer';
 import Board from './Board';
 
 class Game extends React.Component {
+  tickRate = 1;
+
   getStyle() {
     const style = {
       padding: '50px'
