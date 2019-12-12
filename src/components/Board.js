@@ -4,21 +4,9 @@ import Block from './Block';
 import * as C from '../constants';
 
 class Board extends React.Component {
-  getTickRate = () => 1;
-
-  getStyle = () => ({
-    display: 'grid',
-    gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
-    gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`
-  });
-
-  renderBoard = (boardDimensions) => (
-    Array(C.BOARD_WIDTH_CELLS * C.BOARD_HEIGHT_CELLS).fill(0).map(() => <Cell />)
-  );
-
   componentDidMount() {
     this.setState({
-      ticker: setInterval(() => this.update(), this.getTickRate() * 1000),
+      ticker: setInterval(() => this.update(), 1000),
       nextBlock: Block.getRandomBlock(),
       currentBlock: Block.getRandomBlock()
     })
@@ -32,6 +20,16 @@ class Board extends React.Component {
     this.state.currentBlock.moveDown();
   }
   
+  getStyle = () => ({
+    display: 'grid',
+    gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
+    gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`
+  });
+
+  renderBoard = (boardDimensions) => (
+    Array(C.BOARD_WIDTH_CELLS * C.BOARD_HEIGHT_CELLS).fill(0).map(() => <Cell />)
+  );
+
   render () {
     return (
       <div style={this.getStyle()}>
