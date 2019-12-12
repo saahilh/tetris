@@ -30,17 +30,21 @@ class Game extends React.Component {
     this.setNewBlock();
   }
 
+  renderGame() {
+    return(
+      <div style={this.getStyle()}>
+        <Timer />
+        <Board boardDimensions={this.getBoardDimensions()} />
+      </div>
+    );
+  }
+
   render () {
     if(this.state.currentBlock.hasCollided()){
       this.setNewBlock();
     }
     else{
-      return (
-        <div style={this.getStyle()}>
-          <Timer />
-          <Board boardDimensions={this.getBoardDimensions()} />
-        </div>
-      );
+      return this.renderGame();
     }
   }
 }
