@@ -1,11 +1,12 @@
 import Board from './Board';
+import * as C from '../constants';
 
 class Block {
   static blockTypes = ['I'];
 
   constructor(startCoordinates) {
-    this.x = startCoordinates.x;
-    this.y = startCoordinates.y;
+    this.x = C.BLOCK_START_COORDINATES.x;
+    this.y = C.BLOCK_START_COORDINATES.y;
     this.color = 'none';
     this.collided = false;
   }

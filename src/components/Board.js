@@ -1,45 +1,26 @@
 import React from 'react';
 import Cell from './Cell';
 import Block from './Block';
+import * as C from '../constants';
 
 class Board extends React.Component {
-  static height = 20;
-  static width = 10;
-
   getTickRate = () => 1;
 
-  getStyle = (boardDimensions) => ({
+  getStyle = () => ({
     display: 'grid',
-    gridTemplateRows: `repeat(${boardDimensions.height}, 25px)`,
-    gridTemplateColumns: `repeat(${boardDimensions.width}, 25px)`
-  });
-
-  getBoardDimensions = () => ({
-    height: Board.height,
-    width: Board.width
-  });
-
-  getBlockStartCoordinates = () => ({
-    x: 0,
-    y: Board.width/2 - 1
+    gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
+    gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`
   });
 
   renderBoard = (boardDimensions) => (
-    Array(boardDimensions.height * boardDimensions.width).fill(0).map(() => <Cell />)
+    Array(C.BOARD_WIDTH_CELLS * C.BOARD_HEIGHT_CELLS).fill(0).map(() => <Cell />)
   );
 
-  setNewBlock() {
-    this.setState({
-      currentBlock: Block.getRandomBlock(this.getBlockStartCoordinates())
-    });
-  }
-
   componentDidMount() {
-    this.setNewBlock();
-
     this.setState({
       ticker: setInterval(() => this.update(), this.getTickRate() * 1000),
-      nextBlock: Block.getRandomBlock(this.getBlockStartCoordinates())
+      nextBlock: Block.getRandomBlock(),
+      currentBlock: Block.getRandomBlock()
     })
   }
 
@@ -53,8 +34,8 @@ class Board extends React.Component {
   
   render () {
     return (
-      <div style={this.getStyle(this.getBoardDimensions())}>
-        { this.renderBoard(this.getBoardDimensions()) }
+      <div style={this.getStyle()}>
+        { this.renderBoard() }
       </div>
     );
   }
