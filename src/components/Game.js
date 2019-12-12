@@ -17,7 +17,8 @@ class Game extends React.Component {
   });
 
   getStyle = () => ({
-    padding: '50px'
+    display: 'table',
+    margin: '0 auto'
   });
 
   setNewBlock() {
