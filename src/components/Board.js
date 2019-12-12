@@ -21,7 +21,7 @@ class Board extends React.Component {
 
   getBlockStartCoordinates = () => ({
     x: 0,
-    y: this.boardWidth/2 - 1
+    y: Board.width/2 - 1
   });
 
   renderBoard = (boardDimensions) => (
@@ -35,6 +35,8 @@ class Board extends React.Component {
   }
 
   componentDidMount() {
+    this.setNewBlock();
+
     this.setState({
       ticker: setInterval(() => this.update(), this.getTickRate() * 1000),
       nextBlock: Block.getRandomBlock(this.getBlockStartCoordinates())
@@ -46,7 +48,7 @@ class Board extends React.Component {
   }
 
   update() {
-    
+    this.state.currentBlock.moveDown();
   }
   
   render () {

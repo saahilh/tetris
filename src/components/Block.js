@@ -44,11 +44,11 @@ class Block {
   }
 
   moveDown() {
-    if(this.y < Block.height) {
-      this.y = this.y - 1;
+    if(this.y < Board.height) {
+      this.y = this.y + 1;
       return true;
     }
-    
+
     return false;
   }
 }
