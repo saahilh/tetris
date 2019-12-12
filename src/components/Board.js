@@ -33,7 +33,8 @@ class Board extends React.Component {
 
   componentDidMount() {
     this.setState({
-      ticker: setInterval(() => this.update(), this.getTickRate() * 1000)
+      ticker: setInterval(() => this.update(), this.getTickRate() * 1000),
+      nextBlock: Block.getRandomBlock(this.getBlockStartCoordinates())
     })
   }
 
@@ -42,7 +43,7 @@ class Board extends React.Component {
   }
 
   update() {
-
+    
   }
   
   render () {
