@@ -1,9 +1,6 @@
-import Board from './Board';
 import * as C from '../constants';
 
 class Block {
-  static blockTypes = ['I'];
-
   constructor(startCoordinates) {
     this.x = C.BLOCK_START_COORDINATES.x;
     this.y = C.BLOCK_START_COORDINATES.y;
@@ -16,13 +13,23 @@ class Block {
   hasCollided = () => this.collided;
 
   updateCoordinates(coordinates) {
-    this.x = coordinates.x;
-    this.y = coordinates.y;
+    let xIsInBounds = (!coordinates.x) || (coordinates.x >= 0) || (coordinates.x < C.BOARD_WIDTH_CELLS);
+    let yIsInBounds = (!coordinates.y) || (coordinates.y >= 0) || (coordinates.y < C.BOARD_HEIGHT_CELLS);
+    
+    if(coordinates.x && xIsInBounds){
+      this.x = coordinates.x;
+    }
+
+    if(coordinates.y && yIsInBounds){
+      this.y = coordinates.y;
+    }
+    
+    return xIsInBounds && yIsInBounds;
   }
 
   static getRandomBlock(startCoordinates) {
-    let randomBlockTypeIndex = Math.floor(Math.random() * (Block.blockTypes.length - 1));
-    let blockType = Block.blockTypes[randomBlockTypeIndex];
+    let randomBlockTypeIndex = Math.floor(Math.random() * (C.BLOCK_TYPES.length - 1));
+    let blockType = C.BLOCK_TYPES[randomBlockTypeIndex];
 
     switch(blockType) {
       case 'I':
@@ -33,24 +40,21 @@ class Block {
   }
 
   moveLeft() {
-    if(this.x >= 0) {
-      this.x = this.x - 1;
-    }
+    return this.updateCoordinates({
+      x: this.x - 1
+    });
   }
 
   moveRight() {
-    if(this.y <= Board.width) {
-      this.x = this.x + 1;
-    }
+    return this.updateCoordinates({
+      x: this.x + 1
+    });
   }
 
   moveDown() {
-    if(this.y < Board.height) {
-      this.y = this.y + 1;
-      return true;
-    }
-
-    return false;
+    return this.updateCoordinates({
+      y: this.y + 1
+    });
   }
 }
 
