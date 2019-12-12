@@ -3,6 +3,9 @@ import Cell from './Cell';
 import Block from './Block';
 
 class Board extends React.Component {
+  static height = 20;
+  static width = 10;
+
   getTickRate = () => 1;
 
   getStyle = (boardDimensions) => ({
@@ -12,8 +15,8 @@ class Board extends React.Component {
   });
 
   getBoardDimensions = () => ({
-    height: 20,
-    width: 10
+    height: Board.height,
+    width: Board.width
   });
 
   getBlockStartCoordinates = () => ({

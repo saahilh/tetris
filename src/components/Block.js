@@ -1,3 +1,5 @@
+import Board from './Board';
+
 class Block {
   static blockTypes = ['I'];
 
@@ -27,6 +29,27 @@ class Block {
       default:
         throw new Error("Block type not found")
     }
+  }
+
+  moveLeft() {
+    if(this.x >= 0) {
+      this.x = this.x - 1;
+    }
+  }
+
+  moveRight() {
+    if(this.y <= Board.width) {
+      this.x = this.x + 1;
+    }
+  }
+
+  moveDown() {
+    if(this.y < Block.height) {
+      this.y = this.y - 1;
+      return true;
+    }
+    
+    return false;
   }
 }
 
