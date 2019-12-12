@@ -5,20 +5,20 @@ import Block from './Block';
 
 class Game extends React.Component {
   tickRate = 1;
-  boardHeight = 20;
-  boardWidth = 10;
+
+  boardDimensions = {
+    height: 20,
+    width: 10
+  }
+
   blockStartCoordinates = {
     x: 0,
     y: this.boardWidth/2 - 1
   }
 
-  getStyle() {
-    const style = {
-      padding: '50px'
-    }
-
-    return style;
-  }
+  getStyle = () => ({
+    padding: '50px'
+  });
 
   setNewBlock() {
     this.setState({
@@ -38,7 +38,7 @@ class Game extends React.Component {
       return (
         <div style={this.getStyle()}>
           <Timer />
-          <Board height={this.boardHeight} width={this.boardWidth} />
+          <Board boardDimensions={this.boardDimensions} />
         </div>
       );
     }

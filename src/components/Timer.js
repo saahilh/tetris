@@ -1,18 +1,12 @@
 import React from 'react';
 
 class Timer extends React.Component {
-    getStyle() {
-        const style = {
-            textAlign: 'center',
-            fontSize: '2em'
-        }
+    getStyle = () => ({
+        textAlign: 'center',
+        fontSize: '2em'
+    });
 
-        return style;
-    }
-
-    getTime() {
-        return Math.floor(Date.now() / 1000);
-    }
+    getTime = () => Math.floor(Date.now() / 1000);
 
     componentWillMount() {
         this.setState({

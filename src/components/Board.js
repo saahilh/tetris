@@ -2,24 +2,20 @@ import React from 'react';
 import Cell from './Cell';
 
 class Board extends React.Component {
-  getStyle(height, width) {
-    const style = {
-      display: 'grid',
-      gridTemplateRows: `repeat(${height}, 25px)`,
-      gridTemplateColumns: `repeat(${width}, 25px)`
-    }
+  getStyle = (boardDimensions) => ({
+    display: 'grid',
+    gridTemplateRows: `repeat(${boardDimensions.height}, 25px)`,
+    gridTemplateColumns: `repeat(${boardDimensions.width}, 25px)`
+  });
 
-    return style;
-  }
-
-  renderBoard(height, width) {
-    return Array(height * width).fill(0).map(() => <Cell />);
-  }
+  renderBoard = (boardDimensions) => (
+    Array(boardDimensions.height * boardDimensions.width).fill(0).map(() => <Cell />)
+  );
   
   render () {
     return (
-      <div style={this.getStyle(this.props.height, this.props.width)}>
-        { this.renderBoard(this.props.height, this.props.width) }
+      <div style={this.getStyle(this.props.boardDimensions)}>
+        { this.renderBoard(this.props.boardDimensions) }
       </div>
     );
   }

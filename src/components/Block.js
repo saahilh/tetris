@@ -8,6 +8,15 @@ class Block {
     this.collided = false;
   }
 
+  getShape = () => 'undefined';
+
+  hasCollided = () => this.collided;
+
+  updateCoordinates(coordinates) {
+    this.x = coordinates.x;
+    this.y = coordinates.y;
+  }
+
   static getRandomBlock(startCoordinates) {
     let randomBlockTypeIndex = Math.floor(Math.random() * (Block.blockTypes.length - 1));
     let blockType = Block.blockTypes[randomBlockTypeIndex];
@@ -19,19 +28,6 @@ class Block {
         throw new Error("Block type not found")
     }
   }
-
-  getShape() {
-    return 'undefined';
-  }
-
-  hasCollided() {
-    return this.collided;
-  }
-
-  updateCoordinates(x, y) {
-    this.x = x;
-    this.y = y;
-  }
 }
 
 class IBlock extends Block {
@@ -40,14 +36,12 @@ class IBlock extends Block {
     this.color = 'green';
   }
   
-  getShape() {
-    return [
-      [this.color],
-      [this.color],
-      [this.color],
-      [this.color]
-    ];
-  }
+  getShape = () => ([
+    [this.color],
+    [this.color],
+    [this.color],
+    [this.color]
+  ]);
 }
 
 export default Block;
