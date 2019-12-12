@@ -4,17 +4,17 @@ import Board from './Board';
 import Block from './Block';
 
 class Game extends React.Component {
-  tickRate = 1;
+  getTickRate = () => 1;
 
-  boardDimensions = {
+  getBoardDimensions = () => ({
     height: 20,
     width: 10
-  }
+  });
 
-  blockStartCoordinates = {
+  getBlockStartCoordinates = () => ({
     x: 0,
     y: this.boardWidth/2 - 1
-  }
+  });
 
   getStyle = () => ({
     padding: '50px'
@@ -22,7 +22,7 @@ class Game extends React.Component {
 
   setNewBlock() {
     this.setState({
-      currentBlock: Block.getRandomBlock(this.blockStartCoordinates)
+      currentBlock: Block.getRandomBlock(this.getBlockStartCoordinates())
     });
   }
 
@@ -38,7 +38,7 @@ class Game extends React.Component {
       return (
         <div style={this.getStyle()}>
           <Timer />
-          <Board boardDimensions={this.boardDimensions} />
+          <Board boardDimensions={this.getBoardDimensions()} />
         </div>
       );
     }
