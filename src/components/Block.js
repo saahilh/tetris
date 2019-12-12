@@ -1,20 +1,20 @@
 class Block {
   static blockTypes = ['I'];
 
-  constructor() {
-    this.x = -1;
-    this.y = -1;
+  constructor(startCoordinates) {
+    this.x = startCoordinates.x;
+    this.y = startCoordinates.y;
     this.color = 'none';
     this.collided = false;
   }
 
-  static getRandomBlock() {
+  static getRandomBlock(startCoordinates) {
     let randomBlockTypeIndex = Math.floor(Math.random() * (Block.blockTypes.length - 1));
     let blockType = Block.blockTypes[randomBlockTypeIndex];
 
     switch(blockType) {
       case 'I':
-        return new IBlock();
+        return new IBlock(startCoordinates);
       default:
         throw new Error("Block type not found")
     }
@@ -27,11 +27,16 @@ class Block {
   hasCollided() {
     return this.collided;
   }
+
+  updateCoordinates(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
 class IBlock extends Block {
-  constructor() {
-    super();
+  constructor(startCoordinates) {
+    super(startCoordinates);
     this.color = 'green';
   }
   

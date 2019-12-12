@@ -1,5 +1,5 @@
 # About
-This game will be a WebSockets baed competitive tetris game. Currently, I am working on the implementation for the base game.
+This game will be a WebSockets based competitive tetris game. Currently, I am working on the implementation for the base game.
 
 # Game algorithm
   * Generate a piece

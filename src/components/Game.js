@@ -7,6 +7,10 @@ class Game extends React.Component {
   tickRate = 1;
   boardHeight = 20;
   boardWidth = 10;
+  blockStartCoordinates = {
+    x: 0,
+    y: this.boardWidth/2 - 1
+  }
 
   getStyle() {
     const style = {
@@ -18,7 +22,7 @@ class Game extends React.Component {
 
   setNewBlock() {
     this.setState({
-      currentBlock: Block.getRandomBlock()
+      currentBlock: Block.getRandomBlock(this.blockStartCoordinates)
     });
   }
 
