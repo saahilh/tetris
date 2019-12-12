@@ -3,7 +3,8 @@ import React from 'react';
 class Timer extends React.Component {
     getStyle = () => ({
         textAlign: 'center',
-        fontSize: '2em'
+        fontSize: '2em',
+        paddingBottom: '20px'
     });
 
     getTime = () => Math.floor(Date.now() / 1000);
@@ -25,7 +26,7 @@ class Timer extends React.Component {
     render() {
         return(
             <div style={this.getStyle()}>
-                <span>{ this.state.currentTime - this.state.startTime }</span>
+                <span>Time: { this.state.currentTime - this.state.startTime }s</span>
             </div>
         );
     }
