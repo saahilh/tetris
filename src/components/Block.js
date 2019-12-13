@@ -44,6 +44,8 @@ class Block {
 
   getX = () => this.x;
 
+  getY = () => this.y;
+
   moveLeft = () => this.updateCoordinates({x: this.x - 1});
 
   moveRight = () => this.updateCoordinates({x: this.x + 1});
