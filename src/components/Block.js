@@ -72,10 +72,7 @@ class IBlock extends Block {
   }
   
   getShape = () => ([
-    [this.color],
-    [this.color],
-    [this.color],
-    [this.color]
+    [this.color, this.color, this.color, this.color]
   ]);
 }
 
@@ -98,9 +95,8 @@ class LBlock extends Block {
   }
   
   getShape = () => ([
-    [this.color, 'white'],
-    [this.color, 'white'],
-    [this.color, this.color]
+    ['white', 'white', this.color],
+    [this.color, this.color, this.color]
   ]);
 }
 
@@ -111,9 +107,8 @@ class JBlock extends Block {
   }
   
   getShape = () => ([
-    ['white', this.color],
-    ['white', this.color],
-    [this.color, this.color]
+    [this.color, 'white', 'white'],
+    [this.color, this.color, this.color]
   ]);
 }
 
@@ -148,8 +143,8 @@ class TBlock extends Block {
   }
   
   getShape = () => ([
-    [this.color, this.color, this.color],
-    ['white', this.color, 'white']
+    ['white', this.color, 'white'],
+    [this.color, this.color, this.color]
   ]);
 }
 
