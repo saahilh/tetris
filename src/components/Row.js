@@ -1,15 +1,14 @@
 import React from 'react';
 import Cell from './Cell';
-import * as C from '../constants'
 
 class Row extends React.Component {
-  renderCells() {
-    return Array(C.BOARD_WIDTH_CELLS).fill(0).map(() => <Cell />)
+  renderCells(occupiedCells) {
+    return occupiedCells.map((isOccupied) => <Cell occupied={isOccupied}/>)
   }
 
   render() {
     return(
-      this.renderCells()
+      this.renderCells(this.props.occupiedCells)
     );
   }
 }

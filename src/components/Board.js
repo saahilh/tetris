@@ -4,11 +4,12 @@ import Row from './Row';
 import * as C from '../constants';
 
 class Board extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     this.setState({
       ticker: setInterval(() => this.update(), 1000),
       nextBlock: Block.getRandomBlock(),
-      currentBlock: Block.getRandomBlock()
+      currentBlock: Block.getRandomBlock(),
+      cells: Array(C.BOARD_HEIGHT_CELLS).fill(Array(C.BOARD_WIDTH_CELLS).fill(false))
     })
   }
 
@@ -16,8 +17,20 @@ class Board extends React.Component {
     clearInterval(this.state.ticker);
   }
 
+  storeCells(block){
+    let currentCells = this.state.cells;
+
+    this.setState({
+      cells: currentCells
+    });
+  }
+
   update() {
-    this.state.currentBlock.moveDown();
+    let hasCollided = this.state.currentBlock.moveDown();
+
+    if(hasCollided){
+      this.storeCells(this.state.currentBlock)
+    }
   }
   
   getStyle = () => ({
@@ -27,7 +40,7 @@ class Board extends React.Component {
   });
 
   renderRows = () => (
-    Array(C.BOARD_HEIGHT_CELLS).fill(0).map(() => <Row />)
+    this.state.cells.map((elementList) => <Row occupiedCells={elementList} />)
   );
 
   render () {

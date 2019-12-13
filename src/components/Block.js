@@ -6,6 +6,7 @@ class Block {
     this.y = C.BLOCK_START_COORDINATES.y;
     this.color = 'none';
     this.collided = false;
+    this.orientation = 0;
   }
 
   getShape = () => 'undefined';
