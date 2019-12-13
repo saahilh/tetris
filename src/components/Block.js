@@ -66,7 +66,7 @@ class Block {
 class IBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
-    this.color = 'green';
+    this.color = 'cyan';
   }
   
   getShape = () => ([
@@ -80,7 +80,7 @@ class IBlock extends Block {
 class OBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
-    this.color = 'orange';
+    this.color = 'yellow';
   }
   
   getShape = () => ([
@@ -92,7 +92,7 @@ class OBlock extends Block {
 class LBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
-    this.color = 'blue';
+    this.color = 'orange';
   }
   
   getShape = () => ([
@@ -105,7 +105,7 @@ class LBlock extends Block {
 class JBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
-    this.color = 'red';
+    this.color = 'blue';
   }
   
   getShape = () => ([
@@ -118,7 +118,7 @@ class JBlock extends Block {
 class ZBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
-    this.color = 'grey';
+    this.color = 'red';
   }
   
   getShape = () => ([
@@ -130,7 +130,7 @@ class ZBlock extends Block {
 class SBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
-    this.color = 'yellow';
+    this.color = 'green';
   }
   
   getShape = () => ([
