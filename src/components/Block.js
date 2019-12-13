@@ -37,6 +37,8 @@ class Block {
         return new IBlock(startCoordinates);
       case 'L':
         return new LBlock(startCoordinates);
+      case 'J':
+        return new JBlock(startCoordinates);
       default:
         throw new Error("Block type not found")
     }
@@ -78,6 +80,19 @@ class LBlock extends Block {
   getShape = () => ([
     [this.color, 'white'],
     [this.color, 'white'],
+    [this.color, this.color]
+  ]);
+}
+
+class JBlock extends Block {
+  constructor(startCoordinates) {
+    super(startCoordinates);
+    this.color = 'red';
+  }
+  
+  getShape = () => ([
+    ['white', this.color],
+    ['white', this.color],
     [this.color, this.color]
   ]);
 }
