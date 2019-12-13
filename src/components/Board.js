@@ -8,7 +8,7 @@ class Board extends React.Component {
     let cells = Array(C.BOARD_HEIGHT_CELLS);
 
     for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
-      cells[i] = Array(C.BOARD_WIDTH_CELLS).fill('white');
+      cells[i] = Array(C.BOARD_WIDTH_CELLS).fill(null);
     }
 
     return cells;
@@ -31,14 +31,20 @@ class Board extends React.Component {
   }
 
   storeCells(block){
-    let currentCells = this.state.cellColors;
     let currentBlock = this.state.currentBlock;
-
-    let shape = currentBlock.getShape();
 
     let x = currentBlock.getX();
     let y = currentBlock.getY();
     
+    let shape = currentBlock.getShape();
+    let currentCells = this.state.cellColors;
+
+    for(let j = x; j < x + shape[shape.length - 1].length; j++){
+      if(currentCells[y + shape.length - 1][j]){
+        return true;
+      }
+    }
+
     for(let i = y; i < y + shape.length; i++){
       for(let j = x; j < x + shape[i-y].length; j++){
         if(shape[i-y][j-x]){
@@ -50,17 +56,18 @@ class Board extends React.Component {
     this.setState({
       cellColors: currentCells
     });
+
+    return false;
   }
 
   update() {
-    this.storeCells(this.state.currentBlock);
-
-    let hasCollided = this.state.currentBlock.moveDown();
+    let existingBlockCollision = this.storeCells(this.state.currentBlock);
+    let hasCollided = existingBlockCollision? true : this.state.currentBlock.moveDown();
 
     if(hasCollided){
       this.setState({
         currentBlock: Block.getRandomBlock()
-      })
+      });
     }
   }
   
