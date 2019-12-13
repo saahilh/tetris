@@ -41,7 +41,9 @@ class Board extends React.Component {
     
     for(let i = y; i < y + shape.length; i++){
       for(let j = x; j < x + shape[i-y].length; j++){
-        currentCells[i][j] = shape[i-y][j-x];
+        if(shape[i-y][j-x]){
+          currentCells[i][j] = shape[i-y][j-x];
+        }
       }
     }
     

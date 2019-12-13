@@ -83,8 +83,8 @@ class OBlock extends Block {
   }
   
   getShape = () => ([
-    ['white', this.color, this.color],
-    ['white', this.color, this.color]
+    [null, this.color, this.color],
+    [null, this.color, this.color]
   ]);
 }
 
@@ -95,7 +95,7 @@ class LBlock extends Block {
   }
   
   getShape = () => ([
-    ['white', 'white', this.color],
+    [null, null, this.color],
     [this.color, this.color, this.color]
   ]);
 }
@@ -107,7 +107,7 @@ class JBlock extends Block {
   }
   
   getShape = () => ([
-    [this.color, 'white', 'white'],
+    [this.color, null, null],
     [this.color, this.color, this.color]
   ]);
 }
@@ -119,8 +119,8 @@ class ZBlock extends Block {
   }
   
   getShape = () => ([
-    [this.color, this.color, 'white'],
-    ['white', this.color, this.color]
+    [this.color, this.color, null],
+    [null, this.color, this.color]
   ]);
 }
 
@@ -131,8 +131,8 @@ class SBlock extends Block {
   }
   
   getShape = () => ([
-    ['white', this.color, this.color],
-    [this.color, this.color, 'white']
+    [null, this.color, this.color],
+    [this.color, this.color, null]
   ]);
 }
 
@@ -143,7 +143,7 @@ class TBlock extends Block {
   }
   
   getShape = () => ([
-    ['white', this.color, 'white'],
+    [null, this.color, null],
     [this.color, this.color, this.color]
   ]);
 }
