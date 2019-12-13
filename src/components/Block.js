@@ -40,23 +40,11 @@ class Block {
     }
   }
 
-  moveLeft() {
-    return this.updateCoordinates({
-      x: this.x - 1
-    });
-  }
+  moveLeft = () => this.updateCoordinates({x: this.x - 1});
 
-  moveRight() {
-    return this.updateCoordinates({
-      x: this.x + 1
-    });
-  }
+  moveRight = () => this.updateCoordinates({x: this.x + 1});
 
-  moveDown() {
-    return this.updateCoordinates({
-      y: this.y + 1
-    });
-  }
+  moveDown = () => this.updateCoordinates({y: this.y + 1});
 }
 
 class IBlock extends Block {
