@@ -43,6 +43,8 @@ class Block {
         return new ZBlock(startCoordinates);
       case 'S':
         return new SBlock(startCoordinates);
+      case 'O':
+        return new OBlock(startCoordinates);
       default:
         throw new Error("Block type not found")
     }
@@ -72,6 +74,18 @@ class IBlock extends Block {
     [this.color],
     [this.color],
     [this.color]
+  ]);
+}
+
+class OBlock extends Block {
+  constructor(startCoordinates) {
+    super(startCoordinates);
+    this.color = 'orange';
+  }
+  
+  getShape = () => ([
+    [this.color, this.color],
+    [this.color, this.color]
   ]);
 }
 
