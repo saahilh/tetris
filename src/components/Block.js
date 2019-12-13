@@ -14,8 +14,8 @@ class Block {
   hasCollided = () => this.collided;
 
   updateCoordinates(coordinates) {
-    let xIsInBounds = (!coordinates.x) || (coordinates.x >= 0) || (coordinates.x < C.BOARD_WIDTH_CELLS);
-    let yIsInBounds = (!coordinates.y) || (coordinates.y >= 0) || (coordinates.y < C.BOARD_HEIGHT_CELLS);
+    let xIsInBounds = (!coordinates.x) || (coordinates.x + this.getShape()[0].length >= 0) || (coordinates.x  + this.getShape()[0].length < C.BOARD_WIDTH_CELLS);
+    let yIsInBounds = (!coordinates.y) || (coordinates.y + this.getShape().length >= 0) || (coordinates.y + this.getShape().length < C.BOARD_HEIGHT_CELLS);
     
     if(coordinates.x && xIsInBounds){
       this.x = coordinates.x;
@@ -39,6 +39,10 @@ class Block {
         throw new Error("Block type not found")
     }
   }
+
+  getColor = () => this.color;
+
+  getX = () => this.x;
 
   moveLeft = () => this.updateCoordinates({x: this.x - 1});
 
