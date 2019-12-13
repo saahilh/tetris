@@ -29,12 +29,14 @@ class Block {
   }
 
   static getRandomBlock(startCoordinates) {
-    let randomBlockTypeIndex = Math.floor(Math.random() * (C.BLOCK_TYPES.length - 1));
+    let randomBlockTypeIndex = Math.floor(Math.random() * C.BLOCK_TYPES.length);
     let blockType = C.BLOCK_TYPES[randomBlockTypeIndex];
-
+    
     switch(blockType) {
       case 'I':
         return new IBlock(startCoordinates);
+      case 'L':
+        return new LBlock(startCoordinates);
       default:
         throw new Error("Block type not found")
     }
@@ -64,6 +66,19 @@ class IBlock extends Block {
     [this.color],
     [this.color],
     [this.color]
+  ]);
+}
+
+class LBlock extends Block {
+  constructor(startCoordinates) {
+    super(startCoordinates);
+    this.color = 'blue';
+  }
+  
+  getShape = () => ([
+    [this.color],
+    [this.color],
+    [this.color, this.color]
   ]);
 }
 

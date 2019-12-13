@@ -40,7 +40,7 @@ class Board extends React.Component {
     let y = currentBlock.getY();
     
     for(let i = y; i < y + shape.length; i++){
-      for(let j = x; j < x + shape[0].length; j++){
+      for(let j = x; j < x + shape[i-y].length; j++){
         currentCells[i][j] = currentBlock.getColor();
       }
     }
