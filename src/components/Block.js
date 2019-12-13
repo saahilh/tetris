@@ -25,7 +25,7 @@ class Block {
       this.y = coordinates.y;
     }
     
-    return xIsInBounds && yIsInBounds;
+    return !xIsInBounds || !yIsInBounds;
   }
 
   static getRandomBlock(startCoordinates) {
