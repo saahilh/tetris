@@ -39,6 +39,8 @@ class Block {
         return new LBlock(startCoordinates);
       case 'J':
         return new JBlock(startCoordinates);
+      case 'Z':
+        return new ZBlock(startCoordinates);
       default:
         throw new Error("Block type not found")
     }
@@ -94,6 +96,18 @@ class JBlock extends Block {
     ['white', this.color],
     ['white', this.color],
     [this.color, this.color]
+  ]);
+}
+
+class ZBlock extends Block {
+  constructor(startCoordinates) {
+    super(startCoordinates);
+    this.color = 'grey';
+  }
+  
+  getShape = () => ([
+    [this.color, this.color, 'white'],
+    ['white', this.color, this.color]
   ]);
 }
 
