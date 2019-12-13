@@ -1,6 +1,6 @@
 import React from 'react';
-import Cell from './Cell';
 import Block from './Block';
+import Row from './Row';
 import * as C from '../constants';
 
 class Board extends React.Component {
@@ -26,14 +26,14 @@ class Board extends React.Component {
     gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`
   });
 
-  renderBoard = (boardDimensions) => (
-    Array(C.BOARD_WIDTH_CELLS * C.BOARD_HEIGHT_CELLS).fill(0).map(() => <Cell />)
+  renderRows = () => (
+    Array(C.BOARD_HEIGHT_CELLS).fill(0).map(() => <Row />)
   );
 
   render () {
     return (
       <div style={this.getStyle()}>
-        { this.renderBoard() }
+        { this.renderRows() }
       </div>
     );
   }
