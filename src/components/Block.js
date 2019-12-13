@@ -35,6 +35,8 @@ class Block {
     switch(blockType) {
       case 'I':
         return new IBlock(startCoordinates);
+      case 'O':
+        return new OBlock(startCoordinates);
       case 'L':
         return new LBlock(startCoordinates);
       case 'J':
@@ -43,8 +45,8 @@ class Block {
         return new ZBlock(startCoordinates);
       case 'S':
         return new SBlock(startCoordinates);
-      case 'O':
-        return new OBlock(startCoordinates);
+      case 'T':
+        return new TBlock(startCoordinates);
       default:
         throw new Error("Block type not found")
     }
@@ -139,5 +141,16 @@ class SBlock extends Block {
   ]);
 }
 
+class TBlock extends Block {
+  constructor(startCoordinates) {
+    super(startCoordinates);
+    this.color = 'purple';
+  }
+  
+  getShape = () => ([
+    [this.color, this.color, this.color],
+    ['white', this.color, 'white']
+  ]);
+}
 
 export default Block;
