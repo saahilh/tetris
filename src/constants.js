@@ -4,4 +4,4 @@ export const BLOCK_START_COORDINATES = {
   x: BOARD_WIDTH_CELLS/2 - 1,
   y: 0
 }
-export const BLOCK_TYPES = ['I', 'L', 'J', 'Z'];
+export const BLOCK_TYPES = ['I', 'L', 'J', 'Z', 'S'];
