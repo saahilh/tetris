@@ -62,6 +62,10 @@ class Block {
   moveRight = () => this.updateCoordinates({x: this.x + 1});
 
   moveDown = () => this.updateCoordinates({y: this.y + 1});
+
+  canMoveDown = () => {
+    return this.y + this.getShape().length <= C.BOARD_HEIGHT_CELLS;
+  }
 }
 
 class IBlock extends Block {
