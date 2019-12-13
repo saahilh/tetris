@@ -76,8 +76,8 @@ class LBlock extends Block {
   }
   
   getShape = () => ([
-    [this.color],
-    [this.color],
+    [this.color, 'white'],
+    [this.color, 'white'],
     [this.color, this.color]
   ]);
 }
