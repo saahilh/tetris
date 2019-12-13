@@ -7,9 +7,8 @@ class Board extends React.Component {
   componentWillMount() {
     this.setState({
       ticker: setInterval(() => this.update(), 1000),
-      nextBlock: Block.getRandomBlock(),
       currentBlock: Block.getRandomBlock(),
-      cells: Array(C.BOARD_HEIGHT_CELLS).fill(Array(C.BOARD_WIDTH_CELLS).fill(false))
+      cellColors: Array(C.BOARD_HEIGHT_CELLS).fill(Array(C.BOARD_WIDTH_CELLS).fill('white'))
     })
   }
 
@@ -18,18 +17,22 @@ class Board extends React.Component {
   }
 
   storeCells(block){
-    let currentCells = this.state.cells;
+    let currentCells = this.state.cellColors;
 
     this.setState({
-      cells: currentCells
+      cellColors: currentCells
     });
   }
 
   update() {
     let hasCollided = this.state.currentBlock.moveDown();
 
+    this.storeCells(this.state.currentBlock);
+    
     if(hasCollided){
-      this.storeCells(this.state.currentBlock)
+      this.setState({
+        currentBlock: Block.getRandomBlock()
+      })
     }
   }
   
@@ -40,7 +43,7 @@ class Board extends React.Component {
   });
 
   renderRows = () => (
-    this.state.cells.map((elementList) => <Row occupiedCells={elementList} />)
+    this.state.cellColors.map((cellColorList) => <Row cellColorList={cellColorList} />)
   );
 
   render () {

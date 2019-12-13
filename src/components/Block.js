@@ -4,7 +4,7 @@ class Block {
   constructor(startCoordinates) {
     this.x = C.BLOCK_START_COORDINATES.x;
     this.y = C.BLOCK_START_COORDINATES.y;
-    this.color = 'none';
+    this.color = 'white';
     this.collided = false;
     this.orientation = 0;
   }

@@ -3,12 +3,12 @@ import Cell from './Cell';
 
 class Row extends React.Component {
   renderCells(occupiedCells) {
-    return occupiedCells.map((isOccupied) => <Cell occupied={isOccupied}/>)
+    return occupiedCells.map((cellColor) => <Cell cellColor={cellColor}/>)
   }
 
   render() {
     return(
-      this.renderCells(this.props.occupiedCells)
+      this.renderCells(this.props.cellColorList)
     );
   }
 }
