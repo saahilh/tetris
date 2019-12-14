@@ -82,11 +82,13 @@ class OBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
     this.color = 'yellow';
+
+    this.x = this.x + 1;
   }
   
   getShape = () => ([
-    [null, this.color, this.color],
-    [null, this.color, this.color]
+    [this.color, this.color],
+    [this.color, this.color]
   ]);
 }
 
