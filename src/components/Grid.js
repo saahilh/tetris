@@ -68,26 +68,27 @@ class Grid {
     return true;
   }
 
-  getView() {
-    let currentCells = [];
+  overlayBlockOntoGrid(block, grid) {
+    let x = block.getX();
+    let y = block.getY();
+    
+    let shape = block.getShape();
 
-    this.cells.forEach((row) => {
-      currentCells.push([...row]);
-    });
-
-    if(this.activeBlock){
-      let x = this.activeBlock.getX();
-      let y = this.activeBlock.getY();
-      
-      let shape = this.activeBlock.getShape();
-
-      for(let i = y; i < y + shape.length; i++){
-        for(let j = x; j < x + shape[i-y].length; j++){
-          if(shape[i-y][j-x]){
-            currentCells[i][j] = shape[i-y][j-x];
-          }
+    for(let i = y; i < y + shape.length; i++){
+      for(let j = x; j < x + shape[i-y].length; j++){
+        if(shape[i-y][j-x]){
+          grid[i][j] = shape[i-y][j-x];
         }
       }
+    }
+  }
+
+  getView() {
+    // Create copy of cells to avoid modifying current saved list
+    let currentCells = this.cells.map((row) => [...row]);
+
+    if(this.activeBlock){
+      this.overlayBlockOntoGrid(this.activeBlock, currentCells);
     }
 
     return currentCells;
