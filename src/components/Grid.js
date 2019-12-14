@@ -9,7 +9,13 @@ class Grid {
     }
   }
 
-  getAsArray() {
+  setActiveBlock(block) {
+    this.activeBlock = block;
+  }
+
+  getView() {
+    // TODO: make this return the existing cells with active block imposed atop it
+    // currently only returns the existing cells
     return this.cells;
   }
 }

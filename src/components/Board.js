@@ -5,16 +5,6 @@ import * as C from '../constants';
 import Grid from './Grid';
 
 class Board extends React.Component {
-  generateBoardCells() {
-    let cells = Array(C.BOARD_HEIGHT_CELLS);
-
-    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
-      cells[i] = Array(C.BOARD_WIDTH_CELLS).fill(null);
-    }
-
-    return cells;
-  }
-
   setCurrentBlockPosition(currentBlock) {
     this.setState({
       currentBlockPosition: {
@@ -31,7 +21,7 @@ class Board extends React.Component {
     this.setState({
       ticker: setInterval(() => this.update(), 1000),
       currentBlock: nextBlock,
-      cellColors: grid.getAsArray()
+      grid: grid.getView()
     });
 
     this.setCurrentBlockPosition(nextBlock);
@@ -50,7 +40,7 @@ class Board extends React.Component {
     let y = currentBlock.getY();
     
     let shape = currentBlock.getShape();
-    let currentCells = this.state.cellColors;
+    let currentCells = this.state.grid;
 
     for(let j = x; j < x + shape[shape.length - 1].length; j++){
       if(currentCells[y + shape.length - 1][j] && shape[shape.length - 1][j-x]){
@@ -66,7 +56,7 @@ class Board extends React.Component {
     let y = blockPosition.y;
     
     let shape = currentBlock.getShape();
-    let currentCells = this.state.cellColors;
+    let currentCells = this.state.grid;
 
     for(let i = y; i < y + shape.length; i++){
       for(let j = x; j < x + shape[i-y].length; j++){
@@ -77,7 +67,7 @@ class Board extends React.Component {
     }
     
     this.setState({
-      cellColors: currentCells
+      grid: currentCells
     });
   }
 
@@ -86,7 +76,7 @@ class Board extends React.Component {
     let y = currentBlock.getY();
     
     let shape = currentBlock.getShape();
-    let currentCells = this.state.cellColors;
+    let currentCells = this.state.grid;
 
     for(let i = y; i < y + shape.length; i++){
       for(let j = x; j < x + shape[i-y].length; j++){
@@ -97,7 +87,7 @@ class Board extends React.Component {
     }
     
     this.setState({
-      cellColors: currentCells
+      grid: currentCells
     });
   }
 
@@ -134,7 +124,7 @@ class Board extends React.Component {
   });
 
   renderRows = () => {
-    return this.state.cellColors.map((cellColorList) => <Row cellColorList={cellColorList} />)
+    return this.state.grid.map((cellColorList) => <Row cellColorList={cellColorList} />)
   };
 
   render () {
