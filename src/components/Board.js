@@ -22,14 +22,27 @@ class Board extends React.Component {
   }
 
   componentWillUnmount() {
+    this.stopTicker();
+  }
+
+  startTicker() {
+    this.setState({
+      ticker: setInterval(() => this.update(), 1000)
+    });
+  }
+
+  stopTicker() {
     clearInterval(this.state.ticker);
   }
 
-  update() {
+  redraw() {
     this.setState({
       gridView: this.state.grid.getView()
     });
+  }
 
+  update() {
+    this.redraw();
     this.state.grid.update();
   }
   
@@ -44,6 +57,8 @@ class Board extends React.Component {
   };
 
   handleKeyDown = (event) => {
+    this.stopTicker();
+
     if(event.keyCode === 37){ // Left arrow
       this.state.grid.getActiveBlock().moveLeft();
     }
@@ -56,6 +71,10 @@ class Board extends React.Component {
     else if(event.keyCode === 40){ // Down arrow
       
     }
+    
+    this.redraw();
+
+    this.startTicker();
   }
 
   render () {
