@@ -4,14 +4,10 @@ class Block {
   constructor(startCoordinates) {
     this.x = C.BLOCK_START_COORDINATES.x;
     this.y = C.BLOCK_START_COORDINATES.y;
-    this.collided = false;
     this.orientation = 0;
-    this.drawn = false;
   }
 
   getShape = () => 'undefined';
-
-  hasCollided = () => this.collided;
 
   updateCoordinates(coordinates) {
     let xIsInBounds = (!coordinates.x) || (coordinates.x >= 0 && (coordinates.x  + this.getShape()[0].length <= C.BOARD_WIDTH_CELLS));
@@ -65,10 +61,6 @@ class Block {
   moveDown = () => this.updateCoordinates({y: this.y + 1});
 
   moveUp = () => this.updateCoordinates({y: this.y - 1});
-
-  isDrawn = () => this.drawn;
-
-  setDrawn = () => this.drawn = true;
 
   canMoveDown = () => {
     return this.y + this.getShape().length <= C.BOARD_HEIGHT_CELLS;
