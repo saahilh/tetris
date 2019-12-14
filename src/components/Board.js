@@ -43,9 +43,24 @@ class Board extends React.Component {
     return this.state.gridView.map((cellColorList) => <Row cellColorList={cellColorList} />)
   };
 
+  handleKeyDown = (event) => {
+    if(event.keyCode === 37){ // Left arrow
+      this.state.grid.getActiveBlock().moveLeft();
+    }
+    else if(event.keyCode === 39){ // Right arrow
+      this.state.grid.getActiveBlock().moveRight();
+    }
+    else if(event.keyCode === 38){ // Up arrow
+
+    }
+    else if(event.keyCode === 40){ // Down arrow
+      
+    }
+  }
+
   render () {
     return (
-      <div style={this.getStyle()}>
+      <div tabIndex="0" style={this.getStyle()} onKeyDown={this.handleKeyDown}>
         { this.renderRows() }
       </div>
     );
