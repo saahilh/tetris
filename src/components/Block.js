@@ -64,6 +64,8 @@ class Block {
 
   moveDown = () => this.updateCoordinates({y: this.y + 1});
 
+  moveUp = () => this.updateCoordinates({y: this.y - 1});
+
   isDrawn = () => this.drawn;
 
   setDrawn = () => this.drawn = true;
