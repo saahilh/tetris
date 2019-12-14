@@ -2,6 +2,7 @@ import React from 'react';
 import Block from './Block';
 import Row from './Row';
 import * as C from '../constants';
+import Grid from './Grid';
 
 class Board extends React.Component {
   generateBoardCells() {
@@ -25,11 +26,12 @@ class Board extends React.Component {
 
   componentWillMount() {
     let nextBlock = Block.getRandomBlock();
+    let grid = new Grid();
 
     this.setState({
       ticker: setInterval(() => this.update(), 1000),
       currentBlock: nextBlock,
-      cellColors: this.generateBoardCells()
+      cellColors: grid.getAsArray()
     });
 
     this.setCurrentBlockPosition(nextBlock);
