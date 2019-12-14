@@ -6,6 +6,7 @@ class Block {
     this.y = C.BLOCK_START_COORDINATES.y;
     this.collided = false;
     this.orientation = 0;
+    this.drawn = false;
   }
 
   getShape = () => 'undefined';
@@ -62,6 +63,10 @@ class Block {
   moveRight = () => this.updateCoordinates({x: this.x + 1});
 
   moveDown = () => this.updateCoordinates({y: this.y + 1});
+
+  isDrawn = () => this.drawn;
+
+  setDrawn = () => this.drawn = true;
 
   canMoveDown = () => {
     return this.y + this.getShape().length <= C.BOARD_HEIGHT_CELLS;

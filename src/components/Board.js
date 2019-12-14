@@ -14,12 +14,25 @@ class Board extends React.Component {
     return cells;
   }
 
+  setCurrentBlockPosition(currentBlock) {
+    this.setState({
+      currentBlockPosition: {
+        x: currentBlock.getX(),
+        y: currentBlock.getY()
+      }
+    });
+  }
+
   componentWillMount() {
+    let nextBlock = Block.getRandomBlock();
+
     this.setState({
       ticker: setInterval(() => this.update(), 1000),
-      currentBlock: Block.getRandomBlock(),
+      currentBlock: nextBlock,
       cellColors: this.generateBoardCells()
     });
+
+    this.setCurrentBlockPosition(nextBlock);
   }
 
   componentDidMount() {
@@ -30,9 +43,7 @@ class Board extends React.Component {
     clearInterval(this.state.ticker);
   }
 
-  storeCells(block){
-    let currentBlock = this.state.currentBlock;
-
+  blockDrawCausesCollision(currentBlock) {
     let x = currentBlock.getX();
     let y = currentBlock.getY();
     
@@ -40,10 +51,40 @@ class Board extends React.Component {
     let currentCells = this.state.cellColors;
 
     for(let j = x; j < x + shape[shape.length - 1].length; j++){
-      if(currentCells[y + shape.length - 1][j]){
+      if(currentCells[y + shape.length - 1][j] && shape[shape.length - 1][j-x]){
         return true;
       }
     }
+
+    return false;
+  }
+
+  undrawBlock(currentBlock, blockPosition){
+    let x = blockPosition.x;
+    let y = blockPosition.y;
+    
+    let shape = currentBlock.getShape();
+    let currentCells = this.state.cellColors;
+
+    for(let i = y; i < y + shape.length; i++){
+      for(let j = x; j < x + shape[i-y].length; j++){
+        if(shape[i-y][j-x]){ 
+          currentCells[i][j] = null;
+        }
+      }
+    }
+    
+    this.setState({
+      cellColors: currentCells
+    });
+  }
+
+  drawBlock(currentBlock){
+    let x = currentBlock.getX();
+    let y = currentBlock.getY();
+    
+    let shape = currentBlock.getShape();
+    let currentCells = this.state.cellColors;
 
     for(let i = y; i < y + shape.length; i++){
       for(let j = x; j < x + shape[i-y].length; j++){
@@ -56,18 +97,31 @@ class Board extends React.Component {
     this.setState({
       cellColors: currentCells
     });
-
-    return false;
   }
 
   update() {
-    let existingBlockCollision = this.storeCells(this.state.currentBlock);
-    let hasCollided = existingBlockCollision? true : this.state.currentBlock.moveDown();
+    if(!this.state.currentBlock.isDrawn()){
+      this.drawBlock(this.state.currentBlock);
+      this.state.currentBlock.setDrawn();
+    }
+    else{
+      let hasCollided = this.state.currentBlock.moveDown();
+      hasCollided = hasCollided || this.blockDrawCausesCollision(this.state.currentBlock);
 
-    if(hasCollided){
-      this.setState({
-        currentBlock: Block.getRandomBlock()
-      });
+      if(hasCollided){
+        let nextBlock = Block.getRandomBlock();
+        
+        this.setState({
+          currentBlock: nextBlock
+        });
+
+        this.setCurrentBlockPosition(nextBlock);
+      }
+      else{
+        this.undrawBlock(this.state.currentBlock, this.state.currentBlockPosition);
+        this.drawBlock(this.state.currentBlock);
+        this.setCurrentBlockPosition(this.state.currentBlock);
+      }
     }
   }
   
