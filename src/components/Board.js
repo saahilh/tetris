@@ -21,7 +21,8 @@ class Board extends React.Component {
     this.setState({
       ticker: setInterval(() => this.update(), 1000),
       currentBlock: nextBlock,
-      grid: grid.getView()
+      grid: grid,
+      gridView: grid.getView()
     });
 
     this.setCurrentBlockPosition(nextBlock);
@@ -40,7 +41,7 @@ class Board extends React.Component {
     let y = currentBlock.getY();
     
     let shape = currentBlock.getShape();
-    let currentCells = this.state.grid;
+    let currentCells = this.state.gridView;
 
     for(let j = x; j < x + shape[shape.length - 1].length; j++){
       if(currentCells[y + shape.length - 1][j] && shape[shape.length - 1][j-x]){
@@ -56,7 +57,7 @@ class Board extends React.Component {
     let y = blockPosition.y;
     
     let shape = currentBlock.getShape();
-    let currentCells = this.state.grid;
+    let currentCells = this.state.gridView;
 
     for(let i = y; i < y + shape.length; i++){
       for(let j = x; j < x + shape[i-y].length; j++){
@@ -67,27 +68,15 @@ class Board extends React.Component {
     }
     
     this.setState({
-      grid: currentCells
+      gridView: currentCells
     });
   }
 
   drawBlock(currentBlock){
-    let x = currentBlock.getX();
-    let y = currentBlock.getY();
-    
-    let shape = currentBlock.getShape();
-    let currentCells = this.state.grid;
-
-    for(let i = y; i < y + shape.length; i++){
-      for(let j = x; j < x + shape[i-y].length; j++){
-        if(shape[i-y][j-x]){
-          currentCells[i][j] = shape[i-y][j-x];
-        }
-      }
-    }
+    this.state.grid.setActiveBlock(currentBlock);
     
     this.setState({
-      grid: currentCells
+      gridView: this.state.grid.getView()
     });
   }
 
@@ -124,7 +113,7 @@ class Board extends React.Component {
   });
 
   renderRows = () => {
-    return this.state.grid.map((cellColorList) => <Row cellColorList={cellColorList} />)
+    return this.state.gridView.map((cellColorList) => <Row cellColorList={cellColorList} />)
   };
 
   render () {
