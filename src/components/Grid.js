@@ -33,16 +33,6 @@ class Grid {
     }
   }
 
-  update() {
-    if(this.blockCanMoveDown()){
-      this.getActiveBlock().moveDown();
-    }
-    else{
-      this.storeActiveBlock();
-      this.setActiveBlock(Block.getRandomBlock());
-    }
-  }
-
   blockCanMoveDown() {
     let currentCells = [];
 
@@ -92,6 +82,16 @@ class Grid {
     }
 
     return currentCells;
+  }
+
+  update() {
+    if(this.blockCanMoveDown()){
+      this.getActiveBlock().moveDown();
+    }
+    else{
+      this.storeActiveBlock();
+      this.setActiveBlock(Block.getRandomBlock());
+    }
   }
 }
 
