@@ -74,15 +74,15 @@ class Block {
     let x = originalShape[0].length;
     let y = originalShape.length;
     let newShape = Array(x);
-
+ 
     for(let j = 0; j < x; j++){
       newShape[j] = Array(y).fill(null);
 
       for(let k = 0; k < y; k++){
-        newShape[j][k] = originalShape[k][y-j];
+        newShape[j][k] = originalShape[y-1-k][j];
       }
     }
-    alert(newShape);
+
     this.setShape(newShape);
   }
 
