@@ -69,7 +69,7 @@ class Board extends React.Component {
 
     }
     else if(event.keyCode === 40){ // Down arrow
-      
+      this.state.grid.update();
     }
     
     this.redraw();
