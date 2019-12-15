@@ -22,16 +22,6 @@ class Board extends React.Component {
   }
 
   componentWillUnmount() {
-    this.stopTicker();
-  }
-
-  startTicker() {
-    this.setState({
-      ticker: setInterval(() => this.update(), 1000)
-    });
-  }
-
-  stopTicker() {
     clearInterval(this.state.ticker);
   }
 
