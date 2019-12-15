@@ -43,6 +43,7 @@ class Board extends React.Component {
 
   update() {
     this.redraw();
+    
     this.state.grid.update();
   }
   

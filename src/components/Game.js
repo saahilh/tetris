@@ -37,7 +37,7 @@ class Game extends React.Component {
       <div style={this.getStyle()}>
         <Timer />
         <Score score={this.getScore()} />
-        <Board addScore={this.addScore} />
+        <Board addScore={this.addScore} restartGame={this.props.restartGame} />
       </div>
     );
   }
