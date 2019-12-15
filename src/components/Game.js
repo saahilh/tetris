@@ -11,6 +11,7 @@ class Game extends React.Component {
       score: 0
     }
   }
+  
   resetGame() {
     this.setState({
       score: 0

@@ -3,23 +3,18 @@ import Block from './Block';
 
 class Grid {
   constructor(activeBlock, addScore) {
-    this.cells = Array(C.BOARD_HEIGHT_CELLS);
-
-    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
-      this.cells[i] = Array(C.BOARD_WIDTH_CELLS).fill(null);
-    }
-
+    this.cells = Array(C.BOARD_HEIGHT_CELLS).fill(null).map(() => Array(C.BOARD_WIDTH_CELLS).fill(null));
     this.activeBlock = activeBlock;
     this.addScore = addScore;
   }
 
-  setActiveBlock(block) {
+  setActiveBlock = (block) => {
     this.activeBlock = block;
   }
 
   getActiveBlock = () => this.activeBlock;
 
-  storeActiveBlock() {
+  storeActiveBlock = () => {
     let x = this.activeBlock.getX();
     let y = this.activeBlock.getY();
     
@@ -34,7 +29,7 @@ class Grid {
     }
   }
 
-  clearFilledRows() {
+  clearFilledRows = () => {
     let score = 0;
 
     for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
@@ -56,13 +51,7 @@ class Grid {
     return score;
   }
 
-  blockCanMoveDown() {
-    let currentCells = [];
-
-    this.cells.forEach((row) => {
-      currentCells.push([...row]);
-    });
-
+  blockCanMoveDown = () => {
     let x = this.activeBlock.getX();
     let y = this.activeBlock.getY();
     
@@ -71,7 +60,7 @@ class Grid {
     for(let i = y; i < y + shape.length; i++){
       for(let j = x; j < x + shape[i-y].length; j++){
         if(shape[i-y][j-x]){
-          if((i+1)===C.BOARD_HEIGHT_CELLS||currentCells[i+1][j]){ // Block collision
+          if((i+1)===C.BOARD_HEIGHT_CELLS||this.cells[i+1][j]){ // Block collision
             return false;
           }
         }
@@ -81,7 +70,7 @@ class Grid {
     return true;
   }
 
-  overlayBlockOntoGrid(block, grid) {
+  overlayBlockOntoGrid = (block, grid) => {
     let x = block.getX();
     let y = block.getY();
     
@@ -96,7 +85,7 @@ class Grid {
     }
   }
 
-  handleKeyDown(keyCode) {
+  handleKeyDown = (keyCode) => {
     if(keyCode === 37){ // Left arrow
       this.getActiveBlock().moveLeft();
     }
@@ -113,11 +102,12 @@ class Grid {
       while(this.blockCanMoveDown()){
         this.update();
       }
+      
       this.update();
     }
   }
 
-  getView() {
+  getView = () => {
     // Create copy of cells to avoid modifying current saved list
     let currentCells = this.cells.map((row) => [...row]);
 
@@ -128,7 +118,7 @@ class Grid {
     return currentCells;
   }
 
-  update() {
+  update = () => {
     if(this.blockCanMoveDown()){
       this.getActiveBlock().moveDown();
     }
