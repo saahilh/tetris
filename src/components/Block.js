@@ -94,14 +94,18 @@ class Block {
 class IBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
+
     this.color = 'cyan';
-    this.shape = [[this.color, this.color, this.color, this.color]];
+    this.shape = [
+      [this.color, this.color, this.color, this.color]
+    ];
   }
 }
 
 class OBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
+
     this.color = 'yellow';
     this.shape = [
       [this.color, this.color],
@@ -115,6 +119,7 @@ class OBlock extends Block {
 class LBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
+
     this.color = 'orange';
     this.shape = [
       [null, null, this.color],
@@ -126,6 +131,7 @@ class LBlock extends Block {
 class JBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
+
     this.color = 'blue';
     this.shape = [
       [this.color, null, null],
@@ -137,6 +143,7 @@ class JBlock extends Block {
 class ZBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
+
     this.color = 'red';
     this.shape = [
       [this.color, this.color, null],
@@ -148,6 +155,7 @@ class ZBlock extends Block {
 class SBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
+
     this.color = 'green';
     this.shape = [
       [null, this.color, this.color],
@@ -159,6 +167,7 @@ class SBlock extends Block {
 class TBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
+    
     this.color = 'purple';
     this.shape = [
       [null, this.color, null],
