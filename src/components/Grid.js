@@ -2,7 +2,7 @@ import * as C from '../constants';
 import Block from './Block';
 
 class Grid {
-  constructor(activeBlock) {
+  constructor(activeBlock, addScore) {
     this.cells = Array(C.BOARD_HEIGHT_CELLS);
 
     for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
@@ -10,6 +10,7 @@ class Grid {
     }
 
     this.activeBlock = activeBlock;
+    this.addScore = addScore;
   }
 
   setActiveBlock(block) {
@@ -31,6 +32,28 @@ class Grid {
         }
       }
     }
+  }
+
+  clearFilledRows() {
+    let score = 0;
+
+    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
+      let filled = true;
+
+      for(let j = 0; j < C.BOARD_WIDTH_CELLS; j++){
+        if(!this.cells[i][j]){
+          filled = false;
+        }
+      }
+
+      if(filled){
+        this.cells.splice(i, 1);
+        this.cells.unshift(Array(C.BOARD_WIDTH_CELLS).fill(null));
+        score += 1;
+      }
+    }
+
+    return score;
   }
 
   blockCanMoveDown() {
@@ -111,6 +134,8 @@ class Grid {
     }
     else{
       this.storeActiveBlock();
+      let scoreToAdd = this.clearFilledRows();
+      this.addScore(scoreToAdd);
       this.setActiveBlock(Block.getRandomBlock());
     }
   }

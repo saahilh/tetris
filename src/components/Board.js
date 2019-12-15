@@ -5,10 +5,10 @@ import * as C from '../constants';
 import Grid from './Grid';
 
 class Board extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    let grid = new Grid(Block.getRandomBlock());
+    let grid = new Grid(Block.getRandomBlock(), this.props.addScore);
 
     this.state = {
       ticker: setInterval(() => this.update(), 1000),
