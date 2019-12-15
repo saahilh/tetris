@@ -13,11 +13,11 @@ class Block {
     let xIsInBounds = (!coordinates.x) || (coordinates.x >= 0 && (coordinates.x  + this.getShape()[0].length <= C.BOARD_WIDTH_CELLS));
     let yIsInBounds = (!coordinates.y) || (coordinates.y >= 0 && (coordinates.y + this.getShape().length <= C.BOARD_HEIGHT_CELLS));
 
-    if(coordinates.x && xIsInBounds){
+    if((coordinates.x || coordinates.x===0) && xIsInBounds){
       this.x = coordinates.x;
     }
 
-    if(coordinates.y && yIsInBounds){
+    if((coordinates.y || coordinates.y===0) && yIsInBounds){
       this.y = coordinates.y;
     }
 
