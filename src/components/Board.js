@@ -66,7 +66,7 @@ class Board extends React.Component {
       this.state.grid.getActiveBlock().moveRight();
     }
     else if(event.keyCode === 38){ // Up arrow
-
+      this.state.grid.getActiveBlock().rotate();
     }
     else if(event.keyCode === 40){ // Down arrow
       this.state.grid.update();

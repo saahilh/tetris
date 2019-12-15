@@ -4,7 +4,7 @@ class Block {
   constructor(startCoordinates) {
     this.x = C.BLOCK_START_COORDINATES.x;
     this.y = C.BLOCK_START_COORDINATES.y;
-    this.orientation = 0;
+    this.rotation = 0;
   }
 
   getShape = () => 'undefined';
@@ -27,7 +27,7 @@ class Block {
   static getRandomBlock(startCoordinates) {
     let randomBlockTypeIndex = Math.floor(Math.random() * C.BLOCK_TYPES.length);
     let blockType = C.BLOCK_TYPES[randomBlockTypeIndex];
-    
+
     switch(blockType) {
       case 'I':
         return new IBlock(startCoordinates);
@@ -62,6 +62,30 @@ class Block {
 
   moveUp = () => this.updateCoordinates({y: this.y - 1});
 
+  getShape = () => this.shape;
+
+  setShape = (shape) => {
+    this.shape = shape;
+  }
+
+  rotate = () => {
+    let originalShape = this.getShape();
+
+    let x = originalShape[0].length;
+    let y = originalShape.length;
+    let newShape = Array(x);
+
+    for(let j = 0; j < x; j++){
+      newShape[j] = Array(y).fill(null);
+
+      for(let k = 0; k < y; k++){
+        newShape[j][k] = originalShape[k][y-j];
+      }
+    }
+    alert(newShape);
+    this.setShape(newShape);
+  }
+
   canMoveDown = () => {
     return this.y + this.getShape().length <= C.BOARD_HEIGHT_CELLS;
   }
@@ -71,85 +95,76 @@ class IBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
     this.color = 'cyan';
+    this.shape = [[this.color, this.color, this.color, this.color]];
   }
-  
-  getShape = () => ([
-    [this.color, this.color, this.color, this.color]
-  ]);
 }
 
 class OBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
     this.color = 'yellow';
+    this.shape = [
+      [this.color, this.color],
+      [this.color, this.color]
+    ];
 
     this.x = this.x + 1;
   }
-  
-  getShape = () => ([
-    [this.color, this.color],
-    [this.color, this.color]
-  ]);
 }
 
 class LBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
     this.color = 'orange';
+    this.shape = [
+      [null, null, this.color],
+      [this.color, this.color, this.color]
+    ];
   }
-  
-  getShape = () => ([
-    [null, null, this.color],
-    [this.color, this.color, this.color]
-  ]);
 }
 
 class JBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
     this.color = 'blue';
+    this.shape = [
+      [this.color, null, null],
+      [this.color, this.color, this.color]
+    ];
   }
-  
-  getShape = () => ([
-    [this.color, null, null],
-    [this.color, this.color, this.color]
-  ]);
 }
 
 class ZBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
     this.color = 'red';
+    this.shape = [
+      [this.color, this.color, null],
+      [null, this.color, this.color]
+    ];
   }
-  
-  getShape = () => ([
-    [this.color, this.color, null],
-    [null, this.color, this.color]
-  ]);
 }
 
 class SBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
     this.color = 'green';
+    this.shape = [
+      [null, this.color, this.color],
+      [this.color, this.color, null]
+    ];
   }
-  
-  getShape = () => ([
-    [null, this.color, this.color],
-    [this.color, this.color, null]
-  ]);
 }
 
 class TBlock extends Block {
   constructor(startCoordinates) {
     super(startCoordinates);
     this.color = 'purple';
+    this.shape = [
+      [null, this.color, null],
+      [this.color, this.color, this.color]
+    ];
   }
-  
-  getShape = () => ([
-    [null, this.color, null],
-    [this.color, this.color, this.color]
-  ]);
 }
 
 export default Block;
