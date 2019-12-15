@@ -15,15 +15,12 @@ class Grid {
   getActiveBlock = () => this.activeBlock;
 
   storeActiveBlock = () => {
-    let x = this.activeBlock.getX();
-    let y = this.activeBlock.getY();
-    
     let shape = this.activeBlock.getShape();
 
-    for(let i = y; i < y + shape.length; i++){
-      for(let j = x; j < x + shape[i-y].length; j++){
-        if(shape[i-y][j-x]){
-          this.cells[i][j] = shape[i-y][j-x];
+    for(let i = 0; i < shape.length; i++){
+      for(let j = 0; j < shape[i].length; j++){
+        if(shape[i][j]){
+          this.cells[i + this.activeBlock.getY()][j + this.activeBlock.getX()] = shape[i][j];
         }
       }
     }
@@ -38,6 +35,7 @@ class Grid {
       for(let j = 0; j < C.BOARD_WIDTH_CELLS; j++){
         if(!this.cells[i][j]){
           filled = false;
+          break;
         }
       }
 
@@ -52,34 +50,30 @@ class Grid {
   }
 
   blockCanMoveDown = () => {
-    let x = this.activeBlock.getX();
-    let y = this.activeBlock.getY();
-    
     let shape = this.activeBlock.getShape();
 
-    for(let i = y; i < y + shape.length; i++){
-      for(let j = x; j < x + shape[i-y].length; j++){
-        if(shape[i-y][j-x]){
-          if((i+1)===C.BOARD_HEIGHT_CELLS||this.cells[i+1][j]){ // Block collision
+    for(let i = 0; i < shape.length; i++){
+      for(let j = 0; j < shape[i].length; j++){
+        if(shape[i][j]){
+          let bottomOfBlock = i + this.activeBlock.getY() + 1;
+          if((bottomOfBlock)===C.BOARD_HEIGHT_CELLS||this.cells[bottomOfBlock][j + this.activeBlock.getX()]){ // Block collision
             return false;
           }
         }
       }
     }
+    
 
     return true;
   }
 
   overlayBlockOntoGrid = (block, grid) => {
-    let x = block.getX();
-    let y = block.getY();
-    
     let shape = block.getShape();
 
-    for(let i = y; i < y + shape.length; i++){
-      for(let j = x; j < x + shape[i-y].length; j++){
-        if(shape[i-y][j-x]){
-          grid[i][j] = shape[i-y][j-x];
+    for(let i = 0; i < shape.length; i++){
+      for(let j = 0; j < shape[i].length; j++){
+        if(shape[i][j]){
+          grid[i + this.activeBlock.getY()][j + this.activeBlock.getX()] = shape[i][j];
         }
       }
     }
