@@ -57,13 +57,9 @@ class Board extends React.Component {
   };
 
   handleKeyDown = (event) => {
-    this.stopTicker();
-
     this.state.grid.handleKeyDown(event.keyCode);
     
     this.redraw();
-
-    this.startTicker();
   }
 
   render () {
