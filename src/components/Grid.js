@@ -73,6 +73,27 @@ class Grid {
     }
   }
 
+  handleKeyDown(keyCode) {
+    if(keyCode === 37){ // Left arrow
+      this.getActiveBlock().moveLeft();
+    }
+    else if(keyCode === 39){ // Right arrow
+      this.getActiveBlock().moveRight();
+    }
+    else if(keyCode === 38){ // Up arrow
+      this.getActiveBlock().rotate();
+    }
+    else if(keyCode === 40){ // Down arrow
+      this.update();
+    }
+    else if(keyCode === 32){ // Space bar
+      while(this.blockCanMoveDown()){
+        this.update();
+      }
+      this.update();
+    }
+  }
+
   getView() {
     // Create copy of cells to avoid modifying current saved list
     let currentCells = this.cells.map((row) => [...row]);

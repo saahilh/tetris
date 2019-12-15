@@ -59,18 +59,7 @@ class Board extends React.Component {
   handleKeyDown = (event) => {
     this.stopTicker();
 
-    if(event.keyCode === 37){ // Left arrow
-      this.state.grid.getActiveBlock().moveLeft();
-    }
-    else if(event.keyCode === 39){ // Right arrow
-      this.state.grid.getActiveBlock().moveRight();
-    }
-    else if(event.keyCode === 38){ // Up arrow
-      this.state.grid.getActiveBlock().rotate();
-    }
-    else if(event.keyCode === 40){ // Down arrow
-      this.state.grid.update();
-    }
+    this.state.grid.handleKeyDown(event.keyCode);
     
     this.redraw();
 
