@@ -1,6 +1,6 @@
 import React from 'react';
 import Block from './Block';
-import Row from './Row';
+import Cell from './Cell';
 import * as C from '../constants';
 import Grid from './Grid';
 
@@ -43,7 +43,7 @@ class Board extends React.Component {
 
   update() {
     this.redraw();
-    
+
     this.state.grid.update();
   }
   
@@ -54,8 +54,10 @@ class Board extends React.Component {
   });
 
   renderRows = () => {
-    return this.state.gridView.map((cellColorList) => <Row cellColorList={cellColorList} />)
-  };
+    return this.state.gridView.map(
+      (cellColorList) => cellColorList.map((cellColor) => <Cell cellColor={cellColor}/>)
+    );
+  }
 
   handleKeyDown = (event) => {
     this.state.grid.handleKeyDown(event.keyCode);
