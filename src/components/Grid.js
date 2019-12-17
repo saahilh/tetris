@@ -82,6 +82,23 @@ class Grid {
   }
 
   blockCanMoveLeft = () => {
+    let shape = this.activeBlock.getShape();
+    let colToOccupyNum = this.activeBlock.getX() - 1;
+
+    if(colToOccupyNum < 0){
+      return false;
+    }
+
+    for(let i = 0; i < shape.length; i++){
+      let cellAtLeftOfShape = shape[0][i];
+      let currentRow = this.cells[this.activeBlock.getY()];
+
+      if(cellAtLeftOfShape && currentRow[colToOccupyNum + i]){ // Block collision
+        return false;
+      }
+    }
+    
+    return true;
     return true;
   }
 
