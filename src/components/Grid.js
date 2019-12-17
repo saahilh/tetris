@@ -18,15 +18,13 @@ class Grid {
   }
 
   blockCanMoveDown = (block) => {
-    let shape = block.getShape();
-    let rowToOccupyNum = block.getRow() + shape.length;
-    
-    if(rowToOccupyNum >= C.BOARD_HEIGHT_CELLS){
+    if(block.getRow() + block.getHeight() >= C.BOARD_HEIGHT_CELLS){
       return false;
     }
 
-    let rowToOccupy = this.cells[rowToOccupyNum];
-    let bottomOfShape = shape[shape.length - 1];
+    let shape = block.getShape();
+    let rowToOccupy = this.cells[block.getRow() + block.getHeight()];
+    let bottomOfShape = shape[block.getHeight() - 1];
 
     for(let i = 0; i < bottomOfShape.length; i++){
       if(bottomOfShape[i] && rowToOccupy[block.getCol() + i]){ // Block collision
