@@ -50,7 +50,12 @@ class Board extends React.Component {
   }
 
   handleKeyDown = (event) => {
-    this.state.grid.handleKeyDown(event.keyCode);
+    if(event.keyCode === 82){ // r key
+      this.props.restartGame();
+    }
+    else{
+      this.state.grid.handleKeyDown(event.keyCode);
+    }
     
     this.redraw();
   }

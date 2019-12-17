@@ -99,7 +99,6 @@ class Grid {
     }
     
     return true;
-    return true;
   }
 
   blockCanMoveRight = () => {
