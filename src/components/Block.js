@@ -33,8 +33,6 @@ class Block {
     }
   }
 
-  getColor = () => this.color;
-
   getRow = () => this.row;
 
   getCol = () => this.col;
