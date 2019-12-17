@@ -51,15 +51,18 @@ class Grid {
 
   blockCanMoveDown = () => {
     let shape = this.activeBlock.getShape();
+    let rowToOccupyNum = this.activeBlock.getY() + shape.length;
 
-    for(let i = 0; i < shape.length; i++){
-      for(let j = 0; j < shape[i].length; j++){
-        if(shape[i][j]){
-          let bottomOfBlock = i + this.activeBlock.getY() + 1;
-          if((bottomOfBlock)===C.BOARD_HEIGHT_CELLS||this.cells[bottomOfBlock][j + this.activeBlock.getX()]){ // Block collision
-            return false;
-          }
-        }
+    if(rowToOccupyNum >= C.BOARD_HEIGHT_CELLS){
+      return false;
+    }
+
+    let rowToOccupy = this.cells[rowToOccupyNum];
+    let bottomOfShape = shape[shape.length - 1];
+
+    for(let i = 0; i < bottomOfShape.length; i++){
+      if(bottomOfShape[i] && rowToOccupy[this.activeBlock.getX() + i]){ // Block collision
+        return false;
       }
     }
     
