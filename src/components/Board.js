@@ -30,10 +30,17 @@ class Board extends React.Component {
 
   componentWillUnmount = () => clearInterval(this.state.ticker);
 
-  redraw = () => {
-    this.setState({
-      gridView: this.state.grid.getViewWithBlock(this.getActiveBlock())
-    });
+  redraw = (showBlock = true) => {
+    if(showBlock){
+      this.setState({
+        gridView: this.state.grid.getViewWithBlock(this.getActiveBlock())
+      });
+    }
+    else{
+      this.setState({
+        gridView: this.state.grid.getView()
+      });
+    }
   }
 
   update = () => {
@@ -47,6 +54,7 @@ class Board extends React.Component {
     else{
       grid.storeBlock(this.getActiveBlock());
       let scoreToAdd = this.clearFilledRows();
+      this.redraw(false);
       grid.addScore(scoreToAdd);
       this.setActiveBlock(Block.getRandomBlock());
     }
@@ -82,18 +90,6 @@ class Board extends React.Component {
     if(keyCode === 82){ // r key
       this.props.restartGame();
     }
-    if(keyCode === 37 && grid.blockCanMoveLeft(this.getActiveBlock())){ // Left arrow
-      this.getActiveBlock().moveLeft();
-    }
-    else if(keyCode === 39 && grid.blockCanMoveRight(this.getActiveBlock())){ // Right arrow
-      this.getActiveBlock().moveRight();
-    }
-    else if(keyCode === 38 && grid.blockCanRotate(this.getActiveBlock())){ // Up arrow
-      this.getActiveBlock().rotate();
-    }
-    else if(keyCode === 40){ // Down arrow
-      this.update();
-    }
     else if(keyCode === 32){ // Space bar
       while(grid.blockCanMoveDown(this.getActiveBlock())){
         this.update();
@@ -101,8 +97,22 @@ class Board extends React.Component {
       
       this.update();
     }
-    
-    this.redraw();
+    else if(keyCode === 40){ // Down arrow
+      this.update();
+    }
+    else{
+      if(keyCode === 37 && grid.blockCanMoveLeft(this.getActiveBlock())){ // Left arrow
+        this.getActiveBlock().moveLeft();
+      }
+      else if(keyCode === 39 && grid.blockCanMoveRight(this.getActiveBlock())){ // Right arrow
+        this.getActiveBlock().moveRight();
+      }
+      else if(keyCode === 38 && grid.blockCanRotate(this.getActiveBlock())){ // Up arrow
+        this.getActiveBlock().rotate();
+      }
+      
+      this.redraw();
+    }
   }
 
   getStyle = () => ({
