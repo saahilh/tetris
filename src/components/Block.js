@@ -29,7 +29,7 @@ class Block {
     }
   }
 
-  moveRow = () => {
+  moveRight = () => {
     if(this.canMoveRight()){
       this.col += 1;
     }
