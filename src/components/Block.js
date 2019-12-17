@@ -10,8 +10,8 @@ class Block {
   getShape = () => 'undefined';
 
   updateCoordinates(coordinates) {
-    let xIsInBounds = (!coordinates.col) || (coordinates.col >= 0 && (coordinates.col  + this.getShape()[0].length <= C.BOARD_WIDTH_CELLS));
-    let yIsInBounds = (!coordinates.row) || (coordinates.row >= 0 && (coordinates.row + this.getShape().length <= C.BOARD_HEIGHT_CELLS));
+    let xIsInBounds = (!coordinates.col) || (coordinates.col >= 0 && (coordinates.col  + this.getWidth() <= C.BOARD_WIDTH_CELLS));
+    let yIsInBounds = (!coordinates.row) || (coordinates.row >= 0 && (coordinates.row + this.getHeight() <= C.BOARD_HEIGHT_CELLS));
 
     if((coordinates.col || coordinates.col===0) && xIsInBounds){
       this.col = coordinates.col;
@@ -54,6 +54,10 @@ class Block {
 
   getCol = () => this.col;
 
+  getHeight = () => this.getShape().length;
+
+  getWidth = () => this.getShape()[0].length;
+
   moveLeft = () => this.updateCoordinates({col: this.col - 1});
 
   moveRight = () => this.updateCoordinates({col: this.col + 1});
@@ -71,15 +75,16 @@ class Block {
   rotate = () => {
     let originalShape = this.getShape();
 
-    let x = originalShape[0].length;
-    let y = originalShape.length;
-    let newShape = Array(x);
- 
-    for(let j = 0; j < x; j++){
-      newShape[j] = Array(y).fill(null);
+    let width = originalShape[0].length;
+    let height = originalShape.length;
 
-      for(let k = 0; k < y; k++){
-        newShape[j][k] = originalShape[y-1-k][j];
+    let newShape = Array(width);
+ 
+    for(let i = 0; i < width; i++){
+      newShape[i] = Array(height).fill(null);
+
+      for(let j = 0; j < height; j++){
+        newShape[i][j] = originalShape[height - 1 - j][i];
       }
     }
 
@@ -87,7 +92,7 @@ class Block {
   }
 
   canMoveDown = () => {
-    return this.row + this.getShape().length <= C.BOARD_HEIGHT_CELLS;
+    return this.row + this.getHeight() <= C.BOARD_HEIGHT_CELLS;
   }
 }
 
