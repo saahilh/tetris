@@ -40,18 +40,35 @@ class Board extends React.Component {
       grid.getActiveBlock().moveDown();
     }
     else{
-      grid.storeActiveBlock();
-      let scoreToAdd = grid.clearFilledRows();
+      grid.storeBlock(grid.getActiveBlock());
+      let scoreToAdd = this.clearFilledRows();
       grid.addScore(scoreToAdd);
       grid.setActiveBlock(Block.getRandomBlock());
     }
   }
-  
-  getStyle = () => ({
-    display: 'grid',
-    gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
-    gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`
-  });
+
+  clearFilledRows = () => {
+    let grid = this.state.grid;
+    let score = 0;
+
+    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
+      let filled = true;
+
+      for(let j = 0; j < C.BOARD_WIDTH_CELLS; j++){
+        if(!grid.getCell(i, j)){
+          filled = false;
+          break;
+        }
+      }
+
+      if(filled){
+        grid.clearRow(i);
+        score += 1;
+      }
+    }
+
+    return score;
+  }
 
   handleKeyDown = (event) => {
     let keyCode = event.keyCode; 
@@ -82,6 +99,12 @@ class Board extends React.Component {
     
     this.redraw();
   }
+
+  getStyle = () => ({
+    display: 'grid',
+    gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
+    gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`
+  });
 
   render () {
     return (

@@ -1,5 +1,4 @@
 import * as C from '../constants';
-import Block from './Block';
 
 class Grid {
   constructor(activeBlock, addScore) {
@@ -14,39 +13,27 @@ class Grid {
 
   getActiveBlock = () => this.activeBlock;
 
-  storeActiveBlock = () => {
-    let shape = this.activeBlock.getShape();
+  storeBlock = (block) => {
+    let shape = block.getShape();
 
     for(let i = 0; i < shape.length; i++){
       for(let j = 0; j < shape[i].length; j++){
         if(shape[i][j]){
-          this.cells[i + this.activeBlock.getY()][j + this.activeBlock.getX()] = shape[i][j];
+          this.cells[i + block.getY()][j + block.getX()] = shape[i][j];
         }
       }
     }
   }
 
-  clearFilledRows = () => {
-    let score = 0;
+  getCell = (row, col) => this.cells[row][col];
 
-    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
-      let filled = true;
+  setCell = (row, col, value) => {
+    this.cells[row][col] = value;
+  }
 
-      for(let j = 0; j < C.BOARD_WIDTH_CELLS; j++){
-        if(!this.cells[i][j]){
-          filled = false;
-          break;
-        }
-      }
-
-      if(filled){
-        this.cells.splice(i, 1);
-        this.cells.unshift(Array(C.BOARD_WIDTH_CELLS).fill(null));
-        score += 1;
-      }
-    }
-
-    return score;
+  clearRow = (rowNum) => {
+    this.cells.splice(rowNum, 1);
+    this.cells.unshift(Array(C.BOARD_WIDTH_CELLS).fill(null));
   }
 
   overlayBlockOntoGrid = (block, grid) => {
@@ -62,8 +49,8 @@ class Grid {
   }
 
   blockCanMoveDown = () => {
-    let shape = this.activeBlock.getShape();
-    let rowToOccupyNum = this.activeBlock.getY() + shape.length;
+    let shape = this.getActiveBlock().getShape();
+    let rowToOccupyNum = this.getActiveBlock().getY() + shape.length;
     
     if(rowToOccupyNum >= C.BOARD_HEIGHT_CELLS){
       return false;
@@ -73,7 +60,7 @@ class Grid {
     let bottomOfShape = shape[shape.length - 1];
 
     for(let i = 0; i < bottomOfShape.length; i++){
-      if(bottomOfShape[i] && rowToOccupy[this.activeBlock.getX() + i]){ // Block collision
+      if(bottomOfShape[i] && rowToOccupy[this.getActiveBlock().getX() + i]){ // Block collision
         return false;
       }
     }
@@ -82,8 +69,8 @@ class Grid {
   }
 
   blockCanMoveLeft = () => {
-    let shape = this.activeBlock.getShape();
-    let colToOccupyNum = this.activeBlock.getX() - 1;
+    let shape = this.getActiveBlock().getShape();
+    let colToOccupyNum = this.getActiveBlock().getX() - 1;
 
     if(colToOccupyNum < 0){
       return false;
@@ -91,7 +78,7 @@ class Grid {
     
     for(let i = 0; i < shape.length; i++){
       let cellAtLeftOfShape = shape[i][0];
-      let cellToLeftOfBlock = this.cells[colToOccupyNum][this.activeBlock.getY() + i];
+      let cellToLeftOfBlock = this.cells[colToOccupyNum][this.getActiveBlock().getY() + i];
 
       if(cellAtLeftOfShape && cellToLeftOfBlock){ // Block collision
         return false;
