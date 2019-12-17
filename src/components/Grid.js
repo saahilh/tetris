@@ -40,6 +40,10 @@ class Grid {
 
     return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: 1});
   }
+
+  blockCanRotate = (block) => {
+    return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: 0}, block.getRotation());
+  }
      
   /** 
    *  Sweeps over an area to verify a block can be moved into that area
@@ -64,10 +68,6 @@ class Grid {
     }
 
     return true;
-  }
-
-  blockCanRotate = (block) => {
-    return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: 0}, block.getRotation());
   }
 
   getView = () => this.cells.map((row) => [...row]);
