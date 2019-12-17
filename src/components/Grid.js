@@ -6,18 +6,6 @@ class Grid {
     this.addScore = addScore;
   }
 
-  storeBlock = (block) => {
-    let shape = block.getShape();
-
-    for(let i = 0; i < shape.length; i++){
-      for(let j = 0; j < shape[i].length; j++){
-        if(shape[i][j]){
-          this.setCell(block.getRow() + i, block.getCol() + j, shape[i][j]);
-        }
-      }
-    }
-  }
-
   getCell = (row, col) => this.cells[row][col];
 
   setCell = (row, col, value) => {
@@ -93,6 +81,18 @@ class Grid {
     }
 
     return view;
+  }
+
+  storeBlock = (block) => {
+    let shape = block.getShape();
+
+    for(let i = 0; i < shape.length; i++){
+      for(let j = 0; j < shape[i].length; j++){
+        if(shape[i][j]){
+          this.setCell(block.getRow() + i, block.getCol() + j, shape[i][j]);
+        }
+      }
+    }
   }
 }
 
