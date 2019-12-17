@@ -18,12 +18,14 @@ class Grid {
   }
 
   blockCanMoveDown = (block) => {
-    if(block.getRow() + block.getHeight() >= C.BOARD_HEIGHT_CELLS){
+    let rowToOccupyNum = block.getRow() + block.getHeight();
+
+    if(rowToOccupyNum >= C.BOARD_HEIGHT_CELLS){
       return false;
     }
 
     let shape = block.getShape();
-    let rowToOccupy = this.cells[block.getRow() + block.getHeight()];
+    let rowToOccupy = this.cells[rowToOccupyNum];
     let bottomOfShape = shape[block.getHeight() - 1];
 
     for(let i = 0; i < bottomOfShape.length; i++){
@@ -43,7 +45,7 @@ class Grid {
       return false;
     }
     
-    for(let i = 0; i < shape.length; i++){
+    for(let i = 0; i < block.getHeight(); i++){
       let cellAtLeftOfShape = shape[i][0];
       let cellToLeftOfBlock = this.cells[block.getRow() + i][colToOccupyNum];
 
@@ -56,6 +58,22 @@ class Grid {
   }
 
   blockCanMoveRight = (block) => {
+    let shape = block.getShape();
+    let colToOccupyNum = block.getCol() + block.getWidth();
+
+    if(colToOccupyNum >= C.BOARD_WIDTH_CELLS){
+      return false;
+    }
+    
+    for(let i = 0; i < block.getHeight(); i++){
+      let cellAtRightOfShape = shape[i][block.getWidth() - 1];
+      let cellToRightOfBlock = this.cells[block.getRow() + i][colToOccupyNum];
+
+      if(cellAtRightOfShape && cellToRightOfBlock){ // Block collision
+        return false;
+      }
+    }
+    
     return true;
   }
 
