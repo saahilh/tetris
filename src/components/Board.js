@@ -8,42 +8,47 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
 
-    let grid = new Grid(Block.getRandomBlock(), this.props.addScore);
+    let grid = new Grid(this.props.addScore);
 
     this.state = {
       ticker: setInterval(() => this.update(), 1000),
       grid: grid,
-      gridView: grid.getView()
+      gridView: grid.getView(),
+      activeBlock: Block.getRandomBlock()
     };
   }
 
-  componentDidMount() {
-    this.update();
-  }
+  getActiveBlock = () => this.state.activeBlock;
 
-  componentWillUnmount() {
-    clearInterval(this.state.ticker);
-  }
-
-  redraw() {
+  setActiveBlock = () => {
     this.setState({
-      gridView: this.state.grid.getViewWithBlock(this.state.grid.getActiveBlock())
+      activeBlock: Block.getRandomBlock()
+    })
+  }
+
+  componentDidMount = () => this.update();
+
+  componentWillUnmount = () => clearInterval(this.state.ticker);
+
+  redraw = () => {
+    this.setState({
+      gridView: this.state.grid.getViewWithBlock(this.getActiveBlock())
     });
   }
 
-  update() {
+  update = () => {
     this.redraw();
 
     let grid = this.state.grid;
 
-    if(grid.blockCanMoveDown(this.state.grid.getActiveBlock())){
-      grid.getActiveBlock().moveDown();
+    if(grid.blockCanMoveDown(this.getActiveBlock())){
+      this.getActiveBlock().moveDown();
     }
     else{
-      grid.storeBlock(grid.getActiveBlock());
+      grid.storeBlock(this.getActiveBlock());
       let scoreToAdd = this.clearFilledRows();
       grid.addScore(scoreToAdd);
-      grid.setActiveBlock(Block.getRandomBlock());
+      this.setActiveBlock(Block.getRandomBlock());
     }
   }
 
@@ -77,20 +82,20 @@ class Board extends React.Component {
     if(keyCode === 82){ // r key
       this.props.restartGame();
     }
-    if(keyCode === 37 && grid.blockCanMoveLeft(grid.getActiveBlock())){ // Left arrow
-      grid.getActiveBlock().moveLeft();
+    if(keyCode === 37 && grid.blockCanMoveLeft(this.getActiveBlock())){ // Left arrow
+      this.getActiveBlock().moveLeft();
     }
-    else if(keyCode === 39 && grid.blockCanMoveRight(grid.getActiveBlock())){ // Right arrow
-      grid.getActiveBlock().moveRight();
+    else if(keyCode === 39 && grid.blockCanMoveRight(this.getActiveBlock())){ // Right arrow
+      this.getActiveBlock().moveRight();
     }
-    else if(keyCode === 38 && grid.blockCanRotate(grid.getActiveBlock())){ // Up arrow
-      grid.getActiveBlock().rotate();
+    else if(keyCode === 38 && grid.blockCanRotate(this.getActiveBlock())){ // Up arrow
+      this.getActiveBlock().rotate();
     }
     else if(keyCode === 40){ // Down arrow
       this.update();
     }
     else if(keyCode === 32){ // Space bar
-      while(grid.blockCanMoveDown()){
+      while(grid.blockCanMoveDown(this.getActiveBlock())){
         this.update();
       }
       

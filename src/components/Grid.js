@@ -1,17 +1,10 @@
 import * as C from '../constants';
 
 class Grid {
-  constructor(activeBlock, addScore) {
+  constructor(addScore) {
     this.cells = Array(C.BOARD_HEIGHT_CELLS).fill(null).map(() => Array(C.BOARD_WIDTH_CELLS).fill(null));
-    this.activeBlock = activeBlock;
     this.addScore = addScore;
   }
-
-  setActiveBlock = (block) => {
-    this.activeBlock = block;
-  }
-
-  getActiveBlock = () => this.activeBlock;
 
   storeBlock = (block) => {
     let shape = block.getShape();
