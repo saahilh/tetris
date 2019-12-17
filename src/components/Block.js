@@ -9,30 +9,6 @@ class Block {
 
   getShape = () => 'undefined';
 
-  static getRandomBlock(startCoordinates) {
-    let randomBlockTypeIndex = Math.floor(Math.random() * C.BLOCK_TYPES.length);
-    let blockType = C.BLOCK_TYPES[randomBlockTypeIndex];
-
-    switch(blockType) {
-      case 'I':
-        return new IBlock(startCoordinates);
-      case 'O':
-        return new OBlock(startCoordinates);
-      case 'L':
-        return new LBlock(startCoordinates);
-      case 'J':
-        return new JBlock(startCoordinates);
-      case 'Z':
-        return new ZBlock(startCoordinates);
-      case 'S':
-        return new SBlock(startCoordinates);
-      case 'T':
-        return new TBlock(startCoordinates);
-      default:
-        throw new Error("Block type not found")
-    }
-  }
-
   getRow = () => this.row;
 
   getCol = () => this.col;
@@ -88,6 +64,30 @@ class Block {
     }
 
     this.setShape(newShape);
+  }
+
+  static getRandomBlock(startCoordinates) {
+    let randomBlockTypeIndex = Math.floor(Math.random() * C.BLOCK_TYPES.length);
+    let blockType = C.BLOCK_TYPES[randomBlockTypeIndex];
+
+    switch(blockType) {
+      case 'I':
+        return new IBlock(startCoordinates);
+      case 'O':
+        return new OBlock(startCoordinates);
+      case 'L':
+        return new LBlock(startCoordinates);
+      case 'J':
+        return new JBlock(startCoordinates);
+      case 'Z':
+        return new ZBlock(startCoordinates);
+      case 'S':
+        return new SBlock(startCoordinates);
+      case 'T':
+        return new TBlock(startCoordinates);
+      default:
+        throw new Error("Block type not found")
+    }
   }
 }
 
