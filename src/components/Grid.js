@@ -102,10 +102,11 @@ class Grid {
   }
 
   getView = () => {
-    // Create copy of cells to avoid modifying current saved list
-    let currentCells = this.cells.map((row) => [...row]);
+    let currentCells = this.cells;
 
     if(this.activeBlock){
+      // Create copy of cells to avoid modifying current saved list
+      currentCells = this.cells.map((row) => [...row]);
       this.overlayBlockOntoGrid(this.activeBlock, currentCells);
     }
 
