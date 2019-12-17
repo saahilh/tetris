@@ -63,7 +63,6 @@ class Grid {
       }
     }
     
-
     return true;
   }
 
@@ -79,14 +78,26 @@ class Grid {
     }
   }
 
+  blockCanMoveLeft = () => {
+    return true;
+  }
+
+  blockCanMoveRight = () => {
+    return true;
+  }
+
+  blockCanRotate = () => {
+    return true;
+  }
+
   handleKeyDown = (keyCode) => {
-    if(keyCode === 37){ // Left arrow
+    if(keyCode === 37 && this.blockCanMoveLeft()){ // Left arrow
       this.getActiveBlock().moveLeft();
     }
-    else if(keyCode === 39){ // Right arrow
+    else if(keyCode === 39 && this.blockCanMoveRight()){ // Right arrow
       this.getActiveBlock().moveRight();
     }
-    else if(keyCode === 38){ // Up arrow
+    else if(keyCode === 38 && this.blockCanRotate()){ // Up arrow
       this.getActiveBlock().rotate();
     }
     else if(keyCode === 40){ // Down arrow
