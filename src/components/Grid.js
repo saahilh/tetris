@@ -88,7 +88,7 @@ class Grid {
     if(colToOccupyNum < 0){
       return false;
     }
-    debugger;
+    
     for(let i = 0; i < shape.length; i++){
       let cellAtLeftOfShape = shape[i][0];
       let cellToLeftOfBlock = this.cells[colToOccupyNum][this.activeBlock.getY() + i];
@@ -109,28 +109,6 @@ class Grid {
     return true;
   }
 
-  handleKeyDown = (keyCode) => {
-    if(keyCode === 37 && this.blockCanMoveLeft()){ // Left arrow
-      this.getActiveBlock().moveLeft();
-    }
-    else if(keyCode === 39 && this.blockCanMoveRight()){ // Right arrow
-      this.getActiveBlock().moveRight();
-    }
-    else if(keyCode === 38 && this.blockCanRotate()){ // Up arrow
-      this.getActiveBlock().rotate();
-    }
-    else if(keyCode === 40){ // Down arrow
-      this.update();
-    }
-    else if(keyCode === 32){ // Space bar
-      while(this.blockCanMoveDown()){
-        this.update();
-      }
-      
-      this.update();
-    }
-  }
-
   getView = () => {
     let currentCells = this.cells;
 
@@ -141,18 +119,6 @@ class Grid {
     }
 
     return currentCells;
-  }
-
-  update = () => {
-    if(this.blockCanMoveDown()){
-      this.getActiveBlock().moveDown();
-    }
-    else{
-      this.storeActiveBlock();
-      let scoreToAdd = this.clearFilledRows();
-      this.addScore(scoreToAdd);
-      this.setActiveBlock(Block.getRandomBlock());
-    }
   }
 }
 

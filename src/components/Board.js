@@ -34,7 +34,17 @@ class Board extends React.Component {
   update() {
     this.redraw();
 
-    this.state.grid.update();
+    let grid = this.state.grid;
+
+    if(grid.blockCanMoveDown()){
+      grid.getActiveBlock().moveDown();
+    }
+    else{
+      grid.storeActiveBlock();
+      let scoreToAdd = grid.clearFilledRows();
+      grid.addScore(scoreToAdd);
+      grid.setActiveBlock(Block.getRandomBlock());
+    }
   }
   
   getStyle = () => ({
@@ -44,11 +54,30 @@ class Board extends React.Component {
   });
 
   handleKeyDown = (event) => {
-    if(event.keyCode === 82){ // r key
+    let keyCode = event.keyCode; 
+    let grid = this.state.grid;
+
+    if(keyCode === 82){ // r key
       this.props.restartGame();
     }
-    else{
-      this.state.grid.handleKeyDown(event.keyCode);
+    if(keyCode === 37 && grid.blockCanMoveLeft()){ // Left arrow
+      grid.getActiveBlock().moveLeft();
+    }
+    else if(keyCode === 39 && grid.blockCanMoveRight()){ // Right arrow
+      grid.getActiveBlock().moveRight();
+    }
+    else if(keyCode === 38 && grid.blockCanRotate()){ // Up arrow
+      grid.getActiveBlock().rotate();
+    }
+    else if(keyCode === 40){ // Down arrow
+      this.update();
+    }
+    else if(keyCode === 32){ // Space bar
+      while(grid.blockCanMoveDown()){
+        this.update();
+      }
+      
+      this.update();
     }
     
     this.redraw();
