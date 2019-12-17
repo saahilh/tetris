@@ -19,9 +19,9 @@ class Block {
 
   canMoveLeft = () => this.col > 0;
 
-  canMoveDown = () => this.row + this.getHeight() < C.BOARD_HEIGHT_CELLS - 1;
+  canMoveDown = () => this.row + this.getHeight() < C.BOARD_HEIGHT_CELLS;
 
-  canMoveRight = () => this.col + this.getWidth() < C.BOARD_WIDTH_CELLS - 1;
+  canMoveRight = () => this.col + this.getWidth() < C.BOARD_WIDTH_CELLS;
 
   moveLeft = () => {
     if(this.canMoveLeft()){
