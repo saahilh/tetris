@@ -48,9 +48,7 @@ class Grid {
    *      colChange: new target col position relative to current col position
    *        positive = right, negative = left
    */
-  verifyBlockMoveValid = (block, change = {rowChange: 0, colChange: 0}) => {
-    let shape = block.getShape();
-
+  verifyBlockMoveValid = (block, change = {rowChange: 0, colChange: 0}, shape = block.getShape()) => {
     for(let i = 0; i < block.getWidth(); i++){
       for(let j = 0; j < block.getHeight(); j++){
         let blockCell = shape[j][i];

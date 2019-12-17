@@ -47,23 +47,24 @@ class Block {
     this.shape = shape;
   }
 
-  rotate = () => {
+  getRotation = () => {
+    let width = this.getWidth();
+    let height = this.getHeight();
+
     let originalShape = this.getShape();
-
-    let width = originalShape[0].length;
-    let height = originalShape.length;
-
-    let newShape = Array(width);
+    let newShape = Array(width).fill(null).map(() => Array(height).fill(null));
  
     for(let i = 0; i < width; i++){
-      newShape[i] = Array(height).fill(null);
-
       for(let j = 0; j < height; j++){
         newShape[i][j] = originalShape[height - 1 - j][i];
       }
     }
 
-    this.setShape(newShape);
+    return newShape;
+  }
+
+  rotate = () => {
+    this.setShape(this.getRotation());
   }
 
   static getRandomBlock(startCoordinates) {
