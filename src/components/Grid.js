@@ -12,7 +12,7 @@ class Grid {
     for(let i = 0; i < shape.length; i++){
       for(let j = 0; j < shape[i].length; j++){
         if(shape[i][j]){
-          this.setCell(block.getY() + i, block.getX() + j, shape[i][j]);
+          this.setCell(block.getRow() + i, block.getCol() + j, shape[i][j]);
         }
       }
     }
@@ -31,7 +31,7 @@ class Grid {
 
   blockCanMoveDown = (block) => {
     let shape = block.getShape();
-    let rowToOccupyNum = block.getY() + shape.length;
+    let rowToOccupyNum = block.getRow() + shape.length;
     
     if(rowToOccupyNum >= C.BOARD_HEIGHT_CELLS){
       return false;
@@ -41,7 +41,7 @@ class Grid {
     let bottomOfShape = shape[shape.length - 1];
 
     for(let i = 0; i < bottomOfShape.length; i++){
-      if(bottomOfShape[i] && rowToOccupy[block.getX() + i]){ // Block collision
+      if(bottomOfShape[i] && rowToOccupy[block.getCol() + i]){ // Block collision
         return false;
       }
     }
@@ -51,7 +51,7 @@ class Grid {
 
   blockCanMoveLeft = (block) => {
     let shape = block.getShape();
-    let colToOccupyNum = block.getX() - 1;
+    let colToOccupyNum = block.getCol() - 1;
 
     if(colToOccupyNum < 0){
       return false;
@@ -59,7 +59,7 @@ class Grid {
     
     for(let i = 0; i < shape.length; i++){
       let cellAtLeftOfShape = shape[i][0];
-      let cellToLeftOfBlock = this.cells[colToOccupyNum][block.getY() + i];
+      let cellToLeftOfBlock = this.cells[colToOccupyNum][block.getRow() + i];
 
       if(cellAtLeftOfShape && cellToLeftOfBlock){ // Block collision
         return false;
@@ -87,7 +87,7 @@ class Grid {
     for(let i = 0; i < shape.length; i++){
       for(let j = 0; j < shape[i].length; j++){
         if(shape[i][j]){
-          view[i + block.getY()][j + block.getX()] = shape[i][j];
+          view[i + block.getRow()][j + block.getCol()] = shape[i][j];
         }
       }
     }

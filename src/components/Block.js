@@ -2,23 +2,23 @@ import * as C from '../constants';
 
 class Block {
   constructor(startCoordinates) {
-    this.x = C.BLOCK_START_COORDINATES.x;
-    this.y = C.BLOCK_START_COORDINATES.y;
+    this.col = C.BLOCK_START_COORDINATES.col;
+    this.row = C.BLOCK_START_COORDINATES.row;
     this.rotation = 0;
   }
 
   getShape = () => 'undefined';
 
   updateCoordinates(coordinates) {
-    let xIsInBounds = (!coordinates.x) || (coordinates.x >= 0 && (coordinates.x  + this.getShape()[0].length <= C.BOARD_WIDTH_CELLS));
-    let yIsInBounds = (!coordinates.y) || (coordinates.y >= 0 && (coordinates.y + this.getShape().length <= C.BOARD_HEIGHT_CELLS));
+    let xIsInBounds = (!coordinates.col) || (coordinates.col >= 0 && (coordinates.col  + this.getShape()[0].length <= C.BOARD_WIDTH_CELLS));
+    let yIsInBounds = (!coordinates.row) || (coordinates.row >= 0 && (coordinates.row + this.getShape().length <= C.BOARD_HEIGHT_CELLS));
 
-    if((coordinates.x || coordinates.x===0) && xIsInBounds){
-      this.x = coordinates.x;
+    if((coordinates.col || coordinates.col===0) && xIsInBounds){
+      this.col = coordinates.col;
     }
 
-    if((coordinates.y || coordinates.y===0) && yIsInBounds){
-      this.y = coordinates.y;
+    if((coordinates.row || coordinates.row===0) && yIsInBounds){
+      this.row = coordinates.row;
     }
 
     return !xIsInBounds || !yIsInBounds;
@@ -50,17 +50,17 @@ class Block {
 
   getColor = () => this.color;
 
-  getX = () => this.x;
+  getRow = () => this.row;
 
-  getY = () => this.y;
+  getCol = () => this.col;
 
-  moveLeft = () => this.updateCoordinates({x: this.x - 1});
+  moveLeft = () => this.updateCoordinates({col: this.col - 1});
 
-  moveRight = () => this.updateCoordinates({x: this.x + 1});
+  moveRight = () => this.updateCoordinates({col: this.col + 1});
 
-  moveDown = () => this.updateCoordinates({y: this.y + 1});
+  moveDown = () => this.updateCoordinates({row: this.row + 1});
 
-  moveUp = () => this.updateCoordinates({y: this.y - 1});
+  moveUp = () => this.updateCoordinates({row: this.row - 1});
 
   getShape = () => this.shape;
 
@@ -87,7 +87,7 @@ class Block {
   }
 
   canMoveDown = () => {
-    return this.y + this.getShape().length <= C.BOARD_HEIGHT_CELLS;
+    return this.row + this.getShape().length <= C.BOARD_HEIGHT_CELLS;
   }
 }
 
@@ -112,7 +112,7 @@ class OBlock extends Block {
       [this.color, this.color]
     ];
 
-    this.x = this.x + 1;
+    this.col = this.col + 1;
   }
 }
 
