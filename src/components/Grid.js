@@ -25,11 +25,12 @@ class Grid {
     }
 
     let shape = block.getShape();
-    let rowToOccupy = this.cells[rowToOccupyNum];
-    let bottomOfShape = shape[block.getHeight() - 1];
+    
+    for(let j = 0; j < block.getWidth(); j++){
+      let cellAtBottomOfShape = shape[block.getHeight() - 1][j];
+      let cellBelowBlock = this.cells[rowToOccupyNum][block.getCol() + j];
 
-    for(let i = 0; i < bottomOfShape.length; i++){
-      if(bottomOfShape[i] && rowToOccupy[block.getCol() + i]){ // Block collision
+      if(cellAtBottomOfShape && cellBelowBlock){ // Block collision
         return false;
       }
     }
