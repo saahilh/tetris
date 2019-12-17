@@ -65,9 +65,8 @@ class Grid {
 
   getView = () => this.cells.map((row) => [...row]);
 
-  getViewWithBlock = (block) => {
+  drawViewWithBlock = (view, block) => {
     // Create copy of cells to avoid modifying current saved list
-    let view = this.getView();
     let shape = block.getShape();
 
     for(let i = 0; i < shape.length; i++){

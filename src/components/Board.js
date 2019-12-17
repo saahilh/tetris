@@ -33,7 +33,7 @@ class Board extends React.Component {
   redraw = (showBlock = true) => {
     if(showBlock){
       this.setState({
-        gridView: this.state.grid.getViewWithBlock(this.getActiveBlock())
+        gridView: this.state.grid.drawViewWithBlock(this.state.grid.getView(), this.getActiveBlock())
       });
     }
     else{
@@ -54,8 +54,8 @@ class Board extends React.Component {
     else{
       grid.storeBlock(this.getActiveBlock());
       let scoreToAdd = this.clearFilledRows();
-      this.redraw(false);
       grid.addScore(scoreToAdd);
+      this.redraw(false);
       this.setActiveBlock(Block.getRandomBlock());
     }
   }
