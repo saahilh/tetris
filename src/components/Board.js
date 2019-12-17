@@ -43,12 +43,6 @@ class Board extends React.Component {
     gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`
   });
 
-  renderRows = () => {
-    return this.state.gridView.map(
-      (cellColorList) => cellColorList.map((cellColor) => <Cell cellColor={cellColor}/>)
-    );
-  }
-
   handleKeyDown = (event) => {
     if(event.keyCode === 82){ // r key
       this.props.restartGame();
@@ -63,7 +57,11 @@ class Board extends React.Component {
   render () {
     return (
       <div tabIndex="0" style={this.getStyle()} onKeyDown={this.handleKeyDown}>
-        { this.renderRows() }
+        { 
+          this.state.gridView.map(
+            (cellColorList) => cellColorList.map((cellColor) => <Cell cellColor={cellColor}/>)
+          )
+        }
       </div>
     );
   }
