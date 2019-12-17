@@ -22,20 +22,7 @@ class Grid {
       return false;
     }
 
-    let shape = block.getShape();
-    
-    for(let i = 0; i < block.getWidth(); i++){
-      for(let j = 0; j < block.getHeight(); j++){
-        let cellAtBottomOfShape = shape[j][i];
-        let cellBelowBlock = this.cells[block.getRow() + 1 + j][block.getCol() + i];
-
-        if(cellAtBottomOfShape && cellBelowBlock){ // Block collision
-          return false;
-        }
-      }
-    }
-    
-    return true;
+    return this.verifyBlockMoveValid(block, {rowChange: 1, colChange: 0});
   }
 
   blockCanMoveLeft = (block) => {
@@ -43,20 +30,7 @@ class Grid {
       return false;
     }
 
-    let shape = block.getShape();
-    
-    for(let i = 0; i < block.getWidth(); i++){
-      for(let j = 0; j < block.getHeight(); j++){
-        let cellAtLeftOfShape = shape[j][i];
-        let cellToLeftOfBlock = this.cells[block.getRow() + j][block.getCol() - 1 + i];
-
-        if(cellAtLeftOfShape && cellToLeftOfBlock){ // Block collision
-          return false;
-        }
-      }
-    }
-    
-    return true;
+    return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: -1});
   }
 
   blockCanMoveRight = (block) => {
@@ -64,19 +38,30 @@ class Grid {
       return false;
     }
 
+    return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: 1});
+  }
+     
+  /** 
+   *  Sweeps over an area to verify a block can be moved into that area
+   *      rowChange: new target row position relative to current row position
+   *        positive = downwards, negative = upwards
+   *      colChange: new target col position relative to current col position
+   *        positive = right, negative = left
+   */
+  verifyBlockMoveValid = (block, change = {rowChange: 0, colChange: 0}) => {
     let shape = block.getShape();
-    
+
     for(let i = 0; i < block.getWidth(); i++){
       for(let j = 0; j < block.getHeight(); j++){
-        let cellAtRightOfShape = shape[j][i];
-        let cellToRightOfBlock = this.cells[block.getRow() + j][block.getCol() + 1 + i];
+        let blockCell = shape[j][i];
+        let targetCell = this.cells[block.getRow() + change.rowChange + j][block.getCol() + change.colChange + i];
 
-        if(cellAtRightOfShape && cellToRightOfBlock){ // Block collision
+        if(blockCell && targetCell){ // Block collision
           return false;
         }
       }
     }
-    
+
     return true;
   }
 
