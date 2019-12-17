@@ -38,19 +38,20 @@ class Grid {
   }
 
   blockCanMoveLeft = (block) => {
-    let shape = block.getShape();
-    let colToOccupyNum = block.getCol() - 1;
-
-    if(colToOccupyNum < 0){
+    if(block.getCol() - 1 < 0){
       return false;
     }
-    
-    for(let i = 0; i < block.getHeight(); i++){
-      let cellAtLeftOfShape = shape[i][0];
-      let cellToLeftOfBlock = this.cells[block.getRow() + i][colToOccupyNum];
 
-      if(cellAtLeftOfShape && cellToLeftOfBlock){ // Block collision
-        return false;
+    let shape = block.getShape();
+    
+    for(let i = 0; i < block.getWidth(); i++){
+      for(let j = 0; j < block.getHeight(); j++){
+        let cellAtLeftOfShape = shape[j][i];
+        let cellToLeftOfBlock = this.cells[block.getRow() + j][block.getCol() - 1 + i];
+
+        if(cellAtLeftOfShape && cellToLeftOfBlock){ // Block collision
+          return false;
+        }
       }
     }
     
@@ -58,19 +59,20 @@ class Grid {
   }
 
   blockCanMoveRight = (block) => {
-    let shape = block.getShape();
-    let colToOccupyNum = block.getCol() + block.getWidth();
-
-    if(colToOccupyNum >= C.BOARD_WIDTH_CELLS){
+    if(block.getCol() + block.getWidth() + 1 >= C.BOARD_WIDTH_CELLS){
       return false;
     }
-    
-    for(let i = 0; i < block.getHeight(); i++){
-      let cellAtRightOfShape = shape[i][block.getWidth() - 1];
-      let cellToRightOfBlock = this.cells[block.getRow() + i][colToOccupyNum];
 
-      if(cellAtRightOfShape && cellToRightOfBlock){ // Block collision
-        return false;
+    let shape = block.getShape();
+    
+    for(let i = 0; i < block.getWidth(); i++){
+      for(let j = 0; j < block.getHeight(); j++){
+        let cellAtRightOfShape = shape[j][i];
+        let cellToRightOfBlock = this.cells[block.getRow() + j][block.getCol() + 1 + i];
+
+        if(cellAtRightOfShape && cellToRightOfBlock){ // Block collision
+          return false;
+        }
       }
     }
     
