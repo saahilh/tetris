@@ -18,20 +18,20 @@ class Grid {
   }
 
   blockCanMoveDown = (block) => {
-    let rowToOccupyNum = block.getRow() + block.getHeight();
-
-    if(rowToOccupyNum >= C.BOARD_HEIGHT_CELLS){
+    if(block.getRow() + block.getHeight() + 1 > C.BOARD_HEIGHT_CELLS){
       return false;
     }
 
     let shape = block.getShape();
     
-    for(let j = 0; j < block.getWidth(); j++){
-      let cellAtBottomOfShape = shape[block.getHeight() - 1][j];
-      let cellBelowBlock = this.cells[rowToOccupyNum][block.getCol() + j];
+    for(let i = 0; i < block.getWidth(); i++){
+      for(let j = 0; j < block.getHeight(); j++){
+        let cellAtBottomOfShape = shape[j][i];
+        let cellBelowBlock = this.cells[block.getRow() + 1 + j][block.getCol() + i];
 
-      if(cellAtBottomOfShape && cellBelowBlock){ // Block collision
-        return false;
+        if(cellAtBottomOfShape && cellBelowBlock){ // Block collision
+          return false;
+        }
       }
     }
     
@@ -60,7 +60,7 @@ class Grid {
   }
 
   blockCanMoveRight = (block) => {
-    if(block.getCol() + block.getWidth() + 1 >= C.BOARD_WIDTH_CELLS){
+    if(block.getCol() + block.getWidth() + 1 > C.BOARD_WIDTH_CELLS){
       return false;
     }
 
