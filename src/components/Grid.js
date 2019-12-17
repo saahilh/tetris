@@ -45,7 +45,7 @@ class Grid {
     
     for(let i = 0; i < shape.length; i++){
       let cellAtLeftOfShape = shape[i][0];
-      let cellToLeftOfBlock = this.cells[colToOccupyNum][block.getRow() + i];
+      let cellToLeftOfBlock = this.cells[block.getRow() + i][colToOccupyNum];
 
       if(cellAtLeftOfShape && cellToLeftOfBlock){ // Block collision
         return false;
