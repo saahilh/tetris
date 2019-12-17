@@ -49,8 +49,11 @@ class Grid {
    *        positive = right, negative = left
    */
   verifyBlockMoveValid = (block, change = {rowChange: 0, colChange: 0}, shape = block.getShape()) => {
-    for(let i = 0; i < block.getWidth(); i++){
-      for(let j = 0; j < block.getHeight(); j++){
+    let width = shape[0].length;
+    let height = shape.length;
+
+    for(let i = 0; i < width; i++){
+      for(let j = 0; j < height; j++){
         let blockCell = shape[j][i];
         let targetCell = this.cells[block.getRow() + change.rowChange + j][block.getCol() + change.colChange + i];
 
@@ -64,7 +67,7 @@ class Grid {
   }
 
   blockCanRotate = (block) => {
-    return true;
+    return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: 0}, block.getRotation());
   }
 
   getView = () => this.cells.map((row) => [...row]);
