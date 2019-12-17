@@ -9,21 +9,6 @@ class Block {
 
   getShape = () => 'undefined';
 
-  updateCoordinates(coordinates) {
-    let xIsInBounds = (!coordinates.col) || (coordinates.col >= 0 && (coordinates.col  + this.getWidth() <= C.BOARD_WIDTH_CELLS));
-    let yIsInBounds = (!coordinates.row) || (coordinates.row >= 0 && (coordinates.row + this.getHeight() <= C.BOARD_HEIGHT_CELLS));
-
-    if((coordinates.col || coordinates.col===0) && xIsInBounds){
-      this.col = coordinates.col;
-    }
-
-    if((coordinates.row || coordinates.row===0) && yIsInBounds){
-      this.row = coordinates.row;
-    }
-
-    return !xIsInBounds || !yIsInBounds;
-  }
-
   static getRandomBlock(startCoordinates) {
     let randomBlockTypeIndex = Math.floor(Math.random() * C.BLOCK_TYPES.length);
     let blockType = C.BLOCK_TYPES[randomBlockTypeIndex];
@@ -58,13 +43,29 @@ class Block {
 
   getWidth = () => this.getShape()[0].length;
 
-  moveLeft = () => this.updateCoordinates({col: this.col - 1});
+  canMoveLeft = () => this.col > 0;
 
-  moveRight = () => this.updateCoordinates({col: this.col + 1});
+  canMoveDown = () => this.row + this.getHeight() < C.BOARD_HEIGHT_CELLS - 1;
 
-  moveDown = () => this.updateCoordinates({row: this.row + 1});
+  canMoveRight = () => this.col + this.getWidth() < C.BOARD_WIDTH_CELLS - 1;
 
-  moveUp = () => this.updateCoordinates({row: this.row - 1});
+  moveLeft = () => {
+    if(this.canMoveLeft()){
+      this.col -= 1;
+    }
+  }
+
+  moveRow = () => {
+    if(this.canMoveRight()){
+      this.col += 1;
+    }
+  }
+
+  moveDown = () => {
+    if(this.canMoveDown()){
+      this.row += 1;
+    }
+  }
 
   getShape = () => this.shape;
 
@@ -89,10 +90,6 @@ class Block {
     }
 
     this.setShape(newShape);
-  }
-
-  canMoveDown = () => {
-    return this.row + this.getHeight() <= C.BOARD_HEIGHT_CELLS;
   }
 }
 
