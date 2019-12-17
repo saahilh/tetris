@@ -19,7 +19,7 @@ class Grid {
     for(let i = 0; i < shape.length; i++){
       for(let j = 0; j < shape[i].length; j++){
         if(shape[i][j]){
-          this.cells[i + block.getY()][j + block.getX()] = shape[i][j];
+          this.setCell(block.getY() + i, block.getX() + j, shape[i][j]);
         }
       }
     }
@@ -36,21 +36,9 @@ class Grid {
     this.cells.unshift(Array(C.BOARD_WIDTH_CELLS).fill(null));
   }
 
-  overlayBlockOntoGrid = (block, grid) => {
+  blockCanMoveDown = (block) => {
     let shape = block.getShape();
-
-    for(let i = 0; i < shape.length; i++){
-      for(let j = 0; j < shape[i].length; j++){
-        if(shape[i][j]){
-          grid[i + this.activeBlock.getY()][j + this.activeBlock.getX()] = shape[i][j];
-        }
-      }
-    }
-  }
-
-  blockCanMoveDown = () => {
-    let shape = this.getActiveBlock().getShape();
-    let rowToOccupyNum = this.getActiveBlock().getY() + shape.length;
+    let rowToOccupyNum = block.getY() + shape.length;
     
     if(rowToOccupyNum >= C.BOARD_HEIGHT_CELLS){
       return false;
@@ -60,7 +48,7 @@ class Grid {
     let bottomOfShape = shape[shape.length - 1];
 
     for(let i = 0; i < bottomOfShape.length; i++){
-      if(bottomOfShape[i] && rowToOccupy[this.getActiveBlock().getX() + i]){ // Block collision
+      if(bottomOfShape[i] && rowToOccupy[block.getX() + i]){ // Block collision
         return false;
       }
     }
@@ -68,9 +56,9 @@ class Grid {
     return true;
   }
 
-  blockCanMoveLeft = () => {
-    let shape = this.getActiveBlock().getShape();
-    let colToOccupyNum = this.getActiveBlock().getX() - 1;
+  blockCanMoveLeft = (block) => {
+    let shape = block.getShape();
+    let colToOccupyNum = block.getX() - 1;
 
     if(colToOccupyNum < 0){
       return false;
@@ -78,7 +66,7 @@ class Grid {
     
     for(let i = 0; i < shape.length; i++){
       let cellAtLeftOfShape = shape[i][0];
-      let cellToLeftOfBlock = this.cells[colToOccupyNum][this.getActiveBlock().getY() + i];
+      let cellToLeftOfBlock = this.cells[colToOccupyNum][block.getY() + i];
 
       if(cellAtLeftOfShape && cellToLeftOfBlock){ // Block collision
         return false;
@@ -88,24 +76,30 @@ class Grid {
     return true;
   }
 
-  blockCanMoveRight = () => {
+  blockCanMoveRight = (block) => {
     return true;
   }
 
-  blockCanRotate = () => {
+  blockCanRotate = (block) => {
     return true;
   }
 
-  getView = () => {
-    let currentCells = this.cells;
+  getView = () => this.cells.map((row) => [...row]);
 
-    if(this.activeBlock){
-      // Create copy of cells to avoid modifying current saved list
-      currentCells = this.cells.map((row) => [...row]);
-      this.overlayBlockOntoGrid(this.activeBlock, currentCells);
+  getViewWithBlock = (block) => {
+    // Create copy of cells to avoid modifying current saved list
+    let view = this.getView();
+    let shape = block.getShape();
+
+    for(let i = 0; i < shape.length; i++){
+      for(let j = 0; j < shape[i].length; j++){
+        if(shape[i][j]){
+          view[i + block.getY()][j + block.getX()] = shape[i][j];
+        }
+      }
     }
 
-    return currentCells;
+    return view;
   }
 }
 

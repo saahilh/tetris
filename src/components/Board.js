@@ -27,7 +27,7 @@ class Board extends React.Component {
 
   redraw() {
     this.setState({
-      gridView: this.state.grid.getView()
+      gridView: this.state.grid.getViewWithBlock(this.state.grid.getActiveBlock())
     });
   }
 
@@ -36,7 +36,7 @@ class Board extends React.Component {
 
     let grid = this.state.grid;
 
-    if(grid.blockCanMoveDown()){
+    if(grid.blockCanMoveDown(this.state.grid.getActiveBlock())){
       grid.getActiveBlock().moveDown();
     }
     else{
@@ -77,13 +77,13 @@ class Board extends React.Component {
     if(keyCode === 82){ // r key
       this.props.restartGame();
     }
-    if(keyCode === 37 && grid.blockCanMoveLeft()){ // Left arrow
+    if(keyCode === 37 && grid.blockCanMoveLeft(grid.getActiveBlock())){ // Left arrow
       grid.getActiveBlock().moveLeft();
     }
-    else if(keyCode === 39 && grid.blockCanMoveRight()){ // Right arrow
+    else if(keyCode === 39 && grid.blockCanMoveRight(grid.getActiveBlock())){ // Right arrow
       grid.getActiveBlock().moveRight();
     }
-    else if(keyCode === 38 && grid.blockCanRotate()){ // Up arrow
+    else if(keyCode === 38 && grid.blockCanRotate(grid.getActiveBlock())){ // Up arrow
       grid.getActiveBlock().rotate();
     }
     else if(keyCode === 40){ // Down arrow
