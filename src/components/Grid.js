@@ -18,29 +18,11 @@ class Grid {
     this.cells.unshift(Array(C.BOARD_WIDTH_CELLS).fill(null));
   }
 
-  blockCanMoveDown = (block) => {
-    if(block.getRowToBottomNum() > C.BOARD_HEIGHT_CELLS){
-      return false;
-    }
+  blockCanMoveDown = (block) => this.verifyBlockMoveValid(block, {rowChange: 1});
 
-    return this.verifyBlockMoveValid(block, {rowChange: 1});
-  }
+  blockCanMoveLeft = (block) => this.verifyBlockMoveValid(block, {colChange: -1});
 
-  blockCanMoveLeft = (block) => {
-    if(block.getColToLeftNum() < 0){
-      return false;
-    }
-
-    return this.verifyBlockMoveValid(block, {colChange: -1});
-  }
-
-  blockCanMoveRight = (block) => {
-    if(block.getColToRightNum() > C.BOARD_WIDTH_CELLS){
-      return false;
-    }
-
-    return this.verifyBlockMoveValid(block, {colChange: 1});
-  }
+  blockCanMoveRight = (block) => this.verifyBlockMoveValid(block, {colChange: 1});
 
   blockCanRotate = (block) => this.verifyBlockMoveValid(block, {}, block.getRotation());
      
@@ -55,8 +37,18 @@ class Grid {
     let defaultChange = {rowChange: 0, colChange: 0};
     change = {...defaultChange, ...change};
 
+    // Shape might also be a rotated shape
     let width = shape[0].length;
     let height = shape.length;
+
+    // Bounds verification
+    if(block.getRow() + change.rowChange < 0
+        || block.getRow() + height + change.rowChange > C.BOARD_HEIGHT_CELLS
+        || block.getCol() + width + change.colChange > C.BOARD_WIDTH_CELLS
+        || block.getCol() + change.colChange < 0
+      ){
+      return false;
+    }
 
     for(let i = 0; i < width; i++){
       for(let j = 0; j < height; j++){
