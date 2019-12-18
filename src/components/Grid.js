@@ -71,9 +71,6 @@ class Grid {
     return true;
   }
 
-  // Overlays block onto view
-  drawViewWithBlock = (block, view) => Grid.addBlockToCells(block, view);
-
   // Stores the input block in the grid
   storeBlock = (block) => Grid.addBlockToCells(block, this.cells)
 
