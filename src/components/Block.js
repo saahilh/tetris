@@ -15,6 +15,7 @@ class Block {
 
   getHeight = () => this.getShape().length;
 
+  // Assumes width is constant throughout the block! This will fail to work if a block has rows of different size.
   getWidth = () => this.getShape()[0].length;
 
   getColToLeftNum = () => this.getCol() - 1;

@@ -85,8 +85,8 @@ class Grid {
   storeBlock = (block) => {
     let shape = block.getShape();
 
-    for(let i = 0; i < shape.length; i++){
-      for(let j = 0; j < shape[i].length; j++){
+    for(let i = 0; i < block.getHeight(); i++){
+      for(let j = 0; j < block.getWidth(); j++){
         if(shape[i][j]){
           this.setCell(block.getRow() + i, block.getCol() + j, shape[i][j]);
         }
