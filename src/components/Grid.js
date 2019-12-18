@@ -12,6 +12,7 @@ class Grid {
     this.cells[row][col] = value;
   }
 
+  // Removes a row and adds a new row to the top of the grid
   clearRow = (rowNum) => {
     this.cells.splice(rowNum, 1);
     this.cells.unshift(Array(C.BOARD_WIDTH_CELLS).fill(null));
@@ -22,7 +23,7 @@ class Grid {
       return false;
     }
 
-    return this.verifyBlockMoveValid(block, {rowChange: 1, colChange: 0});
+    return this.verifyBlockMoveValid(block, {rowChange: 1});
   }
 
   blockCanMoveLeft = (block) => {
@@ -30,7 +31,7 @@ class Grid {
       return false;
     }
 
-    return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: -1});
+    return this.verifyBlockMoveValid(block, {colChange: -1});
   }
 
   blockCanMoveRight = (block) => {
@@ -38,12 +39,10 @@ class Grid {
       return false;
     }
 
-    return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: 1});
+    return this.verifyBlockMoveValid(block, {colChange: 1});
   }
 
-  blockCanRotate = (block) => {
-    return this.verifyBlockMoveValid(block, {rowChange: 0, colChange: 0}, block.getRotation());
-  }
+  blockCanRotate = (block) => this.verifyBlockMoveValid(block, {}, block.getRotation());
      
   /** 
    *  Sweeps over an area to verify a block can be moved into that area
@@ -52,7 +51,10 @@ class Grid {
    *      colChange: new target col position relative to current col position
    *        positive = right, negative = left
    */
-  verifyBlockMoveValid = (block, change = {rowChange: 0, colChange: 0}, shape = block.getShape()) => {
+  verifyBlockMoveValid = (block, change = {}, shape = block.getShape()) => {
+    let defaultChange = {rowChange: 0, colChange: 0};
+    change = {...defaultChange, ...change};
+
     let width = shape[0].length;
     let height = shape.length;
 
@@ -72,6 +74,7 @@ class Grid {
 
   getView = () => this.cells.map((row) => [...row]);
 
+  // Overlays block onto view and returns the result as a new grid rather than as a reference
   drawViewWithBlock = (view, block) => {
     // Create copy of cells to avoid modifying current saved list
     let shape = block.getShape();
@@ -87,6 +90,7 @@ class Grid {
     return view;
   }
 
+  // Stores the input block in the grid
   storeBlock = (block) => {
     let shape = block.getShape();
 
