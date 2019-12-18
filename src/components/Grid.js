@@ -11,6 +11,13 @@ class Grid {
   setCell = (row, col, value) => {
     this.cells[row][col] = value;
   }
+  
+  // Returns a new copy of the cells
+  getCells = () => this.cells.map((row) => [...row]);
+
+  setCells = (cells) => {
+    this.cells = cells;
+  }
 
   // Removes a row and adds a new row to the top of the grid
   clearRow = (rowNum) => {
@@ -64,34 +71,25 @@ class Grid {
     return true;
   }
 
-  getView = () => this.cells.map((row) => [...row]);
-
   // Overlays block onto view
-  drawViewWithBlock = (view, block) => {
-    let shape = block.getShape();
-
-    for(let i = 0; i < block.getHeight(); i++){
-      for(let j = 0; j < block.getWidth(); j++){
-        if(shape[i][j]){
-          view[i + block.getRow()][j + block.getCol()] = shape[i][j];
-        }
-      }
-    }
-
-    return view;
-  }
+  drawViewWithBlock = (block, view) => this.addBlockToCells(block, view);
 
   // Stores the input block in the grid
-  storeBlock = (block) => {
+  storeBlock = (block) => this.addBlockToCells(block, this.cells)
+
+  // Stores a block in the input cells
+  addBlockToCells(block, cells){
     let shape = block.getShape();
 
     for(let i = 0; i < block.getHeight(); i++){
       for(let j = 0; j < block.getWidth(); j++){
         if(shape[i][j]){
-          this.setCell(block.getRow() + i, block.getCol() + j, shape[i][j]);
+          cells[block.getRow() + i][block.getCol() + j] = shape[i][j];
         }
       }
     }
+
+    return cells;
   }
 }
 

@@ -13,7 +13,7 @@ class Board extends React.Component {
     this.state = {
       ticker: setInterval(() => this.update(), 1000),
       grid: grid,
-      gridView: grid.getView(),
+      gridView: grid.getCells(),
       activeBlock: Block.getRandomBlock()
     };
   }
@@ -23,7 +23,7 @@ class Board extends React.Component {
   setActiveBlock = () => {
     this.setState({
       activeBlock: Block.getRandomBlock()
-    })
+    });
   }
 
   componentDidMount = () => this.update();
@@ -33,12 +33,12 @@ class Board extends React.Component {
   redraw = (showBlock = true) => {
     if(showBlock){
       this.setState({
-        gridView: this.state.grid.drawViewWithBlock(this.state.grid.getView(), this.getActiveBlock())
+        gridView: this.state.grid.drawViewWithBlock(this.getActiveBlock(), this.state.grid.getCells())
       });
     }
     else{
       this.setState({
-        gridView: this.state.grid.getView()
+        gridView: this.state.grid.getCells()
       });
     }
   }
