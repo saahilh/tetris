@@ -88,6 +88,21 @@ class Grid {
 
     return cells;
   }
+
+  
+  blockHasCollided = (block) => {
+    let shape = block.getShape();
+
+    for(let i = 0; i < block.getHeight(); i++){
+      for(let j = 0; j < block.getWidth(); j++){
+        if(shape[i][j] && this.cells[block.getRow() + i][block.getCol() + j]){
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
 }
 
 export default Grid;
