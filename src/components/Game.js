@@ -28,6 +28,11 @@ class Game extends React.Component {
     });
   }
 
+  gameOver = () => {
+    alert(`Game over! Score was ${this.state.score}`)
+    this.props.restartGame();
+  }
+
   getStyle = () => ({
     display: 'table',
     margin: '0 auto'
@@ -38,7 +43,7 @@ class Game extends React.Component {
       <div style={this.getStyle()}>
         <Timer />
         <Score score={this.getScore()} />
-        <Board addScore={this.addScore} restartGame={this.props.restartGame} />
+        <Board addScore={this.addScore} restartGame={this.props.restartGame} gameOver={this.gameOver}/>
       </div>
     );
   }

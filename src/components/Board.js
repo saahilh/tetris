@@ -56,7 +56,13 @@ class Board extends React.Component {
       let scoreToAdd = this.clearFilledRows();
       grid.addScore(scoreToAdd);
       this.redraw(false);
-      this.setActiveBlock(Block.getRandomBlock());
+
+      let nextBlock = Block.getRandomBlock();
+      this.setActiveBlock(nextBlock);
+      
+      if(grid.blockHasCollided(nextBlock)){
+        this.props.gameOver();
+      }
     }
   }
 
