@@ -17,13 +17,11 @@ class Block {
 
   getWidth = () => this.getShape()[0].length;
 
-  getLeftSideCol = () => this.getCol();
+  getColToLeftNum = () => this.getCol() - 1;
 
-  getRightSideCol = () => this.getCol() + this.getWidth();
+  getColToRightNum = () => this.getCol() + this.getWidth() + 1;
 
-  getTopSideRow = () => this.getRow();
-
-  getBottomSideRow = () => this.getRow() + this.getHeight();
+  getRowToBottomNum = () => this.getRow() + this.getHeight() + 1;
 
   canMoveLeft = () => this.col > 0;
 
