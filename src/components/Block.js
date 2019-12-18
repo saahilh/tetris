@@ -118,6 +118,7 @@ class OBlock extends Block {
       [this.color, this.color]
     ];
 
+    // Move block to appropriate starting point"
     this.col = this.col + 1;
   }
 }

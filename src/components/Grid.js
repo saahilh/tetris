@@ -44,8 +44,8 @@ class Grid {
     // Bounds verification
     if(block.getRow() + change.rowChange < 0
         || block.getRow() + height + change.rowChange > C.BOARD_HEIGHT_CELLS
-        || block.getCol() + width + change.colChange > C.BOARD_WIDTH_CELLS
         || block.getCol() + change.colChange < 0
+        || block.getCol() + width + change.colChange > C.BOARD_WIDTH_CELLS
       ){
       return false;
     }
