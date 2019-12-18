@@ -1,6 +1,5 @@
 import React from 'react';
-import Timer from './Timer';
-import Score from './Score';
+import GameInfo from './GameInfo';
 import Board from './Board';
 
 class Game extends React.Component {
@@ -8,17 +7,28 @@ class Game extends React.Component {
     super();
 
     this.state = {
-      score: 0
+      score: 0,
+      startTime: this.getTime(),
+      currentTime: this.getTime(),
+      timer: setInterval(() => {
+          this.setState({ currentTime: this.getTime() });
+      }, 1000)
     }
   }
+
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
+
+  getTime = () => Math.floor(Date.now() / 1000);
   
-  resetGame() {
+  resetGame = () => {
     this.setState({
       score: 0
     });
   }
 
-  getScore() {
+  getScore = () => {
     return this.state.score;
   }
 
@@ -36,18 +46,18 @@ class Game extends React.Component {
   getStyle = () => ({
     display: 'grid',
     margin: '50px',
-    gridTemplateAreas: `"left-gutter board board timer right-gutter"
-                        "left-gutter board board score right-gutter"
-                        "left-gutter board board space right-gutter"
-                        "left-gutter board board space right-gutter"
+    gridTemplateAreas: `"left-gutter board timer right-gutter"
+                        "left-gutter board score right-gutter"
+                        "left-gutter board space right-gutter"
+                        "left-gutter board space right-gutter"
                        `
   });
 
   render () {
     return(
       <div style={this.getStyle()}>
-        <Timer />
-        <Score score={this.getScore()} />
+        <GameInfo gridArea="timer" heading="Time" info={`${this.state.currentTime - this.state.startTime}`} />
+        <GameInfo gridArea="score" heading="Score" info={`${this.getScore()}`} />
         <Board addScore={this.addScore} restartGame={this.props.restartGame} gameOver={this.gameOver}/>
       </div>
     );
