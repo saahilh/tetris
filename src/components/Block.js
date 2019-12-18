@@ -17,6 +17,14 @@ class Block {
 
   getWidth = () => this.getShape()[0].length;
 
+  getLeftSideCol = () => this.getCol();
+
+  getRightSideCol = () => this.getCol() + this.getWidth();
+
+  getTopSideRow = () => this.getRow();
+
+  getBottomSideRow = () => this.getRow() + this.getHeight();
+
   canMoveLeft = () => this.col > 0;
 
   canMoveDown = () => this.row + this.getHeight() < C.BOARD_HEIGHT_CELLS;

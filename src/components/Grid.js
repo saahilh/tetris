@@ -19,7 +19,7 @@ class Grid {
   }
 
   blockCanMoveDown = (block) => {
-    if(block.getRow() + block.getHeight() + 1 > C.BOARD_HEIGHT_CELLS){
+    if(block.getBottomSideRow() + 1 > C.BOARD_HEIGHT_CELLS){
       return false;
     }
 
@@ -27,7 +27,7 @@ class Grid {
   }
 
   blockCanMoveLeft = (block) => {
-    if(block.getCol() - 1 < 0){
+    if(block.getLeftSideCol() - 1 < 0){
       return false;
     }
 
@@ -35,7 +35,7 @@ class Grid {
   }
 
   blockCanMoveRight = (block) => {
-    if(block.getCol() + block.getWidth() + 1 > C.BOARD_WIDTH_CELLS){
+    if(block.getRightSideCol() + 1 > C.BOARD_WIDTH_CELLS){
       return false;
     }
 
