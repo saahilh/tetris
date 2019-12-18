@@ -4,7 +4,8 @@ class Timer extends React.Component {
     getStyle = () => ({
         textAlign: 'center',
         fontSize: '2em',
-        paddingBottom: '20px'
+        paddingBottom: '20px',
+        gridArea: 'timer'
     });
 
     getTime = () => Math.floor(Date.now() / 1000);

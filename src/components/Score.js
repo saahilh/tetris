@@ -4,7 +4,8 @@ class Score extends React.Component {
   getStyle = () => ({
     textAlign: 'center',
     fontSize: '2em',
-    paddingBottom: '20px'
+    paddingBottom: '20px',
+    gridArea: 'score'
   });
 
   render() {

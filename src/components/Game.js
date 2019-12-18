@@ -34,8 +34,13 @@ class Game extends React.Component {
   }
 
   getStyle = () => ({
-    display: 'table',
-    margin: '0 auto'
+    display: 'grid',
+    margin: '50px',
+    gridTemplateAreas: `"left-gutter board board timer right-gutter"
+                        "left-gutter board board score right-gutter"
+                        "left-gutter board board space right-gutter"
+                        "left-gutter board board space right-gutter"
+                       `
   });
 
   render () {

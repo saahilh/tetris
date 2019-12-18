@@ -124,7 +124,8 @@ class Board extends React.Component {
   getStyle = () => ({
     display: 'grid',
     gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
-    gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`
+    gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`,
+    gridArea: 'board'
   });
 
   render () {
