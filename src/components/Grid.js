@@ -66,13 +66,12 @@ class Grid {
 
   getView = () => this.cells.map((row) => [...row]);
 
-  // Overlays block onto view and returns the result as a new grid rather than as a reference
+  // Overlays block onto view
   drawViewWithBlock = (view, block) => {
-    // Create copy of cells to avoid modifying current saved list
     let shape = block.getShape();
 
-    for(let i = 0; i < shape.length; i++){
-      for(let j = 0; j < shape[i].length; j++){
+    for(let i = 0; i < block.getHeight(); i++){
+      for(let j = 0; j < block.getWidth(); j++){
         if(shape[i][j]){
           view[i + block.getRow()][j + block.getCol()] = shape[i][j];
         }
