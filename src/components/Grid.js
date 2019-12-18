@@ -72,13 +72,13 @@ class Grid {
   }
 
   // Overlays block onto view
-  drawViewWithBlock = (block, view) => this.addBlockToCells(block, view);
+  drawViewWithBlock = (block, view) => Grid.addBlockToCells(block, view);
 
   // Stores the input block in the grid
-  storeBlock = (block) => this.addBlockToCells(block, this.cells)
+  storeBlock = (block) => Grid.addBlockToCells(block, this.cells)
 
   // Stores a block in the input cells
-  addBlockToCells(block, cells){
+  static addBlockToCells(block, cells){
     let shape = block.getShape();
 
     for(let i = 0; i < block.getHeight(); i++){
