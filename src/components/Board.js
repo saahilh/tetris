@@ -60,7 +60,7 @@ class Board extends React.Component {
       let nextBlock = Block.getRandomBlock();
       this.setActiveBlock(nextBlock);
       
-      if(grid.blockHasCollided(nextBlock)){
+      if(grid.blockOverlapsGrid(nextBlock)){
         this.props.gameOver();
       }
     }

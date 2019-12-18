@@ -89,8 +89,8 @@ class Grid {
     return cells;
   }
 
-  
-  blockHasCollided = (block) => {
+  // Use to check for game over conditions
+  blockOverlapsGrid = (block) => {
     let shape = block.getShape();
 
     for(let i = 0; i < block.getHeight(); i++){
