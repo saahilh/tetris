@@ -20,9 +20,9 @@ class Board extends React.Component {
 
   getActiveBlock = () => this.state.activeBlock;
 
-  setActiveBlock = () => {
+  setActiveBlock = (block) => {
     this.setState({
-      activeBlock: Block.getRandomBlock()
+      activeBlock: block
     });
   }
 
