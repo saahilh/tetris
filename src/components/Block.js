@@ -70,9 +70,7 @@ class Block {
     return newShape;
   }
 
-  rotate = () => {
-    this.setShape(this.getRotation());
-  }
+  rotate = () => this.setShape(this.getRotation());
 
   static getRandomBlock(startCoordinates) {
     let randomBlockTypeIndex = Math.floor(Math.random() * C.BLOCK_TYPES.length);
