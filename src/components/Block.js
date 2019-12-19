@@ -2,9 +2,13 @@ import * as C from '../constants';
 
 class Block {
   constructor(startCoordinates) {
+    this.resetPosition();
+    this.rotation = 0;
+  }
+
+  resetPosition = () => {
     this.col = C.BLOCK_START_COORDINATES.col;
     this.row = C.BLOCK_START_COORDINATES.row;
-    this.rotation = 0;
   }
 
   getShape = () => 'undefined';
@@ -117,6 +121,14 @@ class OBlock extends Block {
       [this.color, this.color],
       [this.color, this.color]
     ];
+
+    // Move block to appropriate starting point"
+    this.col = this.col + 1;
+  }
+
+  resetPosition = () => {
+    this.col = C.BLOCK_START_COORDINATES.col;
+    this.row = C.BLOCK_START_COORDINATES.row;
 
     // Move block to appropriate starting point"
     this.col = this.col + 1;

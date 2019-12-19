@@ -89,6 +89,23 @@ class Board extends React.Component {
     return score;
   }
 
+  getSavedBlock = () => this.state.savedBlock;
+
+  getNextBlock = () => Block.getRandomBlock();
+
+  swapSavedBlock = () => {
+    let newActiveBlock = this.getSavedBlock() ? this.getSavedBlock() : this.getNextBlock();
+    let newSavedBlock = this.getActiveBlock();
+
+    this.setState({
+      activeBlock: newActiveBlock,
+      savedBlock: newSavedBlock
+    });
+
+    newActiveBlock.resetPosition();
+    newSavedBlock.resetPosition();
+  }
+
   handleKeyDown = (event) => {
     let keyCode = event.keyCode; 
     let grid = this.state.grid;
@@ -115,6 +132,9 @@ class Board extends React.Component {
       }
       else if(keyCode === 38 && grid.blockCanRotate(this.getActiveBlock())){ // Up arrow
         this.getActiveBlock().rotate();
+      }
+      else if(keyCode === 16){ // Shift key
+        this.swapSavedBlock();
       }
       
       this.redraw();
