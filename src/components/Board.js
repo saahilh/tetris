@@ -14,7 +14,7 @@ class Board extends React.Component {
       ticker: setInterval(() => this.update(), 1000),
       grid: grid,
       gridView: grid.getCells(),
-      activeBlock: Block.getRandomBlock()
+      activeBlock: this.getNextBlock()
     };
   }
 
@@ -57,7 +57,7 @@ class Board extends React.Component {
       grid.addScore(scoreToAdd);
       this.redraw(false);
 
-      let nextBlock = Block.getRandomBlock();
+      let nextBlock = this.getNextBlock();
       this.setActiveBlock(nextBlock);
       
       if(grid.blockOverlapsGrid(nextBlock)){
