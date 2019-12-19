@@ -14,8 +14,10 @@ class Board extends React.Component {
       ticker: setInterval(() => this.update(), 1000),
       grid: grid,
       gridView: grid.getCells(),
-      activeBlock: this.getNextBlock()
+      activeBlock: Block.getRandomBlock()
     };
+
+    this.setNewNextBlock();
   }
 
   getActiveBlock = () => this.state.activeBlock;
@@ -57,7 +59,7 @@ class Board extends React.Component {
       grid.addScore(scoreToAdd);
       this.redraw(false);
 
-      let nextBlock = this.getNextBlock();
+      let nextBlock = this.consumeNextBlock();
       this.setActiveBlock(nextBlock);
       
       if(grid.blockOverlapsGrid(nextBlock)){
@@ -91,10 +93,22 @@ class Board extends React.Component {
 
   getSavedBlock = () => this.state.savedBlock;
 
-  getNextBlock = () => Block.getRandomBlock();
+  getNextBlock = () => this.state.nextBlock;
+
+  setNewNextBlock = () => {
+    this.setState({
+      nextBlock: Block.getRandomBlock()
+    });
+  }
+
+  consumeNextBlock = () => {
+    let nextBlock = this.getNextBlock();
+    this.setNewNextBlock();
+    return nextBlock;
+  }
 
   swapSavedBlock = () => {
-    let newActiveBlock = this.getSavedBlock() ? this.getSavedBlock() : this.getNextBlock();
+    let newActiveBlock = this.getSavedBlock() ? this.getSavedBlock() : this.consumeNextBlock();
     let newSavedBlock = this.getActiveBlock();
 
     this.setState({
