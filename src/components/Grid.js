@@ -12,7 +12,7 @@ class Grid {
     this.cells[row][col] = value;
   }
   
-  // Returns a new copy of the cells
+  // Returns a new copy of the cells rather than a reference to the existing cells
   getCells = () => this.cells.map((row) => [...row]);
 
   setCells = (cells) => {
@@ -44,7 +44,7 @@ class Grid {
     let defaultChange = {rowChange: 0, colChange: 0};
     change = {...defaultChange, ...change};
 
-    // Shape might also be a rotated shape
+    // Shape might also be a rotated shape, so can't use block.getWidth() and block.getHeight()
     let width = shape[0].length;
     let height = shape.length;
 
