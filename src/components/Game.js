@@ -1,67 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
 import GameInfo from './GameInfo';
 import Board from './Board';
 
-class Game extends React.Component {
-  constructor() {
-    super();
+const getTime = () => Math.floor(Date.now() / 1000);
 
-    this.state = {
-      score: 0,
-      startTime: this.getTime(),
-      currentTime: this.getTime(),
-      timer: setInterval(() => {
-          this.setState({ currentTime: this.getTime() });
-      }, 1000)
+function Game(props) {
+  const {startTime, restartGame} = props;
+  const [currentTime, setCurrentTime] = useState(getTime());
+  const [score, setScore] = useState(0);
+
+  useState(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(getTime());
+    }, 1000)
+
+    return function cleanup() {
+      clearInterval(timer);
     }
+  }, [])
+
+  const addScore = () => setScore(prev => prev + 1);
+
+  const gameOver = () => {
+    alert(`Game over! Score was ${score}`)
+    props.restartGame();
   }
 
-  componentWillUnmount() {
-    clearInterval(this.state.timer);
-  }
-
-  getTime = () => Math.floor(Date.now() / 1000);
-  
-  resetGame = () => {
-    this.setState({
-      score: 0
-    });
-  }
-
-  getScore = () => {
-    return this.state.score;
-  }
-
-  addScore = (score) => {
-    this.setState({
-      score: this.state.score + score
-    });
-  }
-
-  gameOver = () => {
-    alert(`Game over! Score was ${this.state.score}`)
-    this.props.restartGame();
-  }
-
-  getStyle = () => ({
+  const getStyle = () => ({
     display: 'grid',
     margin: '50px',
-    gridTemplateAreas: `"left-gutter board timer right-gutter"
-                        "left-gutter board score right-gutter"
-                        "left-gutter board space right-gutter"
-                        "left-gutter board space right-gutter"
-                       `
+    gridTemplateAreas: 
+        `"left-gutter board timer right-gutter"
+        "left-gutter board score right-gutter"
+        "left-gutter board space right-gutter"
+        "left-gutter board space right-gutter"
+        `
   });
 
-  render () {
-    return(
-      <div style={this.getStyle()}>
-        <GameInfo gridArea="timer" heading="Time" info={`${this.state.currentTime - this.state.startTime}`} />
-        <GameInfo gridArea="score" heading="Score" info={`${this.getScore()}`} />
-        <Board addScore={this.addScore} restartGame={this.props.restartGame} gameOver={this.gameOver}/>
-      </div>
-    );
-  }
+  return(
+    <div style={getStyle()}>
+      <GameInfo gridArea="timer" heading="Time" info={`${currentTime - startTime}`} />
+      <GameInfo gridArea="score" heading="Score" info={`${score}`} />
+      <Board addScore={addScore} restartGame={restartGame} gameOver={gameOver}/>
+    </div>
+  );
 }
 
 export default Game;

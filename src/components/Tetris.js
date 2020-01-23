@@ -5,7 +5,11 @@ function Tetris(props) {
   const [newGame, setnewGame] = useState(false);
 
   return(
-    <Game key={newGame} restartGame={() => setnewGame(prev => !prev)} />
+    <Game 
+      key={newGame} 
+      restartGame={() => setnewGame(prev => !prev)} 
+      startTime={Math.floor(Date.now() / 1000)}
+    />
   );
 }
 
