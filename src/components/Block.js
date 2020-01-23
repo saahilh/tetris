@@ -1,10 +1,14 @@
 import * as C from '../constants';
 
 class Block {
-  constructor(startCoordinates) {
+  constructor() {
+    this.resetPosition();
+    this.rotation = 0;
+  }
+
+  resetPosition = () => {
     this.col = C.BLOCK_START_COORDINATES.col;
     this.row = C.BLOCK_START_COORDINATES.row;
-    this.rotation = 0;
   }
 
   getShape = () => 'undefined';
@@ -72,25 +76,25 @@ class Block {
 
   rotate = () => this.setShape(this.getRotation());
 
-  static getRandomBlock(startCoordinates) {
+  static getRandomBlock() {
     let randomBlockTypeIndex = Math.floor(Math.random() * C.BLOCK_TYPES.length);
     let blockType = C.BLOCK_TYPES[randomBlockTypeIndex];
 
     switch(blockType) {
       case 'I':
-        return new IBlock(startCoordinates);
+        return new IBlock();
       case 'O':
-        return new OBlock(startCoordinates);
+        return new OBlock();
       case 'L':
-        return new LBlock(startCoordinates);
+        return new LBlock();
       case 'J':
-        return new JBlock(startCoordinates);
+        return new JBlock();
       case 'Z':
-        return new ZBlock(startCoordinates);
+        return new ZBlock();
       case 'S':
-        return new SBlock(startCoordinates);
+        return new SBlock();
       case 'T':
-        return new TBlock(startCoordinates);
+        return new TBlock();
       default:
         throw new Error("Block type not found")
     }
@@ -98,8 +102,8 @@ class Block {
 }
 
 class IBlock extends Block {
-  constructor(startCoordinates) {
-    super(startCoordinates);
+  constructor() {
+    super();
 
     this.color = 'cyan';
     this.shape = [
@@ -109,8 +113,8 @@ class IBlock extends Block {
 }
 
 class OBlock extends Block {
-  constructor(startCoordinates) {
-    super(startCoordinates);
+  constructor() {
+    super();
 
     this.color = 'yellow';
     this.shape = [
@@ -118,14 +122,22 @@ class OBlock extends Block {
       [this.color, this.color]
     ];
 
-    // Move block to appropriate starting point"
+    // Move block to appropriate starting point
+    this.col = this.col + 1;
+  }
+
+  resetPosition = () => {
+    this.col = C.BLOCK_START_COORDINATES.col;
+    this.row = C.BLOCK_START_COORDINATES.row;
+
+    // Move block to appropriate starting point
     this.col = this.col + 1;
   }
 }
 
 class LBlock extends Block {
-  constructor(startCoordinates) {
-    super(startCoordinates);
+  constructor() {
+    super();
 
     this.color = 'orange';
     this.shape = [
@@ -136,8 +148,8 @@ class LBlock extends Block {
 }
 
 class JBlock extends Block {
-  constructor(startCoordinates) {
-    super(startCoordinates);
+  constructor() {
+    super();
 
     this.color = 'blue';
     this.shape = [
@@ -148,8 +160,8 @@ class JBlock extends Block {
 }
 
 class ZBlock extends Block {
-  constructor(startCoordinates) {
-    super(startCoordinates);
+  constructor() {
+    super();
 
     this.color = 'red';
     this.shape = [
@@ -160,8 +172,8 @@ class ZBlock extends Block {
 }
 
 class SBlock extends Block {
-  constructor(startCoordinates) {
-    super(startCoordinates);
+  constructor() {
+    super();
 
     this.color = 'green';
     this.shape = [
@@ -172,8 +184,8 @@ class SBlock extends Block {
 }
 
 class TBlock extends Block {
-  constructor(startCoordinates) {
-    super(startCoordinates);
+  constructor() {
+    super();
     
     this.color = 'purple';
     this.shape = [

@@ -21,7 +21,8 @@ class Board extends React.Component {
       ticker: setInterval(() => this.update(), 1000),
       grid: grid,
       gridView: grid.getCells(),
-      activeBlock: Block.getRandomBlock()
+      activeBlock: Block.getRandomBlock(),
+      nextBlock: Block.getRandomBlock()
     };
   }
 
@@ -56,13 +57,65 @@ class Board extends React.Component {
       grid.addScore(scoreToAdd);
       this.redraw(false);
 
-      let nextBlock = Block.getRandomBlock();
+      let nextBlock = this.consumeNextBlock();
       this.setActiveBlock(nextBlock);
       
       if(grid.blockOverlapsGrid(nextBlock)){
         this.props.gameOver();
       }
     }
+  }
+
+  clearFilledRows = () => {
+    let grid = this.state.grid;
+    let score = 0;
+
+    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
+      let filled = true;
+
+      for(let j = 0; j < C.BOARD_WIDTH_CELLS; j++){
+        if(!grid.getCell(i, j)){
+          filled = false;
+          break;
+        }
+      }
+
+      if(filled){
+        grid.clearRow(i);
+        score += 1;
+      }
+    }
+
+    return score;
+  }
+
+  getSavedBlock = () => this.state.savedBlock;
+
+  getNextBlock = () => this.state.nextBlock;
+
+  setNewNextBlock = () => {
+    this.setState({
+      nextBlock: Block.getRandomBlock()
+    });
+  }
+
+  consumeNextBlock = () => {
+    let nextBlock = this.getNextBlock();
+    this.setNewNextBlock();
+    return nextBlock;
+  }
+
+  swapSavedBlock = () => {
+    let newActiveBlock = this.getSavedBlock() ? this.getSavedBlock() : this.consumeNextBlock();
+    let newSavedBlock = this.state.activeBlock;
+
+    this.setState({
+      activeBlock: newActiveBlock,
+      savedBlock: newSavedBlock
+    });
+
+    newActiveBlock.resetPosition();
+    newSavedBlock.resetPosition();
   }
 
   handleKeyDown = (event) => {
@@ -86,6 +139,9 @@ class Board extends React.Component {
         this.state.activeBlock.moveRight();
       } else if(keyCode === 38 && grid.blockCanRotate(this.state.activeBlock)){ // Up arrow
         this.state.activeBlock.rotate();
+      }
+      else if(keyCode === 16){ // Shift key
+        this.swapSavedBlock();
       }
       
       this.redraw();
