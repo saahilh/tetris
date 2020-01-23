@@ -103,6 +103,28 @@ class Grid {
 
     return false;
   }
+
+  clearFilledRows = () => {
+    let score = 0;
+
+    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
+      let filled = true;
+
+      for(let j = 0; j < C.BOARD_WIDTH_CELLS; j++){
+        if(!this.getCell(i, j)){
+          filled = false;
+          break;
+        }
+      }
+
+      if(filled){
+        this.clearRow(i);
+        score += 1;
+      }
+    }
+
+    return score;
+  }
 }
 
 export default Grid;

@@ -4,6 +4,13 @@ import Cell from './Cell';
 import * as C from '../constants';
 import Grid from './Grid';
 
+const getStyle = () => ({
+  display: 'grid',
+  gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
+  gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`,
+  gridArea: 'board'
+});
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -18,13 +25,7 @@ class Board extends React.Component {
     };
   }
 
-  getActiveBlock = () => this.state.activeBlock;
-
-  setActiveBlock = (block) => {
-    this.setState({
-      activeBlock: block
-    });
-  }
+  setActiveBlock = (block) => this.setState({activeBlock: block});
 
   componentDidMount = () => this.update();
 
@@ -33,10 +34,9 @@ class Board extends React.Component {
   redraw = (showBlock = true) => {
     if(showBlock){
       this.setState({
-        gridView: Grid.addBlockToCells(this.getActiveBlock(), this.state.grid.getCells())
+        gridView: Grid.addBlockToCells(this.state.activeBlock, this.state.grid.getCells())
       });
-    }
-    else{
+    } else {
       this.setState({
         gridView: this.state.grid.getCells()
       });
@@ -48,12 +48,11 @@ class Board extends React.Component {
 
     let grid = this.state.grid;
 
-    if(grid.blockCanMoveDown(this.getActiveBlock())){
-      this.getActiveBlock().moveDown();
-    }
-    else{
-      grid.storeBlock(this.getActiveBlock());
-      let scoreToAdd = this.clearFilledRows();
+    if(grid.blockCanMoveDown(this.state.activeBlock)){
+      this.state.activeBlock.moveDown();
+    } else {
+      grid.storeBlock(this.state.activeBlock);
+      let scoreToAdd = grid.clearFilledRows();
       grid.addScore(scoreToAdd);
       this.redraw(false);
 
@@ -66,71 +65,36 @@ class Board extends React.Component {
     }
   }
 
-  clearFilledRows = () => {
-    let grid = this.state.grid;
-    let score = 0;
-
-    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
-      let filled = true;
-
-      for(let j = 0; j < C.BOARD_WIDTH_CELLS; j++){
-        if(!grid.getCell(i, j)){
-          filled = false;
-          break;
-        }
-      }
-
-      if(filled){
-        grid.clearRow(i);
-        score += 1;
-      }
-    }
-
-    return score;
-  }
-
   handleKeyDown = (event) => {
     let keyCode = event.keyCode; 
     let grid = this.state.grid;
 
     if(keyCode === 82){ // r key
       this.props.restartGame();
-    }
-    else if(keyCode === 32){ // Space bar
-      while(grid.blockCanMoveDown(this.getActiveBlock())){
+    } else if(keyCode === 32){ // Space bar
+      while(grid.blockCanMoveDown(this.state.activeBlock)){
         this.update();
       }
       
       this.update();
-    }
-    else if(keyCode === 40){ // Down arrow
+    } else if(keyCode === 40){ // Down arrow
       this.update();
-    }
-    else{
-      if(keyCode === 37 && grid.blockCanMoveLeft(this.getActiveBlock())){ // Left arrow
-        this.getActiveBlock().moveLeft();
-      }
-      else if(keyCode === 39 && grid.blockCanMoveRight(this.getActiveBlock())){ // Right arrow
-        this.getActiveBlock().moveRight();
-      }
-      else if(keyCode === 38 && grid.blockCanRotate(this.getActiveBlock())){ // Up arrow
-        this.getActiveBlock().rotate();
+    } else{
+      if(keyCode === 37 && grid.blockCanMoveLeft(this.state.activeBlock)){ // Left arrow
+        this.state.activeBlock.moveLeft();
+      } else if(keyCode === 39 && grid.blockCanMoveRight(this.state.activeBlock)){ // Right arrow
+        this.state.activeBlock.moveRight();
+      } else if(keyCode === 38 && grid.blockCanRotate(this.state.activeBlock)){ // Up arrow
+        this.state.activeBlock.rotate();
       }
       
       this.redraw();
     }
   }
 
-  getStyle = () => ({
-    display: 'grid',
-    gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
-    gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`,
-    gridArea: 'board'
-  });
-
   render () {
     return (
-      <div tabIndex="0" style={this.getStyle()} onKeyDown={this.handleKeyDown}>
+      <div tabIndex="0" style={getStyle()} onKeyDown={this.handleKeyDown}>
         { 
           this.state.gridView.map(
             (cellColorList) => cellColorList.map((cellColor) => <Cell cellColor={cellColor}/>)
