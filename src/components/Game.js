@@ -1,23 +1,11 @@
 import React, {useState} from 'react';
 import GameInfo from './GameInfo';
+import Timer from './Timer';
 import Board from './Board';
 
-const getTime = () => Math.floor(Date.now() / 1000);
-
 function Game(props) {
-  const {startTime, restartGame} = props;
-  const [currentTime, setCurrentTime] = useState(getTime());
+  const {restartGame} = props;
   const [score, setScore] = useState(0);
-
-  useState(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(getTime());
-    }, 1000)
-
-    return function cleanup() {
-      clearInterval(timer);
-    }
-  }, [])
 
   const addScore = () => setScore(prev => prev + 1);
 
@@ -39,7 +27,7 @@ function Game(props) {
 
   return(
     <div style={getStyle()}>
-      <GameInfo gridArea="timer" heading="Time" info={`${currentTime - startTime}`} />
+      <Timer startTime={Math.floor(Date.now() / 1000)} />
       <GameInfo gridArea="score" heading="Score" info={`${score}`} />
       <Board addScore={addScore} restartGame={restartGame} gameOver={gameOver}/>
     </div>

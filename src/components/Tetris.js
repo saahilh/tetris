@@ -7,8 +7,7 @@ function Tetris(props) {
   return(
     <Game 
       key={newGame} 
-      restartGame={() => setnewGame(prev => !prev)} 
-      startTime={Math.floor(Date.now() / 1000)}
+      restartGame={() => setnewGame(prev => !prev)}
     />
   );
 }
