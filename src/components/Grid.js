@@ -6,16 +6,6 @@ class Grid {
     this.addScore = addScore;
   }
 
-  getCell = (row, col) => this.cells[row][col];
-
-  setCell = (row, col, value) => {
-    this.cells[row][col] = value;
-  }
-  
-  setCells = (cells) => {
-    this.cells = cells;
-  }
-
   // Removes a row and adds a new row to the top of the grid
   clearRow = (rowNum) => {
     this.cells.splice(rowNum, 1);
