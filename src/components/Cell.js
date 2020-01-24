@@ -5,12 +5,4 @@ const getStyle = cellColor => ({
   backgroundColor: cellColor
 });
 
-class Cell extends React.Component {
-  render() {
-    return(
-      <div className="cell" style={getStyle(this.props.cellColor)}></div>
-    );
-  }
-}
-
-export default Cell;
+export default (props) => <div className="cell" style={getStyle(props.cellColor)} />;
