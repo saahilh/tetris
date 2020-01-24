@@ -1,14 +1,14 @@
 import React from 'react';
 
+const getStyle = cellColor => ({
+  border: 'solid 1px black',
+  backgroundColor: cellColor
+});
+
 class Cell extends React.Component {
-  getStyle = (cellColor) => ({
-    border: 'solid 1px black',
-    backgroundColor: cellColor
-  });
-  
   render() {
     return(
-      <div className="cell" style={this.getStyle(this.props.cellColor)}></div>
+      <div className="cell" style={getStyle(this.props.cellColor)}></div>
     );
   }
 }
