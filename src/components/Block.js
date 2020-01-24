@@ -22,12 +22,6 @@ class Block {
   // Assumes width is constant throughout the block! This will fail to work if a block has rows of different size.
   getWidth = () => this.getShape()[0].length;
 
-  getColToLeftNum = () => this.getCol() - 1;
-
-  getColToRightNum = () => this.getCol() + this.getWidth() + 1;
-
-  getRowToBottomNum = () => this.getRow() + this.getHeight() + 1;
-
   canMoveLeft = () => this.col > 0;
 
   canMoveDown = () => this.row + this.getHeight() < C.BOARD_HEIGHT_CELLS;
