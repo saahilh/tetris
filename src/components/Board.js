@@ -153,7 +153,9 @@ class Board extends React.Component {
       <div tabIndex="0" style={getStyle()} onKeyDown={this.handleKeyDown}>
         { 
           this.state.gridView.map(
-            (cellColorList) => cellColorList.map((cellColor) => <Cell cellColor={cellColor}/>)
+            (cellColorList, x) => cellColorList.map(
+              (cellColor, y) => <Cell key={`${x},${y}`} cellColor={cellColor}/>
+            )
           )
         }
       </div>
