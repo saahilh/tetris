@@ -31,15 +31,14 @@ class Board extends React.Component {
   componentWillUnmount = () => clearInterval(this.state.ticker);
 
   redraw = (showBlock = true) => {
-    if(showBlock){
-      this.setState({
-        gridView: this.state.grid.addBlockToCells(this.state.activeBlock)
-      });
-    } else {
-      this.setState({
-        gridView: this.state.grid.cells
-      });
-    }
+    const gridView = 
+      showBlock
+        ? this.state.grid.addBlockToCells(this.state.activeBlock)
+        : this.state.grid.getCells()
+
+    this.setState({
+      gridView: gridView
+    });
   }
 
   update = () => {
