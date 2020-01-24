@@ -72,21 +72,25 @@ class Grid {
   }
 
   // Stores the input block in the grid
-  storeBlock = (block) => Grid.addBlockToCells(block, this.cells)
+  storeBlock = (block) => this.cells = this.addBlockToCells(block)
 
   // Stores a block in the input cells
-  static addBlockToCells(block, cells){
+  addBlockToCells(block){
     let shape = block.getShape();
+
+    const newCells = this.cells.map((row, y) => (
+      (y>=block.getRow() && (y < block.getRow() + block.getHeight())) ? [...row] : row
+    ));
 
     for(let i = 0; i < block.getHeight(); i++){
       for(let j = 0; j < block.getWidth(); j++){
         if(shape[i][j]){
-          cells[block.getRow() + i][block.getCol() + j] = shape[i][j];
+          newCells[block.getRow() + i][block.getCol() + j] = shape[i][j];
         }
       }
     }
 
-    return cells;
+    return newCells;
   }
 
   // Use to check for game over conditions
