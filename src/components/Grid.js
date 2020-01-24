@@ -108,16 +108,7 @@ class Grid {
     let score = 0;
 
     for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
-      let filled = true;
-
-      for(let j = 0; j < C.BOARD_WIDTH_CELLS; j++){
-        if(!this.getCell(i, j)){
-          filled = false;
-          break;
-        }
-      }
-
-      if(filled){
+      if(!this.cells[i].includes(null)){
         this.clearRow(i);
         score += 1;
       }
