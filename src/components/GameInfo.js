@@ -1,22 +1,22 @@
 import React from 'react';
 
-class GameInfo extends React.Component {
-    getStyle = (gridArea) => ({
-        fontSize: '2em',
-        padding: '10px',
-        width: '100%',
-        border: 'solid black 1px',
-        gridArea: gridArea
-    });
+const getStyle = gridArea => ({
+    fontSize: '2em',
+    padding: '10px',
+    width: '100%',
+    border: 'solid black 1px',
+    gridArea: gridArea
+});
 
-    render() {
-        return(
-            <div style={this.getStyle(this.props.gridArea)}>
-                <span>{this.props.heading}: </span>
-                <span>{this.props.info}</span>
-            </div>
-        );
-    }
+function GameInfo(props) {
+    const {gridArea, heading, info} = props;
+
+    return(
+        <div style={getStyle(gridArea)}>
+            <span>{heading}: </span>
+            <span>{info}</span>
+        </div>
+    );
 }
 
 export default GameInfo;
