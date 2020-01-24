@@ -26,8 +26,6 @@ class Board extends React.Component {
     };
   }
 
-  setActiveBlock = (block) => this.setState({activeBlock: block});
-
   componentDidMount = () => this.update();
 
   componentWillUnmount = () => clearInterval(this.state.ticker);
@@ -58,7 +56,7 @@ class Board extends React.Component {
       this.redraw(false);
 
       let nextBlock = this.consumeNextBlock();
-      this.setActiveBlock(nextBlock);
+      this.setState({activeBlock: nextBlock})
       
       if(grid.blockOverlapsGrid(nextBlock)){
         this.props.gameOver();
@@ -80,24 +78,14 @@ class Board extends React.Component {
     return score;
   }
 
-  getSavedBlock = () => this.state.savedBlock;
-
-  getNextBlock = () => this.state.nextBlock;
-
-  setNewNextBlock = () => {
-    this.setState({
-      nextBlock: Block.getRandomBlock()
-    });
-  }
-
   consumeNextBlock = () => {
-    let nextBlock = this.getNextBlock();
-    this.setNewNextBlock();
+    let nextBlock = this.state.nextBlock;
+    this.setState({nextBlock: Block.getRandomBlock()});
     return nextBlock;
   }
 
   swapSavedBlock = () => {
-    let newActiveBlock = this.getSavedBlock() ? this.getSavedBlock() : this.consumeNextBlock();
+    let newActiveBlock = this.this.state.savedBlock ? this.this.state.savedBlock : this.consumeNextBlock();
     let newSavedBlock = this.state.activeBlock;
 
     this.setState({
@@ -113,7 +101,9 @@ class Board extends React.Component {
     let keyCode = event.keyCode; 
     let grid = this.state.grid;
 
-    if(keyCode === 82){ // r key
+    if(keyCode === 40){ // Down arrow
+      this.update();
+    } else if(keyCode === 82){ // r key
       this.props.restartGame();
     } else if(keyCode === 32){ // Space bar
       while(grid.blockCanMoveDown(this.state.activeBlock)){
@@ -121,17 +111,14 @@ class Board extends React.Component {
       }
       
       this.update();
-    } else if(keyCode === 40){ // Down arrow
-      this.update();
-    } else{
+    } else {
       if(keyCode === 37 && grid.blockCanMoveLeft(this.state.activeBlock)){ // Left arrow
         this.state.activeBlock.moveLeft();
       } else if(keyCode === 39 && grid.blockCanMoveRight(this.state.activeBlock)){ // Right arrow
         this.state.activeBlock.moveRight();
       } else if(keyCode === 38 && grid.blockCanRotate(this.state.activeBlock)){ // Up arrow
         this.state.activeBlock.rotate();
-      }
-      else if(keyCode === 16){ // Shift key
+      } else if(keyCode === 16){ // Shift key
         this.swapSavedBlock();
       }
       
