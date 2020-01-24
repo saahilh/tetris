@@ -12,9 +12,6 @@ class Grid {
     this.cells[row][col] = value;
   }
   
-  // Returns a new copy of the cells rather than a reference to the existing cells
-  getCells = () => this.cells.map((row) => [...row]);
-
   setCells = (cells) => {
     this.cells = cells;
   }

@@ -20,7 +20,7 @@ class Board extends React.Component {
     this.state = {
       ticker: setInterval(() => this.update(), 1000),
       grid: grid,
-      gridView: grid.getCells(),
+      gridView: grid.cells,
       activeBlock: Block.getRandomBlock(),
       nextBlock: Block.getRandomBlock()
     };
@@ -34,7 +34,7 @@ class Board extends React.Component {
     const gridView = 
       showBlock
         ? this.state.grid.addBlockToCells(this.state.activeBlock)
-        : this.state.grid.getCells()
+        : this.state.grid.cells
 
     this.setState({
       gridView: gridView
@@ -68,7 +68,7 @@ class Board extends React.Component {
     let score = 0;
 
     for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
-      if(!grid.getCells()[i].includes(null)){
+      if(!grid.cells()[i].includes(null)){
         grid.clearRow(i);
         score += 1;
       }
