@@ -62,21 +62,7 @@ class Board extends React.Component {
       }
     }
   }
-
-  clearFilledRows = () => {
-    let grid = this.state.grid;
-    let score = 0;
-
-    for(let i = 0; i < C.BOARD_HEIGHT_CELLS; i++){
-      if(!grid.cells()[i].includes(null)){
-        grid.clearRow(i);
-        score += 1;
-      }
-    }
-
-    return score;
-  }
-
+  
   consumeNextBlock = () => {
     let nextBlock = this.state.nextBlock;
     this.setState({nextBlock: Block.getRandomBlock()});
