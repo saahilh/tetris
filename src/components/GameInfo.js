@@ -1,20 +1,19 @@
 import React from 'react';
 
-const getStyle = gridArea => ({
+const getStyle = () => ({
+  display: 'flex',
   fontSize: '2em',
   padding: '10px',
   width: '100%',
   border: 'solid black 1px',
-  gridArea: gridArea
 });
 
 function GameInfo(props) {
-  const {gridArea, heading, info} = props;
+  const {heading, info} = props;
 
   return(
-    <div style={getStyle(gridArea)}>
-      <span>{heading}: </span>
-      <span>{info}</span>
+    <div style={getStyle()}>
+      <span style={{width: '100%'}}>{heading}: {info}</span>
     </div>
   );
 }

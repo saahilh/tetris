@@ -7,18 +7,18 @@ class Grid {
   }
 
   // Removes a row and adds a new row to the top of the grid
-  clearRow = (rowNum) => {
+  clearRow = rowNum => {
     this.cells.splice(rowNum, 1);
     this.cells.unshift(Array(C.BOARD_WIDTH_CELLS).fill(null));
   }
 
-  blockCanMoveDown = (block) => this.verifyBlockMoveValid(block, {rowChange: 1});
+  blockCanMoveDown = block => this.verifyBlockMoveValid(block, {rowChange: 1});
 
-  blockCanMoveLeft = (block) => this.verifyBlockMoveValid(block, {colChange: -1});
+  blockCanMoveLeft = block => this.verifyBlockMoveValid(block, {colChange: -1});
 
-  blockCanMoveRight = (block) => this.verifyBlockMoveValid(block, {colChange: 1});
+  blockCanMoveRight = block => this.verifyBlockMoveValid(block, {colChange: 1});
 
-  blockCanRotate = (block) => this.verifyBlockMoveValid(block, {}, block.getRotation());
+  blockCanRotate = block => this.verifyBlockMoveValid(block, {}, block.getRotation());
      
   /** 
    *  Sweeps over an area to verify a block can be moved into that area
@@ -36,8 +36,8 @@ class Grid {
     let height = shape.length;
 
     // Bounds verification
-    if(block.getRow() + change.rowChange < 0
-        || block.getRow() + height + change.rowChange > C.BOARD_HEIGHT_CELLS
+    if(
+        block.getRow() + height + change.rowChange > C.BOARD_HEIGHT_CELLS
         || block.getCol() + change.colChange < 0
         || block.getCol() + width + change.colChange > C.BOARD_WIDTH_CELLS
       ){
@@ -59,10 +59,10 @@ class Grid {
   }
 
   // Stores the input block in the grid
-  storeBlock = (block) => this.cells = this.addBlockToCells(block)
+  storeBlock = block => this.cells = this.addBlockToCells(block)
 
   // Stores a block in the input cells
-  addBlockToCells(block){
+  addBlockToCells = block => {
     let shape = block.getShape();
 
     const newCells = this.cells.map((row, y) => (
@@ -81,7 +81,7 @@ class Grid {
   }
 
   // Use to check for game over conditions
-  blockOverlapsGrid = (block) => {
+  blockOverlapsGrid = block => {
     let shape = block.getShape();
 
     for(let i = 0; i < block.getHeight(); i++){
