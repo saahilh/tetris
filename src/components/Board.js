@@ -26,7 +26,10 @@ class Board extends React.Component {
     };
   }
 
-  componentDidMount = () => this.update();
+  componentDidMount = () => {
+    this.redraw();
+    this.update();
+  }
 
   componentWillUnmount = () => clearInterval(this.state.ticker);
 
@@ -62,7 +65,7 @@ class Board extends React.Component {
       }
     }
   }
-  
+
   consumeNextBlock = () => {
     let nextBlock = this.state.nextBlock;
     this.setState({nextBlock: Block.getRandomBlock()});
