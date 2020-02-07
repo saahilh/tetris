@@ -8,12 +8,12 @@ const getStyle = () => ({
   border: 'solid black 1px',
 });
 
-function GameInfo(props) {
-  const {heading, info} = props;
-
+function GameInfo({heading, info}) {
   return(
     <div style={getStyle()}>
-      <span style={{width: '100%'}}>{heading}: {info}</span>
+      <span style={{width: '100%'}}>
+        {heading}: {info}
+      </span>
     </div>
   );
 }
