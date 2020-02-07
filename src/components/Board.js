@@ -3,6 +3,7 @@ import Block from './Block';
 import Cell from './Cell';
 import * as C from '../constants';
 import Grid from './Grid';
+import Autofocus from './Autofocus';
 
 const getStyle = () => ({
   display: 'grid',
@@ -29,7 +30,6 @@ class Board extends React.Component {
   componentDidMount = () => {
     this.redraw();
     this.update();
-    this.gameRef.focus();
   }
 
   componentWillUnmount = () => clearInterval(this.state.ticker);
@@ -126,13 +126,9 @@ class Board extends React.Component {
     }
   }
 
-  setGameRef = game => {
-    this.gameRef = game;
-  }
-
   render () {
     return (
-      <div ref={this.setGameRef} tabIndex="0" style={getStyle()} onKeyDown={this.handleKeyDown}>
+      <Autofocus style={getStyle()} onKeyDown={this.handleKeyDown}>
         { 
           this.state.gridView.map(
             (cellColorList, x) => cellColorList.map(
@@ -140,7 +136,7 @@ class Board extends React.Component {
             )
           )
         }
-      </div>
+      </Autofocus>
     );
   }
 }
