@@ -83,7 +83,7 @@ class Board extends React.Component {
   }
 
   swapSavedBlock = () => {
-    let newActiveBlock = this.this.state.savedBlock ? this.this.state.savedBlock : this.consumeNextBlock();
+    let newActiveBlock = this.state.savedBlock ? this.state.savedBlock : this.consumeNextBlock();
     let newSavedBlock = this.state.activeBlock;
 
     this.setState({
