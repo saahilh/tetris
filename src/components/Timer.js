@@ -3,7 +3,8 @@ import GameInfo from './GameInfo';
 
 const getTime = () => Math.floor(Date.now() / 1000);
 
-function Timer({startTime}) {
+function Timer() {
+  const [startTime] = useState(getTime());
   const [currentTime, setCurrentTime] = useState(getTime());
 
   useState(() => {

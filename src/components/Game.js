@@ -22,7 +22,7 @@ function Game() {
         gameOver={gameOver}
       />
       <div style={{paddingLeft: '10px'}}>
-        <Timer startTime={Math.floor(Date.now() / 1000)} />
+        <Timer />
         <GameInfo gridArea="score" heading="Score" info={`${score}`} />
       </div>
     </div>
