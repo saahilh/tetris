@@ -48,22 +48,28 @@ class Board extends React.Component {
   update = () => {
     this.redraw();
 
-    let grid = this.state.grid;
-
-    if(grid.blockCanMoveDown(this.state.activeBlock)){
+    if(this.state.grid.blockCanMoveDown(this.state.activeBlock)){
       this.state.activeBlock.moveDown();
     } else {
-      grid.storeBlock(this.state.activeBlock);
-      let scoreToAdd = grid.clearFilledRows();
-      grid.addScore(scoreToAdd);
-      this.redraw(false);
+      this.setState({
+        lock: setTimeout(() => this.lockPiece(), 500)
+      });
+    }
+  }
 
-      let nextBlock = this.consumeNextBlock();
-      this.setState({activeBlock: nextBlock})
-      
-      if(grid.blockOverlapsGrid(nextBlock)){
-        this.props.gameOver();
-      }
+  lockPiece = () => {
+    const grid = this.state.grid;
+
+    grid.storeBlock(this.state.activeBlock);
+    let scoreToAdd = grid.clearFilledRows();
+    grid.addScore(scoreToAdd);
+    this.redraw(false);
+
+    let nextBlock = this.consumeNextBlock();
+    this.setState({activeBlock: nextBlock})
+    
+    if(grid.blockOverlapsGrid(nextBlock)){
+      this.props.gameOver();
     }
   }
 
@@ -101,6 +107,7 @@ class Board extends React.Component {
       
       this.update();
     } else {
+      clearTimeout(this.state.lock);
       if(keyCode === 37 && grid.blockCanMoveLeft(this.state.activeBlock)){ // Left arrow
         this.state.activeBlock.moveLeft();
       } else if(keyCode === 39 && grid.blockCanMoveRight(this.state.activeBlock)){ // Right arrow
