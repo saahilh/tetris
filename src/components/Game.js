@@ -23,7 +23,7 @@ function Game() {
       />
       <div style={{paddingLeft: '10px'}}>
         <Timer />
-        <GameInfo gridArea="score" heading="Score" info={`${score}`} />
+        <GameInfo heading="Score" info={`${score}`} />
       </div>
     </div>
   );
