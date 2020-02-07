@@ -22,13 +22,14 @@ class Board extends React.Component {
       grid: grid,
       gridView: grid.cells,
       activeBlock: Block.getRandomBlock(),
-      nextBlock: Block.getRandomBlock()
+      nextBlock: Block.getRandomBlock(),
     };
   }
 
   componentDidMount = () => {
     this.redraw();
     this.update();
+    this.gameRef.focus();
   }
 
   componentWillUnmount = () => clearInterval(this.state.ticker);
@@ -114,9 +115,13 @@ class Board extends React.Component {
     }
   }
 
+  setGameRef = game => {
+    this.gameRef = game;
+  }
+
   render () {
     return (
-      <div tabIndex="0" style={getStyle()} onKeyDown={this.handleKeyDown}>
+      <div ref={this.setGameRef} tabIndex="0" style={getStyle()} onKeyDown={this.handleKeyDown}>
         { 
           this.state.gridView.map(
             (cellColorList, x) => cellColorList.map(
