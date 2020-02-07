@@ -1,8 +1,15 @@
 import React from 'react';
 
-const getStyle = cellColor => ({
-  border: 'solid 1px black',
-  backgroundColor: cellColor
-});
+function Cell({cellColor}) {
+  return(
+    <div 
+      className="cell" 
+      style={{
+        border: 'solid 1px black',
+        backgroundColor: cellColor
+      }} 
+    />
+  )
+}
 
-export default (props) => <div className="cell" style={getStyle(props.cellColor)} />;
+export default Cell;
