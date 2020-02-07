@@ -58,6 +58,8 @@ class Board extends React.Component {
   }
 
   lockPiece = () => {
+    clearTimeout(this.state.lock);
+
     const grid = this.state.grid;
 
     grid.storeBlock(this.state.activeBlock);
@@ -100,14 +102,15 @@ class Board extends React.Component {
       this.update();
     } else if(keyCode === 82){ // r key
       this.props.restartGame();
-    } else if(keyCode === 32){ // Space bar
+    } else if(keyCode === 32){ // Space bar      
       while(grid.blockCanMoveDown(this.state.activeBlock)){
         this.update();
       }
       
-      this.update();
+      this.lockPiece();
     } else {
       clearTimeout(this.state.lock);
+      
       if(keyCode === 37 && grid.blockCanMoveLeft(this.state.activeBlock)){ // Left arrow
         this.state.activeBlock.moveLeft();
       } else if(keyCode === 39 && grid.blockCanMoveRight(this.state.activeBlock)){ // Right arrow
