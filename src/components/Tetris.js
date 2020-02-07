@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Game from './Game';
 
-function Tetris(props) {
+function Tetris() {
   const [newGame, setnewGame] = useState(false);
 
   return(
