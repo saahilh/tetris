@@ -5,8 +5,8 @@ function Cell({cellColor}) {
     <div 
       className="cell" 
       style={{
-        border: 'solid 1px black',
-        backgroundColor: cellColor
+        boxShadow: cellColor && 'rgba(0, 0, 0, 0.2) 0 0 10px inset',
+        backgroundColor: cellColor,
       }} 
     />
   )

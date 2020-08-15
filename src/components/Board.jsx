@@ -9,7 +9,8 @@ const getStyle = () => ({
   display: 'grid',
   gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 20px)`,
   gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 20px)`,
-  gridArea: 'board'
+  gridArea: 'board',
+  border: 'solid 1px black'
 });
 
 class Board extends React.Component {
