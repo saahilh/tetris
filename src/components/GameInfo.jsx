@@ -6,6 +6,7 @@ const getStyle = () => ({
   padding: '10px',
   width: '100%',
   border: 'solid black 1px',
+  fontFamily: 'Graduate'
 });
 
 const GameInfo = ({heading, info}) => {

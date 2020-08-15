@@ -32,7 +32,7 @@ function Game() {
 
   return(
     <div style={getGameContainerStyle()}>
-      <h1 style={{textAlign: 'center', color: 'white', fontSize: 100, margin: 0, padding: 20}}>TETRIS RH</h1>
+      <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
 
       <div key={newGame} style={getGameStyle()}>
         <Board 
