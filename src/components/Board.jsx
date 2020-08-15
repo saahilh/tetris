@@ -7,8 +7,8 @@ import Autofocus from './Autofocus';
 
 const getStyle = () => ({
   display: 'grid',
-  gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 25px)`,
-  gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 25px)`,
+  gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 20px)`,
+  gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 20px)`,
   gridArea: 'board'
 });
 
