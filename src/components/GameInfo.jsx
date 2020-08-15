@@ -18,7 +18,7 @@ const GameInfo = ({heading, info}) => {
   return(
     <div style={getStyle()}>
       <span style={{width: '100%'}}>
-        <span style={{float: 'left'}}>{heading}:</span>
+        <span style={{float: 'left'}}>{heading}</span>
         <span style={{float: 'right'}}>{leftPadZeros(info, 5)}</span>
       </span>
     </div>
