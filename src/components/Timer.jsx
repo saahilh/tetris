@@ -3,9 +3,9 @@ import GameInfo from './GameInfo';
 
 const getTime = () => Math.floor(Date.now() / 1000);
 
-function Timer(props) {
+function Timer() {
+  const [startTime] = useState(getTime());
   const [currentTime, setCurrentTime] = useState(getTime());
-  const {startTime} = props;
 
   useState(() => {
     const timer = setInterval(() => {

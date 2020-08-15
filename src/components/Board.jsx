@@ -3,6 +3,7 @@ import Block from './Block';
 import Cell from './Cell';
 import * as C from '../constants';
 import Grid from './Grid';
+import Autofocus from './Autofocus';
 
 const getStyle = () => ({
   display: 'grid',
@@ -29,7 +30,6 @@ class Board extends React.Component {
   componentDidMount = () => {
     this.redraw();
     this.update();
-    this.gameRef.focus();
   }
 
   componentWillUnmount = () => clearInterval(this.state.ticker);
@@ -48,22 +48,31 @@ class Board extends React.Component {
   update = () => {
     this.redraw();
 
-    let grid = this.state.grid;
-
-    if(grid.blockCanMoveDown(this.state.activeBlock)){
+    if(this.state.grid.blockCanMoveDown(this.state.activeBlock)){
       this.state.activeBlock.moveDown();
     } else {
-      grid.storeBlock(this.state.activeBlock);
-      let scoreToAdd = grid.clearFilledRows();
-      grid.addScore(scoreToAdd);
-      this.redraw(false);
+      this.lockPiece();
+      // const lock = setTimeout(() => this.lockPiece(), 500);
 
-      let nextBlock = this.consumeNextBlock();
-      this.setState({activeBlock: nextBlock})
-      
-      if(grid.blockOverlapsGrid(nextBlock)){
-        this.props.gameOver();
-      }
+      // this.setState({
+      //   lock: lock
+      // });
+    }
+  }
+
+  lockPiece = () => {
+    const grid = this.state.grid;
+
+    grid.storeBlock(this.state.activeBlock);
+    let scoreToAdd = grid.clearFilledRows();
+    grid.addScore(scoreToAdd);
+    this.redraw(false);
+
+    let nextBlock = this.consumeNextBlock();
+    this.setState({activeBlock: nextBlock})
+    
+    if(grid.blockOverlapsGrid(nextBlock)){
+      this.props.gameOver();
     }
   }
 
@@ -74,7 +83,7 @@ class Board extends React.Component {
   }
 
   swapSavedBlock = () => {
-    let newActiveBlock = this.this.state.savedBlock ? this.this.state.savedBlock : this.consumeNextBlock();
+    let newActiveBlock = this.state.savedBlock ? this.state.savedBlock : this.consumeNextBlock();
     let newSavedBlock = this.state.activeBlock;
 
     this.setState({
@@ -90,18 +99,20 @@ class Board extends React.Component {
     let keyCode = event.keyCode; 
     let grid = this.state.grid;
 
-    if(keyCode === 40){ // Down arrow
-      this.update();
-    } else if(keyCode === 82){ // r key
+    if(keyCode === 82){ // r key
       this.props.restartGame();
-    } else if(keyCode === 32){ // Space bar
+    } else if(keyCode === 32){ // Space bar      
       while(grid.blockCanMoveDown(this.state.activeBlock)){
         this.update();
       }
       
-      this.update();
+      this.lockPiece();
     } else {
-      if(keyCode === 37 && grid.blockCanMoveLeft(this.state.activeBlock)){ // Left arrow
+      //clearTimeout(this.state.lock);
+      
+      if(keyCode === 40 && grid.blockCanMoveDown(this.state.activeBlock)){ // Down arrow
+        this.state.activeBlock.moveDown();
+      } else if(keyCode === 37 && grid.blockCanMoveLeft(this.state.activeBlock)){ // Left arrow
         this.state.activeBlock.moveLeft();
       } else if(keyCode === 39 && grid.blockCanMoveRight(this.state.activeBlock)){ // Right arrow
         this.state.activeBlock.moveRight();
@@ -115,13 +126,9 @@ class Board extends React.Component {
     }
   }
 
-  setGameRef = game => {
-    this.gameRef = game;
-  }
-
   render () {
     return (
-      <div ref={this.setGameRef} tabIndex="0" style={getStyle()} onKeyDown={this.handleKeyDown}>
+      <Autofocus style={getStyle()} onKeyDown={this.handleKeyDown}>
         { 
           this.state.gridView.map(
             (cellColorList, x) => cellColorList.map(
@@ -129,7 +136,7 @@ class Board extends React.Component {
             )
           )
         }
-      </div>
+      </Autofocus>
     );
   }
 }

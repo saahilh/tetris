@@ -1,10 +1,10 @@
 import React from 'react';
-import Tetris from './components/Tetris'
+import Game from './components/Game'
 
 class App extends React.Component {
   render() {
     return (
-      <Tetris />
+      <Game />
     );
   }
 }
