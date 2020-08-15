@@ -18,7 +18,6 @@ function Game() {
     minHeight: '100vh',
     minWidth: '100vw',
     backgroundColor: 'black',
-    position: 'relative',
   });
 
   const getGameStyle = () => ({
@@ -28,14 +27,13 @@ function Game() {
     padding: '25px 50px',
     borderRadius: '5px',
     backgroundColor: 'white',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    margin: 'auto',
   });
 
   return(
     <div style={getGameContainerStyle()}>
+      <h1 style={{textAlign: 'center', color: 'white', fontSize: 100, margin: 0, padding: 20}}>TETRIS RH</h1>
+
       <div key={newGame} style={getGameStyle()}>
         <Board 
           addScore={score => setScore(prev => prev + score)} 
