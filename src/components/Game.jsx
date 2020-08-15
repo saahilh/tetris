@@ -15,7 +15,7 @@ function Game() {
   }
 
   return(
-    <div key={newGame} style={{display: 'flex', margin: '50px'}}>
+    <div key={newGame} style={{display: 'flex', justifyContent: 'center', paddingTop: '50px' }}>
       <Board 
         addScore={score => setScore(prev => prev + score)} 
         restartGame={restartGame}
