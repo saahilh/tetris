@@ -92,6 +92,8 @@ class Board extends React.Component {
     let newActiveBlock = this.state.savedBlock ? this.state.savedBlock : this.consumeNextBlock();
     let newSavedBlock = this.state.activeBlock;
 
+    this.props.updateSavedBlock(newSavedBlock);
+
     this.setState({
       activeBlock: newActiveBlock,
       savedBlock: newSavedBlock

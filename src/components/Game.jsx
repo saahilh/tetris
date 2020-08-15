@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import GameInfo from './GameInfo';
 import Timer from './Timer';
 import Board from './Board';
-import NextBlockPanel from './NextBlockPanel';
+import BlockDisplayPanel from './BlockDisplayPanel';
 
 function Game() {
   const [score, setScore] = useState(0);
   const [newGame, setNewGame] = useState(false);
   const [nextBlock, setNextBlock] = useState(null);
+  const [savedBlock, setSavedBlock] = useState(null);
 
   const restartGame = () => {
     setNewGame(prev => !prev);
@@ -38,6 +39,10 @@ function Game() {
     setNextBlock(nextBlock);
   };
 
+  const updateSavedBlock = (savedBlock) => {
+    setSavedBlock(savedBlock);
+  };
+
   return(
     <div style={getGameContainerStyle()}>
       <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
@@ -52,7 +57,7 @@ function Game() {
         <div style={{paddingLeft: '10px'}}>
           <Timer />
           <GameInfo heading="Score" info={`${score}`} />
-          <NextBlockPanel nextBlock={nextBlock} />
+          <BlockDisplayPanel label="Next Block" blockToDisplay={nextBlock} />
         </div>
       </div>
     </div>
