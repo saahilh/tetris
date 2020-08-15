@@ -103,6 +103,7 @@ class IBlock extends Block {
     this.shape = [
       [this.color, this.color, this.color, this.color]
     ];
+    this.originalShape = this.shape;
   }
 }
 
@@ -115,6 +116,7 @@ class OBlock extends Block {
       [this.color, this.color],
       [this.color, this.color]
     ];
+    this.originalShape = this.shape;
 
     // Move block to appropriate starting point
     this.col = this.col + 1;
@@ -138,6 +140,8 @@ class LBlock extends Block {
       [null, null, this.color],
       [this.color, this.color, this.color]
     ];
+    this.originalShape = this.shape;
+
   }
 }
 
@@ -150,6 +154,8 @@ class JBlock extends Block {
       [this.color, null, null],
       [this.color, this.color, this.color]
     ];
+    this.originalShape = this.shape;
+
   }
 }
 
@@ -162,6 +168,8 @@ class ZBlock extends Block {
       [this.color, this.color, null],
       [null, this.color, this.color]
     ];
+    this.originalShape = this.shape;
+
   }
 }
 
@@ -174,6 +182,8 @@ class SBlock extends Block {
       [null, this.color, this.color],
       [this.color, this.color, null]
     ];
+    this.originalShape = this.shape;
+
   }
 }
 
@@ -186,6 +196,8 @@ class TBlock extends Block {
       [null, this.color, null],
       [this.color, this.color, this.color]
     ];
+    this.originalShape = this.shape;
+
   }
 }
 

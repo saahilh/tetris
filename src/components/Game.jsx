@@ -50,6 +50,7 @@ function Game() {
       <div key={newGame} style={getGameStyle()}>
         <Board 
           updateNextBlock={updateNextBlock}
+          updateSavedBlock={updateSavedBlock}
           addScore={score => setScore(prev => prev + score)} 
           restartGame={restartGame}
           gameOver={gameOver}
@@ -58,6 +59,7 @@ function Game() {
           <Timer />
           <GameInfo heading="Score" info={`${score}`} />
           <BlockDisplayPanel label="Next Block" blockToDisplay={nextBlock} />
+          <BlockDisplayPanel label="Held Block" blockToDisplay={savedBlock} />
         </div>
       </div>
     </div>

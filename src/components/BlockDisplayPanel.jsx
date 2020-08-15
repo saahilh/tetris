@@ -11,8 +11,8 @@ const getStyle = () => ({
 
 const getGridStyle = (blockToDisplay) => ({
   display: 'grid',
-  gridTemplateRows: blockToDisplay && `repeat(${blockToDisplay.shape.length}, 20px)`,
-  gridTemplateColumns: blockToDisplay && `repeat(${blockToDisplay.shape[0].length}, 20px)`,
+  gridTemplateRows: `repeat(2, 20px)`,
+  gridTemplateColumns: blockToDisplay ? `repeat(${blockToDisplay.originalShape[0].length}, 20px)` : '80px',
   justifyContent: 'center',
   padding: '20px',
 });
@@ -20,7 +20,7 @@ const getGridStyle = (blockToDisplay) => ({
 const Display = ({block}) => (
   !block 
     ? null
-    : block.getShape().map((row, x) => (
+    : block.originalShape.map((row, x) => (
         row.map((cellColor, y) => (
             <Cell key={`${x},${y}`} cellColor={cellColor} />
         ))
@@ -31,7 +31,7 @@ const BlockDisplayContainer = ({block, label}) => (
     <div style={getStyle()}>
       <div style={{textAlign: 'center'}}>{label}</div>
       <div style={getGridStyle(block)}>
-          <Display block={block} />
+        <Display block={block} />
       </div>
     </div>
 );
