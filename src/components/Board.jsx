@@ -19,12 +19,15 @@ class Board extends React.Component {
 
     let grid = new Grid(this.props.addScore);
 
+    const nextBlock = Block.getRandomBlock();
+    this.props.updateNextBlock(nextBlock);
+
     this.state = {
       ticker: setInterval(() => this.update(), 1000),
       grid: grid,
       gridView: grid.cells,
       activeBlock: Block.getRandomBlock(),
-      nextBlock: Block.getRandomBlock(),
+      nextBlock,
     };
   }
 
@@ -79,7 +82,9 @@ class Board extends React.Component {
 
   consumeNextBlock = () => {
     let nextBlock = this.state.nextBlock;
-    this.setState({nextBlock: Block.getRandomBlock()});
+    const newNextBlock = Block.getRandomBlock();
+    this.props.updateNextBlock(newNextBlock);
+    this.setState({ nextBlock: newNextBlock });
     return nextBlock;
   }
 
