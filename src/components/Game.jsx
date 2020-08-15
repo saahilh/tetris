@@ -11,6 +11,7 @@ function Game() {
   const [savedBlock, setSavedBlock] = useState(null);
 
   const restartGame = () => {
+    setScore(0);
     setNewGame(prev => !prev);
   };
 
