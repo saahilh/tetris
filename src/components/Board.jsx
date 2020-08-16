@@ -20,7 +20,7 @@ class Board extends React.Component {
     let grid = new Grid(this.props.addScore);
 
     const nextBlock = Block.getRandomBlock();
-    this.props.updateNextBlock(nextBlock);
+    this.props.setNextBlock(nextBlock);
 
     this.state = {
       ticker: setInterval(() => this.update(), 1000),
@@ -84,7 +84,7 @@ class Board extends React.Component {
   consumeNextBlock = () => {
     let nextBlock = this.state.nextBlock;
     const newNextBlock = Block.getRandomBlock();
-    this.props.updateNextBlock(newNextBlock);
+    this.props.setNextBlock(newNextBlock);
     this.setState({ nextBlock: newNextBlock });
     return nextBlock;
   }
@@ -93,7 +93,7 @@ class Board extends React.Component {
     let newActiveBlock = this.state.savedBlock ? this.state.savedBlock : this.consumeNextBlock();
     let newSavedBlock = this.state.activeBlock;
 
-    this.props.updateSavedBlock(newSavedBlock);
+    this.props.setSavedBlock(newSavedBlock);
 
     this.setState({
       activeBlock: newActiveBlock,

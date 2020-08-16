@@ -25,21 +25,7 @@ function Game() {
     setGameEnded(false);
   };
 
-  const gameOver = () => {
-    setGameEnded(true);
-  };
-
-  const getGameStyle = () => ({
-    display: 'flex',
-    justifyContent: 'center',
-    width: 'max-content',
-    padding: '25px 50px',
-    borderRadius: '5px',
-    backgroundColor: 'white',
-    margin: 'auto',
-  });
-
-  const getGameOverStyle = () => ({
+  const getBaseGameStyle = () => ({
     width: 'max-content',
     padding: '25px 50px',
     borderRadius: '5px',
@@ -47,14 +33,6 @@ function Game() {
     margin: 'auto',
     textAlign: 'center',
   });
-
-  const updateNextBlock = (nextBlock) => {
-    setNextBlock(nextBlock);
-  };
-
-  const updateSavedBlock = (savedBlock) => {
-    setSavedBlock(savedBlock);
-  };
   
   const handleKeyDown = (event) => {
     let keyCode = event.keyCode;
@@ -67,7 +45,7 @@ function Game() {
   if (initialLoad) {
     return (
       <Autofocus onKeyDown={handleKeyDown}>
-        <div style={getGameOverStyle()}>
+        <div style={getBaseGameStyle()}>
           <h2 style={{fontFamily: 'Bungee Shade'}}>Welcome to Tetris RH</h2>
           <button onClick={startNewGame}>Start Game</button>
         </div>
@@ -75,16 +53,10 @@ function Game() {
     );
   }
 
-  const restartGame = () => {
-    setScore(0);
-    setRestartKey(prev => !prev);
-  };
-
-
   if (gameEnded) {
     return (
       <Autofocus onKeyDown={handleKeyDown}>
-        <div style={getGameOverStyle()}>
+        <div style={getBaseGameStyle()}>
           <h2 style={{fontFamily: 'Bungee Shade'}}>Game Over</h2>
           <h3 style={{fontFamily: 'Graduate'}}>Score: {score}</h3>
           <h3 style={{fontFamily: 'Graduate'}}>High Score: {highscore}</h3>
@@ -94,7 +66,7 @@ function Game() {
     );
   }
 
-  const addScore = additionalScore => {
+  const addScore = (additionalScore) => {
     setScore(prevScore => {
       const updatedScore = prevScore + additionalScore;
       setHighscore(prevHighscore => Math.max(prevHighscore, updatedScore));
@@ -102,25 +74,29 @@ function Game() {
     });
   };
 
+  const getGameStyle = () => ({
+    display: 'flex',
+    justifyContent: 'center',
+    ...getBaseGameStyle(),
+  });
+
   return (
-    <>
-      <div key={restartKey} style={getGameStyle()}>
-        <Board 
-          updateNextBlock={updateNextBlock}
-          updateSavedBlock={updateSavedBlock}
-          addScore={addScore} 
-          restartGame={restartGame}
-          gameOver={gameOver}
-        />
-        <div style={{paddingLeft: '10px'}}>
-          <Timer />
-          <GameInfo heading="Score" info={`${score}`} />
-          <GameInfo heading="High Score" info={`${highscore}`} />
-          <BlockDisplayPanel label="Next Block" blockToDisplay={nextBlock} />
-          <BlockDisplayPanel label="Held Block" blockToDisplay={savedBlock} />
-        </div>
+    <div key={restartKey} style={getGameStyle()}>
+      <Board 
+        setNextBlock={setNextBlock}
+        setSavedBlock={setSavedBlock}
+        addScore={addScore} 
+        restartGame={() => setRestartKey(prev => !prev)}
+        gameOver={() => setGameEnded(true)}
+      />
+      <div style={{paddingLeft: '10px'}}>
+        <Timer />
+        <GameInfo heading="Score" info={`${score}`} />
+        <GameInfo heading="High Score" info={`${highscore}`} />
+        <BlockDisplayPanel label="Next Block" blockToDisplay={nextBlock} />
+        <BlockDisplayPanel label="Held Block" blockToDisplay={savedBlock} />
       </div>
-    </>
+    </div>
   );
 }
 

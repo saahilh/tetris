@@ -3,7 +3,6 @@ import * as C from '../constants';
 class Block {
   constructor() {
     this.resetPosition();
-    this.rotation = 0;
   }
 
   resetPosition = () => {
