@@ -10,7 +10,7 @@ const getStyle = () => ({
   gridTemplateRows: `repeat(${C.BOARD_HEIGHT_CELLS}, 20px)`,
   gridTemplateColumns: `repeat(${C.BOARD_WIDTH_CELLS}, 20px)`,
   gridArea: 'board',
-  border: 'solid 1px black'
+  border: 'solid 1px black',
 });
 
 class Board extends React.Component {
@@ -28,6 +28,7 @@ class Board extends React.Component {
       gridView: grid.cells,
       activeBlock: Block.getRandomBlock(),
       nextBlock,
+      saveUsed: false,
     };
   }
 
@@ -73,7 +74,7 @@ class Board extends React.Component {
     this.redraw(false);
 
     let nextBlock = this.consumeNextBlock();
-    this.setState({activeBlock: nextBlock})
+    this.setState({activeBlock: nextBlock, saveUsed: false})
     
     if(grid.blockOverlapsGrid(nextBlock)){
       this.props.gameOver();
@@ -96,7 +97,8 @@ class Board extends React.Component {
 
     this.setState({
       activeBlock: newActiveBlock,
-      savedBlock: newSavedBlock
+      savedBlock: newSavedBlock,
+      saveUsed: true,
     });
 
     newActiveBlock.resetPosition();
@@ -126,7 +128,7 @@ class Board extends React.Component {
         this.state.activeBlock.moveRight();
       } else if(keyCode === 38 && grid.blockCanRotate(this.state.activeBlock)){ // Up arrow
         this.state.activeBlock.rotate();
-      } else if(keyCode === 16){ // Shift key
+      } else if(keyCode === 16 && !this.state.saveUsed){ // Shift key
         this.swapSavedBlock();
       }
       
