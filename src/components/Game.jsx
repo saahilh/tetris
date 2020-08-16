@@ -3,6 +3,7 @@ import GameInfo from './GameInfo';
 import Timer from './Timer';
 import Board from './Board';
 import BlockDisplayPanel from './BlockDisplayPanel';
+import Autofocus from './Autofocus';
 
 function Game() {
   const [score, setScore] = useState(0);
@@ -16,13 +17,9 @@ function Game() {
 
   const [restartKey, setRestartKey] = useState(false);
 
-  const startFirstGame = () => {
-    setInitialLoad(false);
-    setGameEnded(false);
-  };
-
   const startNewGame = () => {
     setScore(0);
+    setInitialLoad(false);
     setGameEnded(false);
   };
 
@@ -62,16 +59,26 @@ function Game() {
   const updateSavedBlock = (savedBlock) => {
     setSavedBlock(savedBlock);
   };
+  
+  const handleKeyDown = (event) => {
+    let keyCode = event.keyCode;
+
+    if(keyCode === 82){ // r key
+      startNewGame();
+    }
+  };
 
   if (initialLoad) {
     return (
-      <div style={getGameContainerStyle()}>
-        <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
-        <div style={getGameOverStyle()}>
-          <h2 style={{fontFamily: 'Bungee Shade'}}>Welcome to Tetris RH</h2>
-          <button onClick={startFirstGame}>Start Game</button>
+      <Autofocus onKeyDown={handleKeyDown}>
+        <div style={getGameContainerStyle()}>
+          <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
+          <div style={getGameOverStyle()}>
+            <h2 style={{fontFamily: 'Bungee Shade'}}>Welcome to Tetris RH</h2>
+            <button onClick={startNewGame}>Start Game</button>
+          </div>
         </div>
-      </div>
+      </Autofocus>
     );
   }
 
@@ -80,17 +87,20 @@ function Game() {
     setRestartKey(prev => !prev);
   };
 
+
   if (gameEnded) {
     return (
-      <div style={getGameContainerStyle()}>
-        <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
-        <div style={getGameOverStyle()}>
-          <h2 style={{fontFamily: 'Bungee Shade'}}>Game Over</h2>
-          <h3 style={{fontFamily: 'Graduate'}}>Score: {score}</h3>
-          <h3 style={{fontFamily: 'Graduate'}}>High Score: {highscore}</h3>
-          <button onClick={startNewGame}>Restart</button>
+      <Autofocus onKeyDown={handleKeyDown}>
+        <div style={getGameContainerStyle()}>
+          <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
+          <div style={getGameOverStyle()}>
+            <h2 style={{fontFamily: 'Bungee Shade'}}>Game Over</h2>
+            <h3 style={{fontFamily: 'Graduate'}}>Score: {score}</h3>
+            <h3 style={{fontFamily: 'Graduate'}}>High Score: {highscore}</h3>
+            <button onClick={startNewGame}>Restart (r)</button>
+          </div>
         </div>
-      </div>
+      </Autofocus>
     );
   }
 
