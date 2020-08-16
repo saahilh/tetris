@@ -19,6 +19,8 @@ function Game() {
 
   const startNewGame = () => {
     setScore(0);
+    setNextBlock(null);
+    setSavedBlock(null);
     setInitialLoad(false);
     setGameEnded(false);
   };
@@ -26,12 +28,6 @@ function Game() {
   const gameOver = () => {
     setGameEnded(true);
   };
-
-  const getGameContainerStyle = () => ({
-    minHeight: '100vh',
-    minWidth: '100vw',
-    backgroundColor: 'black',
-  });
 
   const getGameStyle = () => ({
     display: 'flex',
@@ -71,12 +67,9 @@ function Game() {
   if (initialLoad) {
     return (
       <Autofocus onKeyDown={handleKeyDown}>
-        <div style={getGameContainerStyle()}>
-          <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
-          <div style={getGameOverStyle()}>
-            <h2 style={{fontFamily: 'Bungee Shade'}}>Welcome to Tetris RH</h2>
-            <button onClick={startNewGame}>Start Game</button>
-          </div>
+        <div style={getGameOverStyle()}>
+          <h2 style={{fontFamily: 'Bungee Shade'}}>Welcome to Tetris RH</h2>
+          <button onClick={startNewGame}>Start Game</button>
         </div>
       </Autofocus>
     );
@@ -91,14 +84,11 @@ function Game() {
   if (gameEnded) {
     return (
       <Autofocus onKeyDown={handleKeyDown}>
-        <div style={getGameContainerStyle()}>
-          <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
-          <div style={getGameOverStyle()}>
-            <h2 style={{fontFamily: 'Bungee Shade'}}>Game Over</h2>
-            <h3 style={{fontFamily: 'Graduate'}}>Score: {score}</h3>
-            <h3 style={{fontFamily: 'Graduate'}}>High Score: {highscore}</h3>
-            <button onClick={startNewGame}>Restart (r)</button>
-          </div>
+        <div style={getGameOverStyle()}>
+          <h2 style={{fontFamily: 'Bungee Shade'}}>Game Over</h2>
+          <h3 style={{fontFamily: 'Graduate'}}>Score: {score}</h3>
+          <h3 style={{fontFamily: 'Graduate'}}>High Score: {highscore}</h3>
+          <button onClick={startNewGame}>Restart (r)</button>
         </div>
       </Autofocus>
     );
@@ -113,9 +103,7 @@ function Game() {
   };
 
   return (
-    <div style={getGameContainerStyle()}>
-      <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
-
+    <>
       <div key={restartKey} style={getGameStyle()}>
         <Board 
           updateNextBlock={updateNextBlock}
@@ -132,7 +120,7 @@ function Game() {
           <BlockDisplayPanel label="Held Block" blockToDisplay={savedBlock} />
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
