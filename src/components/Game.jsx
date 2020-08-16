@@ -6,18 +6,22 @@ import BlockDisplayPanel from './BlockDisplayPanel';
 
 function Game() {
   const [score, setScore] = useState(0);
+  const [highscore, setHighscore] = useState(0);
+
   const [nextBlock, setNextBlock] = useState(null);
   const [savedBlock, setSavedBlock] = useState(null);
 
   const [initialLoad, setInitialLoad] = useState(true);
   const [gameEnded, setGameEnded] = useState(true);
 
+  const [restartKey, setRestartKey] = useState(false);
+
   const startFirstGame = () => {
     setInitialLoad(false);
     setGameEnded(false);
-  }
+  };
 
-  const restartGame = () => {
+  const startNewGame = () => {
     setScore(0);
     setGameEnded(false);
   };
@@ -71,34 +75,49 @@ function Game() {
     );
   }
 
+  const restartGame = () => {
+    setScore(0);
+    setRestartKey(prev => !prev);
+  };
+
   if (gameEnded) {
     return (
       <div style={getGameContainerStyle()}>
         <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
         <div style={getGameOverStyle()}>
           <h2 style={{fontFamily: 'Bungee Shade'}}>Game Over</h2>
-          <h3 style={{fontFamily: 'Graduate'}}>Score was {score}</h3>
-          <button onClick={restartGame}>Restart</button>
+          <h3 style={{fontFamily: 'Graduate'}}>Score: {score}</h3>
+          <h3 style={{fontFamily: 'Graduate'}}>High Score: {highscore}</h3>
+          <button onClick={startNewGame}>Restart</button>
         </div>
       </div>
     );
   }
 
+  const addScore = additionalScore => {
+    setScore(prevScore => {
+      const updatedScore = prevScore + additionalScore;
+      setHighscore(prevHighscore => Math.max(prevHighscore, updatedScore));
+      return updatedScore;
+    });
+  };
+
   return (
     <div style={getGameContainerStyle()}>
       <h1 style={{textAlign: 'center', color: 'white', fontSize: 80, margin: 0, fontFamily: 'Bungee Shade'}}>TETRIS</h1>
 
-      <div style={getGameStyle()}>
+      <div key={restartKey} style={getGameStyle()}>
         <Board 
           updateNextBlock={updateNextBlock}
           updateSavedBlock={updateSavedBlock}
-          addScore={score => setScore(prev => prev + score)} 
+          addScore={addScore} 
           restartGame={restartGame}
           gameOver={gameOver}
         />
         <div style={{paddingLeft: '10px'}}>
           <Timer />
           <GameInfo heading="Score" info={`${score}`} />
+          <GameInfo heading="High Score" info={`${highscore}`} />
           <BlockDisplayPanel label="Next Block" blockToDisplay={nextBlock} />
           <BlockDisplayPanel label="Held Block" blockToDisplay={savedBlock} />
         </div>

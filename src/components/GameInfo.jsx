@@ -2,7 +2,7 @@ import React from 'react';
 
 const getStyle = () => ({
   display: 'flex',
-  fontSize: '1.5em',
+  fontSize: '1.2em',
   padding: '10px',
   width: '100%',
   border: 'solid black 1px',
