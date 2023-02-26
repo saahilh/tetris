@@ -7,14 +7,20 @@ const getStyle = () => ({
   width: '100%',
   border: 'solid black 1px',
   fontFamily: 'Graduate',
+  backgroundColor: 'black',
+  fontColor: 'white',
+  borderColor: 'white'
 });
 
 const getGridStyle = (blockToDisplay) => ({
   display: 'grid',
-  gridTemplateRows: `repeat(2, 20px)`,
+  gridTemplateRows: `repeat(2, 27px)`,
   gridTemplateColumns: blockToDisplay ? `repeat(${blockToDisplay.originalShape[0].length}, 20px)` : '80px',
   justifyContent: 'center',
   padding: '20px',
+  backgroundColor: 'black',
+  fontColor: 'white',
+  borderColor: 'white'
 });
 
 const Display = ({block}) => (

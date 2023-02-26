@@ -6,6 +6,7 @@ function GameContainer() {
     minHeight: '100vh',
     minWidth: '100vw',
     backgroundColor: 'black',
+    color: 'white',
   });
 
   const getGameTitleStyle = () => ({
@@ -14,6 +15,8 @@ function GameContainer() {
     fontSize: 80,
     margin: 0,
     fontFamily: 'Bungee Shade',
+    backgroundColor: 'black',
+    color: 'white'
   });
 
   return(
