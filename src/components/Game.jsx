@@ -32,6 +32,8 @@ function Game() {
     backgroundColor: 'white',
     margin: 'auto',
     textAlign: 'center',
+    backgroundColor: 'black',
+    color: 'white'
   });
   
   const handleKeyDown = (event) => {
